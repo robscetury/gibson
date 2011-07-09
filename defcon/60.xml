@@ -1,0 +1,1793 @@
+<host><status state="up" />
+<address addr="131.243.60.0" addrtype="ipv4" />
+<hostnames />
+<smurf responses="12" />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.1" addrtype="ipv4" />
+<hostnames><hostname name="netr60asa-1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.2" addrtype="ipv4" />
+<hostnames><hostname name="netr60asa-2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.3" addrtype="ipv4" />
+<hostnames><hostname name="c29s-50b-1275-r60.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.4" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.5" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.6" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.7" addrtype="ipv4" />
+<hostnames><hostname name="scs-mon.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.8" addrtype="ipv4" />
+<hostnames><hostname name="rnet60-3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.9" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.10" addrtype="ipv4" />
+<hostnames><hostname name="c4-50b-1275-r60.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.11" addrtype="ipv4" />
+<hostnames><hostname name="cisnov1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.12" addrtype="ipv4" />
+<hostnames><hostname name="www-library-dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.13" addrtype="ipv4" />
+<hostnames><hostname name="reporter.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.14" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.15" addrtype="ipv4" />
+<hostnames><hostname name="softdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.16" addrtype="ipv4" />
+<hostnames><hostname name="www-library.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.17" addrtype="ipv4" />
+<hostnames><hostname name="als-store.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.18" addrtype="ipv4" />
+<hostnames><hostname name="npro.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.19" addrtype="ipv4" />
+<hostnames><hostname name="pmo.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.20" addrtype="ipv4" />
+<hostnames><hostname name="citgups10.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.21" addrtype="ipv4" />
+<hostnames><hostname name="wdb2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.22" addrtype="ipv4" />
+<hostnames><hostname name="scshelp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.23" addrtype="ipv4" />
+<hostnames><hostname name="cisnov11.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.24" addrtype="ipv4" />
+<hostnames><hostname name="itwprod3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.25" addrtype="ipv4" />
+<hostnames><hostname name="prima3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.26" addrtype="ipv4" />
+<hostnames><hostname name="iautil.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.27" addrtype="ipv4" />
+<hostnames><hostname name="palamedes.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.28" addrtype="ipv4" />
+<hostnames><hostname name="wscfiler.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.29" addrtype="ipv4" />
+<hostnames><hostname name="raritan6b.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.30" addrtype="ipv4" />
+<hostnames><hostname name="leep.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.31" addrtype="ipv4" />
+<hostnames><hostname name="cisnov4.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.32" addrtype="ipv4" />
+<hostnames><hostname name="raritan6c.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.33" addrtype="ipv4" />
+<hostnames><hostname name="softdev2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.34" addrtype="ipv4" />
+<hostnames><hostname name="travelhelp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.35" addrtype="ipv4" />
+<hostnames><hostname name="netstorage.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.36" addrtype="ipv4" />
+<hostnames><hostname name="eetd-oracle.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.37" addrtype="ipv4" />
+<hostnames><hostname name="ehsnov3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.38" addrtype="ipv4" />
+<hostnames><hostname name="view4.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.39" addrtype="ipv4" />
+<hostnames><hostname name="eetdsynapsense2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.40" addrtype="ipv4" />
+<hostnames><hostname name="affiliate.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.41" addrtype="ipv4" />
+<hostnames><hostname name="itvcdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.42" addrtype="ipv4" />
+<hostnames><hostname name="ithelp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.43" addrtype="ipv4" />
+<hostnames><hostname name="cisnov99.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.44" addrtype="ipv4" />
+<hostnames><hostname name="benefitshelp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.45" addrtype="ipv4" />
+<hostnames><hostname name="vm60tmp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.46" addrtype="ipv4" />
+<hostnames><hostname name="dccdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.47" addrtype="ipv4" />
+<hostnames><hostname name="itcollab.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.48" addrtype="ipv4" />
+<hostnames><hostname name="itwprod2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.49" addrtype="ipv4" />
+<hostnames><hostname name="vmhostdev1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.50" addrtype="ipv4" />
+<hostnames><hostname name="vmhostdev2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.51" addrtype="ipv4" />
+<hostnames><hostname name="vmhostdev3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.52" addrtype="ipv4" />
+<hostnames><hostname name="cisnov2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.53" addrtype="ipv4" />
+<hostnames><hostname name="prima2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.54" addrtype="ipv4" />
+<hostnames><hostname name="pool5.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.55" addrtype="ipv4" />
+<hostnames><hostname name="sophosprod2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.56" addrtype="ipv4" />
+<hostnames><hostname name="pool6.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.57" addrtype="ipv4" />
+<hostnames><hostname name="sperecharges.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.58" addrtype="ipv4" />
+<hostnames><hostname name="lbnlsav10.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.59" addrtype="ipv4" />
+<hostnames><hostname name="fac3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.60" addrtype="ipv4" />
+<hostnames><hostname name="computerinventory.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.61" addrtype="ipv4" />
+<hostnames><hostname name="iss17503.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.62" addrtype="ipv4" />
+<hostnames><hostname name="lint1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.63" addrtype="ipv4" />
+<hostnames><hostname name="relay-dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.64" addrtype="ipv4" />
+<hostnames><hostname name="maggie.primus.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.65" addrtype="ipv4" />
+<hostnames><hostname name="cloudswitch.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.66" addrtype="ipv4" />
+<hostnames><hostname name="vdrdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.67" addrtype="ipv4" />
+<hostnames><hostname name="vmhost103.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.68" addrtype="ipv4" />
+<hostnames><hostname name="lblhome.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.69" addrtype="ipv4" />
+<hostnames><hostname name="centos64tmp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.70" addrtype="ipv4" />
+<hostnames><hostname name="pcpower1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.71" addrtype="ipv4" />
+<hostnames><hostname name="software.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.72" addrtype="ipv4" />
+<hostnames><hostname name="odysseus.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.73" addrtype="ipv4" />
+<hostnames><hostname name="mpsg-store.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.74" addrtype="ipv4" />
+<hostnames><hostname name="sav10prod1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.75" addrtype="ipv4" />
+<hostnames><hostname name="veroom.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.76" addrtype="ipv4" />
+<hostnames><hostname name="vmlog.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.77" addrtype="ipv4" />
+<hostnames><hostname name="vmhost208dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.78" addrtype="ipv4" />
+<hostnames><hostname name="lbnl010.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.79" addrtype="ipv4" />
+<hostnames><hostname name="itproject.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.80" addrtype="ipv4" />
+<hostnames><hostname name="sophosprod1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.81" addrtype="ipv4" />
+<hostnames><hostname name="assist.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.82" addrtype="ipv4" />
+<hostnames><hostname name="scifed.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.83" addrtype="ipv4" />
+<hostnames><hostname name="cisnov3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.84" addrtype="ipv4" />
+<hostnames><hostname name="wsussrv.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.85" addrtype="ipv4" />
+<hostnames><hostname name="powerweb1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.86" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.87" addrtype="ipv4" />
+<hostnames><hostname name="cisnov12.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.88" addrtype="ipv4" />
+<hostnames><hostname name="vmhost209dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.89" addrtype="ipv4" />
+<hostnames><hostname name="vmhost208dev-mp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.90" addrtype="ipv4" />
+<hostnames><hostname name="vmhost209dev-mp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.91" addrtype="ipv4" />
+<hostnames><hostname name="vmhostdev4.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.92" addrtype="ipv4" />
+<hostnames><hostname name="cisnov84.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.93" addrtype="ipv4" />
+<hostnames><hostname name="fabs21.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.94" addrtype="ipv4" />
+<hostnames><hostname name="cisnov13.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.95" addrtype="ipv4" />
+<hostnames><hostname name="csprotest.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.96" addrtype="ipv4" />
+<hostnames><hostname name="trainingroom.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.97" addrtype="ipv4" />
+<hostnames><hostname name="upk.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.98" addrtype="ipv4" />
+<hostnames><hostname name="cisnov98.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.99" addrtype="ipv4" />
+<hostnames><hostname name="factemp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.100" addrtype="ipv4" />
+<hostnames><hostname name="chim.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.101" addrtype="ipv4" />
+<hostnames><hostname name="bigfix.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.102" addrtype="ipv4" />
+<hostnames><hostname name="pbc-1dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.103" addrtype="ipv4" />
+<hostnames><hostname name="sla.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.104" addrtype="ipv4" />
+<hostnames><hostname name="vicar.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.105" addrtype="ipv4" />
+<hostnames><hostname name="isswqa.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.106" addrtype="ipv4" />
+<hostnames><hostname name="iaredirect.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.107" addrtype="ipv4" />
+<hostnames><hostname name="snap01.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.108" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.109" addrtype="ipv4" />
+<hostnames><hostname name="fsdwprod.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.110" addrtype="ipv4" />
+<hostnames><hostname name="itvc.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.111" addrtype="ipv4" />
+<hostnames><hostname name="ca.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.112" addrtype="ipv4" />
+<hostnames><hostname name="vmproxy.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.113" addrtype="ipv4" />
+<hostnames><hostname name="mpsgtools1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.114" addrtype="ipv4" />
+<hostnames><hostname name="mpsgtools2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.115" addrtype="ipv4" />
+<hostnames><hostname name="disrec.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.116" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.117" addrtype="ipv4" />
+<hostnames><hostname name="iss18501.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.118" addrtype="ipv4" />
+<hostnames><hostname name="iss18506.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.119" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.120" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.121" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.122" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.123" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.124" addrtype="ipv4" />
+<hostnames><hostname name="energyiq.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.125" addrtype="ipv4" />
+<hostnames><hostname name="btsqa.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.126" addrtype="ipv4" />
+<hostnames><hostname name="iaftpqa.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.127" addrtype="ipv4" />
+<hostnames><hostname name="ndpsnodea-mp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.128" addrtype="ipv4" />
+<hostnames><hostname name="ndpsnodeb-mp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.129" addrtype="ipv4" />
+<hostnames><hostname name="commons-dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.130" addrtype="ipv4" />
+<hostnames><hostname name="ws.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.131" addrtype="ipv4" />
+<hostnames><hostname name="vnimbusmgr.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.132" addrtype="ipv4" />
+<hostnames><hostname name="vnimbusdb.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.133" addrtype="ipv4" />
+<hostnames><hostname name="ifoldera.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.134" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.135" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.136" addrtype="ipv4" />
+<hostnames><hostname name="fantom.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.137" addrtype="ipv4" />
+<hostnames><hostname name="ehswprod.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.138" addrtype="ipv4" />
+<hostnames><hostname name="isswprod.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.139" addrtype="ipv4" />
+<hostnames><hostname name="ismfeedback.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.140" addrtype="ipv4" />
+<hostnames><hostname name="pbc-2dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.141" addrtype="ipv4" />
+<hostnames><hostname name="itwtheory1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.142" addrtype="ipv4" />
+<hostnames><hostname name="magrathea.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.143" addrtype="ipv4" />
+<hostnames><hostname name="menelaus.primus.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.144" addrtype="ipv4" />
+<hostnames><hostname name="scsprime.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.145" addrtype="ipv4" />
+<hostnames><hostname name="shopdrop.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.146" addrtype="ipv4" />
+<hostnames><hostname name="traininghelp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.147" addrtype="ipv4" />
+<hostnames><hostname name="iswiprod.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.148" addrtype="ipv4" />
+<hostnames><hostname name="ifoldernodeb-mp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.149" addrtype="ipv4" />
+<hostnames><hostname name="isappwprod.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.150" addrtype="ipv4" />
+<hostnames><hostname name="filetransfer.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.151" addrtype="ipv4" />
+<hostnames><hostname name="conferences.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.152" addrtype="ipv4" />
+<hostnames><hostname name="iss17502.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.153" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.154" addrtype="ipv4" />
+<hostnames><hostname name="ecms-dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.155" addrtype="ipv4" />
+<hostnames><hostname name="ecms1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.156" addrtype="ipv4" />
+<hostnames><hostname name="ecms2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.157" addrtype="ipv4" />
+<hostnames><hostname name="lblprint4.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.158" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.159" addrtype="ipv4" />
+<hostnames><hostname name="sav9dev1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.160" addrtype="ipv4" />
+<hostnames><hostname name="nimbusdb.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.161" addrtype="ipv4" />
+<hostnames><hostname name="nimbusmgr.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.162" addrtype="ipv4" />
+<hostnames><hostname name="netpro.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.163" addrtype="ipv4" />
+<hostnames><hostname name="relay.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.164" addrtype="ipv4" />
+<hostnames><hostname name="ad1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.165" addrtype="ipv4" />
+<hostnames><hostname name="sabor.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.166" addrtype="ipv4" />
+<hostnames><hostname name="ad3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.167" addrtype="ipv4" />
+<hostnames><hostname name="alfresco-dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.168" addrtype="ipv4" />
+<hostnames><hostname name="wsus.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.169" addrtype="ipv4" />
+<hostnames><hostname name="conferencesdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.170" addrtype="ipv4" />
+<hostnames><hostname name="infralmage.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.171" addrtype="ipv4" />
+<hostnames><hostname name="cisdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.172" addrtype="ipv4" />
+<hostnames><hostname name="engman.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.173" addrtype="ipv4" />
+<hostnames><hostname name="commons.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.174" addrtype="ipv4" />
+<hostnames><hostname name="library-dev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.175" addrtype="ipv4" />
+<hostnames><hostname name="lbnl020.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.176" addrtype="ipv4" />
+<hostnames><hostname name="sav10prod2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.177" addrtype="ipv4" />
+<hostnames><hostname name="ehswqa.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.178" addrtype="ipv4" />
+<hostnames><hostname name="pb-c1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.179" addrtype="ipv4" />
+<hostnames><hostname name="itisna2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.180" addrtype="ipv4" />
+<hostnames><hostname name="lblprint1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.181" addrtype="ipv4" />
+<hostnames><hostname name="gm.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.182" addrtype="ipv4" />
+<hostnames><hostname name="lblprint2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.183" addrtype="ipv4" />
+<hostnames><hostname name="lblprint3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.184" addrtype="ipv4" />
+<hostnames><hostname name="snap02.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.185" addrtype="ipv4" />
+<hostnames><hostname name="lblprint-eng.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.186" addrtype="ipv4" />
+<hostnames><hostname name="isghost1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.187" addrtype="ipv4" />
+<hostnames><hostname name="vmhost1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.188" addrtype="ipv4" />
+<hostnames><hostname name="raritan6.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.189" addrtype="ipv4" />
+<hostnames><hostname name="vmhost102.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.190" addrtype="ipv4" />
+<hostnames><hostname name="vmhostnfs.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.191" addrtype="ipv4" />
+<hostnames><hostname name="vmhost5.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.192" addrtype="ipv4" />
+<hostnames><hostname name="chim2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.193" addrtype="ipv4" />
+<hostnames><hostname name="vmhost101.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.194" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.195" addrtype="ipv4" />
+<hostnames><hostname name="fmp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.196" addrtype="ipv4" />
+<hostnames><hostname name="sitescope2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.197" addrtype="ipv4" />
+<hostnames><hostname name="alspermits.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.198" addrtype="ipv4" />
+<hostnames><hostname name="0-25-9c-1b-ef-f3.dhcp.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.199" addrtype="ipv4" />
+<hostnames><hostname name="isswdev3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.200" addrtype="ipv4" />
+<hostnames><hostname name="fmaudit.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.201" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.202" addrtype="ipv4" />
+<hostnames><hostname name="iss-pop.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.203" addrtype="ipv4" />
+<hostnames><hostname name="itisna1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.204" addrtype="ipv4" />
+<hostnames><hostname name="barton.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.205" addrtype="ipv4" />
+<hostnames><hostname name="fargo.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.206" addrtype="ipv4" />
+<hostnames><hostname name="lebowski.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.207" addrtype="ipv4" />
+<hostnames><hostname name="aragorn.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.208" addrtype="ipv4" />
+<hostnames><hostname name="fileclu2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.209" addrtype="ipv4" />
+<hostnames><hostname name="vmhost201.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.210" addrtype="ipv4" />
+<hostnames><hostname name="vmhost202.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.211" addrtype="ipv4" />
+<hostnames><hostname name="vmhost203.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.212" addrtype="ipv4" />
+<hostnames><hostname name="vmhost204.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.213" addrtype="ipv4" />
+<hostnames><hostname name="trenddev1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.214" addrtype="ipv4" />
+<hostnames><hostname name="wdbdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.215" addrtype="ipv4" />
+<hostnames><hostname name="vicardev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.216" addrtype="ipv4" />
+<hostnames><hostname name="infra-linux64.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.217" addrtype="ipv4" />
+<hostnames><hostname name="infra-linux86.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.218" addrtype="ipv4" />
+<hostnames><hostname name="idfinder.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.219" addrtype="ipv4" />
+<hostnames><hostname name="magrathea-new.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.220" addrtype="ipv4" />
+<hostnames><hostname name="proton12.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.221" addrtype="ipv4" />
+<hostnames><hostname name="netproprod.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.222" addrtype="ipv4" />
+<hostnames><hostname name="raritan.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.223" addrtype="ipv4" />
+<hostnames><hostname name="wxyz1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.224" addrtype="ipv4" />
+<hostnames><hostname name="wxyz2.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.225" addrtype="ipv4" />
+<hostnames><hostname name="wxyz3.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.226" addrtype="ipv4" />
+<hostnames><hostname name="wxyz4.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.227" addrtype="ipv4" />
+<hostnames><hostname name="wxyz5.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.228" addrtype="ipv4" />
+<hostnames><hostname name="wxyz6.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.229" addrtype="ipv4" />
+<hostnames><hostname name="wxyz7.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.230" addrtype="ipv4" />
+<hostnames><hostname name="wxyz8.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.231" addrtype="ipv4" />
+<hostnames><hostname name="wxyz9.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.232" addrtype="ipv4" />
+<hostnames><hostname name="wxyz10.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.233" addrtype="ipv4" />
+<hostnames><hostname name="wdb1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.234" addrtype="ipv4" />
+<hostnames><hostname name="nagios60.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.235" addrtype="ipv4" />
+<hostnames><hostname name="grouper.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.236" addrtype="ipv4" />
+<hostnames><hostname name="cups-vm1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.237" addrtype="ipv4" />
+<hostnames><hostname name="spacewalk.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.238" addrtype="ipv4" />
+<hostnames><hostname name="safety.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.239" addrtype="ipv4" />
+<hostnames><hostname name="walkthru.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.240" addrtype="ipv4" />
+<hostnames><hostname name="itprojectdev.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.241" addrtype="ipv4" />
+<hostnames><hostname name="www-library-new.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.242" addrtype="ipv4" />
+<hostnames><hostname name="esxmon.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.243" addrtype="ipv4" />
+<hostnames><hostname name="ittermlicsrv.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.244" addrtype="ipv4" />
+<hostnames><hostname name="jiraeval.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.245" addrtype="ipv4" />
+<hostnames><hostname name="confeval.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.246" addrtype="ipv4" />
+<hostnames><hostname name="haddock.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.247" addrtype="ipv4" />
+<hostnames><hostname name="walkthrucs.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.248" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.249" addrtype="ipv4" />
+<hostnames><hostname name="me.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.250" addrtype="ipv4" />
+<hostnames><hostname name="iaftpprod.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.251" addrtype="ipv4" />
+<hostnames><hostname name="infratools.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.252" addrtype="ipv4" />
+<hostnames><hostname name="infrastorage1.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.253" addrtype="ipv4" />
+<hostnames><hostname name="websnap.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.254" addrtype="ipv4" />
+<hostnames><hostname name="commons-v.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>
+<host><status state="up" />
+<address addr="131.243.60.255" addrtype="ipv4" />
+<hostnames />
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+</host>

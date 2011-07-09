@@ -1,0 +1,390 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Nov 18 16:40:21 2010
+
+@author: -
+"""
+
+import parse_nmap
+import threedee_math
+import slugger
+import build
+import keyboard_events
+import gui
+import build_subnet
+import config
+import node
+
+from direct.showbase.ShowBase import ShowBase
+from direct.task import Task
+from pandac.PandaModules import *
+from direct.task import Task
+from direct.gui.OnscreenText import OnscreenText
+from direct.interval.IntervalGlobal import Sequence
+from panda3d.core import Point3
+from direct.showbase import DirectObject
+
+import netaddr
+
+from math import pi, sin, cos
+import sys
+import xml.sax
+from xml.sax.handler import feature_namespaces, ContentHandler
+import string
+import os
+import socket
+import re
+
+
+
+class Panda(ShowBase):
+    def __init__(self):
+        ShowBase.__init__(self)
+        if sys.argv[1]:
+            conf_file = sys.argv[2]
+        else:
+            conf_file = 'None'
+        configuration = config.ConfigFile(conf_file)
+        self.slugs = {}
+        self.lasts = {}
+        self.view = "hybrid"
+        self.hybridview = NodePath("hybridview")
+        self.hybridview.reparentTo(render)
+        self.subnetview = NodePath("subnetview")
+        self.subnetview.reparentTo(render)
+        self.subnetview.hide()
+        self.nodeview = NodePath("nodeview")
+        self.nodeview.reparentTo(render)
+        self.nodeview.hide()
+        self.dummy_center_node = render.attachNewNode("dummy_center_node")
+        self.dummy_center_node.setPos(0, 0, 0)
+        self.camera.reparentTo(self.dummy_center_node)
+        self.setBackgroundColor(0.69,0.77,0.88)
+        self.skybox = self.loader.loadModel("models/skybox")
+        texture = "images/" + configuration.skybox_texture()
+        self.skyboxTexture = self.loader.loadTexture(texture)
+        #self.skyboxTexture.setWrapU(Texture.WMRepeat)     
+        #self.skyboxTexture.setWrapV(Texture.WMRepeat)        
+
+        self.skybox.setTexture(self.skyboxTexture, 1)
+        self.skybox.reparentTo(self.hybridview)
+        self.skybox.setScale(500)
+        self.skybox.setH(60)
+
+        
+        self.disableMouse()
+        self.useDrive()
+        
+        base.drive.node().setPos(-10, -160, 9)
+        base.drive.node().setHpr(340, 0, 0)
+        base.drive.node().setIgnoreMouse(1)
+        plight = DirectionalLight('my plight')
+        plnp = self.hybridview.attachNewNode(plight)
+        plnp.setHpr(310, 0 ,30)
+        self.hybridview.setLight(plnp)
+        alight = AmbientLight('alight')
+        alight.setColor(VBase4(0.4, 0.4, 0.4, 1))
+        alnp = self.hybridview.attachNewNode(alight)
+        self.hybridview.setLight(alnp)
+        keys = keyboard_events.KeyboardEvents(base.drive.node(), self)
+        
+        self.model = build.BuildModel()
+        self.model.map_servers(self, parse_nmap.networkMap)
+        self.taskMgr.add(self.followCameraTask, "FollowCameraTask")
+        self.low_x = {}
+        self.high_x = {}
+        
+        
+        # Get Mouse Clicks
+        self.myHandler = CollisionHandlerQueue()
+        self.myTraverser = CollisionTraverser()
+        self.myTraverser.setRespectPrevTransform(True)
+        #self.myTraverser.showCollisions(render)
+        #base.cTrav = self.myTraverser
+        pickerNode = CollisionNode('mouseRay')
+        pickerNP = camera.attachNewNode(pickerNode)
+        pickerNode.setFromCollideMask(GeomNode.getDefaultCollideMask())
+        self.pickerRay = CollisionRay()
+        pickerNode.addSolid(self.pickerRay)
+        self.myTraverser.addCollider(pickerNP, self.myHandler)
+        
+        
+        
+        # Receive events
+        self.cManager = QueuedConnectionManager()
+        self.cReader = QueuedConnectionReader(self.cManager, 0)
+        self.cWriter = ConnectionWriter(self.cManager,0)
+        activeConnections=[]
+        udpSocket = self.cManager.openUDPConnection(1723)
+        self.cReader.addConnection(udpSocket)
+        self.taskMgr.add(self.tskReaderPolling,"Poll the connection reader",-40)
+        
+        # Create GUI and switch modes / views
+        interface = gui.KeyboardEvents(keys, self.model, base.drive.node(), self)
+        
+        self.subnet = build_subnet.BuildSubnetModel(base.drive.node(), self)
+        #messenger.send('start-loop')
+        
+        
+        
+        
+        
+        
+        
+    def tskReaderPolling(self,taskdata):
+        #print self.slugs['1292505598.73132.216.164.20660127/tcp192.168.7.112444/tcp'].node.getPos()
+        if self.cReader.dataAvailable():
+            datagram=NetDatagram()
+            if self.cReader.getData(datagram):
+                data = datagram.getMessage().split("|")
+                id_builder = (data[1], data[3], data[4], data[5], data[6])
+                id = "".join(id_builder)
+                if re.search('132.216.164.2', id):
+                    print id
+                try:
+                    self.slugs[id] = slugger.Slugger(self, data, self.subnet)
+                    #messenger.send('start-loop')
+                except:
+                    pass
+                if self.view == "node" and self.single_node.IP == data[3]:
+                    node_event = node.NodeEvent(data, self)
+                
+                
+        return Task.cont
+            
+ 
+
+    
+    def followCameraTask(self, task):
+        visible_range = {}
+        
+        
+        for k, v in self.model.servers.iteritems():
+            coords = v.getPos()
+            name_coords = self.model.names[k].getPos()
+            distance = threedee_math.distance_between(base.drive.node().getPos(), coords)
+            
+            if distance > 250:
+                v.hide()
+                self.model.names[k].hide()
+                #self.find_low_x(k, coords, visible_range, task)
+            elif distance < 250: 
+                v.show()
+                self.model.names[k].show()
+
+            
+        
+            
+        
+        return Task.cont
+        
+    def moveSlugsTask(self, task):
+        for k, v in self.slugs.iteritems():
+            if self.view == "hybrid":
+                self.slugs[k].pingpong.loop()
+            
+        return Task.cont
+        
+        
+    def find_high_x(self, k, coords, visible_range, task):
+        for i in self.model.subnet_list:
+            if self.model.is_member_subnet(k, i.split()):
+                if coords[0] < visible_range[i][0]:
+                    visible_range[i] = (coords[0], visible_range[i][1])
+                if coords[0] > visible_range[i][1]:
+                    visible_range[i] = (visible_range[i][0], coords[0])
+        for i in self.model.private_net_list:
+            if self.model.is_member_subnet(k, i.split()):
+                if coords[0] < visible_range[i][0]:
+                    visible_range[i] = (coords[0], visible_range[i][1])
+                if coords[0] > visible_range[i][1]:
+                    visible_range[i] = (visible_range[i][0], coords[0])
+                    
+    def find_low_x(self, k, coords, visible_range, task):
+        for i in self.model.subnet_list:
+            if self.model.is_member_subnet(k, i.split()):
+                if coords[0] > visible_range[i][0]:
+                    visible_range[i] = (coords[0], visible_range[i][1])
+                if coords[0] < visible_range[i][1]:
+                    visible_range[i] = (visible_range[i][0], coords[0])
+                    
+        for i in self.model.private_net_list:
+            if self.model.is_member_subnet(k, i.split()):
+                if coords[0] > visible_range[i][0]:
+                    visible_range[i] = (coords[0], visible_range[i][1])
+                if coords[0] < visible_range[i][1]:
+                    visible_range[i] = (visible_range[i][0], coords[0])
+                    
+                    
+    def objectClicked(self):
+        mpos = base.mouseWatcherNode.getMouse()
+        self.pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
+ 
+        self.myTraverser.traverse(render)
+        # Assume for simplicity's sake that myHandler is a CollisionHandlerQueue.
+        if self.myHandler.getNumEntries() > 0:
+            for i in range(self.myHandler.getNumEntries()):
+                entry = self.myHandler.getEntry(i)
+            self.myHandler.sortEntries()
+            pickedObj = self.myHandler.getEntry(0).getIntoNodePath()
+            obj_id = pickedObj.getNetTag('myObjectTag')
+            print obj_id
+            
+            try:
+                pickedObj2 = self.myHandler.getEntry(1).getIntoNodePath()
+                obj_id2 = pickedObj2.getNetTag('myObjectTag')
+                print obj_id2
+            except:
+                pass
+            
+            try:
+                pickedObj3 = self.myHandler.getEntry(2).getIntoNodePath()
+                obj_id3 = pickedObj3.getNetTag('myObjectTag')
+                print obj_id3
+            except:
+                pass
+            
+            pickedObj = pickedObj.findNetTag('myObjectTag')
+            if not pickedObj.isEmpty():
+                if obj_id == "PopUp":
+                    print "Pop Up"
+                    if pickedObj.getAncestor(1).getNetTag("type") == "Tunnel":
+                        pickedObj.removeNode()
+                    else:
+                        pickedObj.getAncestor(1).setScale(2)
+                        pickedObj.removeNode()
+                    
+                elif obj_id == "ServerPopUp":
+                    pickedObj.removeNode()
+                elif (re.search("^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$", str(obj_id))):
+                    self.findClickedServer(pickedObj, str(obj_id))
+                else:
+                    self.findClickedSlug(pickedObj, str(obj_id))
+                    
+    def objectRightClicked(self):
+        mpos = base.mouseWatcherNode.getMouse()
+        self.pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
+ 
+        self.myTraverser.traverse(render)
+        # Assume for simplicity's sake that myHandler is a CollisionHandlerQueue.
+        if self.myHandler.getNumEntries() > 0:
+            for i in range(self.myHandler.getNumEntries()):
+                entry = self.myHandler.getEntry(i)
+            self.myHandler.sortEntries()
+            pickedObj = self.myHandler.getEntry(0).getIntoNodePath()
+            obj_id = pickedObj.getNetTag('myObjectTag')
+            pickedObj = pickedObj.findNetTag('myObjectTag')
+            if not pickedObj.isEmpty():
+                if (re.search("^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$", str(obj_id))):
+                    self.goToNodeView(pickedObj, str(obj_id))
+                
+        
+             
+                
+    def findClickedSlug(self, slug, slug_id):
+        for i in self.slugs.itervalues():
+            match = ":".join(i.data[1:5])
+            try:
+                abc = i.node
+            except:
+                continue
+            if (match == slug_id):
+                info = TextNode(str(slug_id))
+                text = "\n".join(i.data[1:])
+                info.clearTextColor()
+                info.setText(text)
+                info.setCardAsMargin(0, 0, 0.5, 0)
+                info.setCardColor(1.0, 1.0, 1.0, 0.7)
+                info.setTextColor(1.0, 0.0, 0.0, 1.0)
+                info.setFrameAsMargin(0, 0, 0.5, 0)
+                info.setFrameColor(0.0, 0.0, 0.0, .9)
+                info.setCardDecal(True)
+                clickable = info.generate()
+                self.popup = self.hybridview.attachNewNode(clickable)
+                self.popup.reparentTo(i.node)
+                self.popup.setH(270)
+                #self.popup.setScale(0.25)
+                x, y, z = i.node.getPos()
+                #self.popup.setPos(-3, 3, 3)
+                self.popup.setTag('myObjectTag', 'PopUp')
+                self.popup.setLightOff()
+                if i.node.getNetTag('type') == "Tunnel":
+                    self.popup.setPos(0.5, -10, 8)
+                    self.popup.setScale(0.025, 0.05, 0.167)
+                    self.popup.setColorScale(0, 0, 0, 0.9)
+                    #self.popup.setBillboardAxis()
+                    self.popup.setH(self.camera, 150)
+                    self.popup.setCompass(self.camera)
+                else:
+                    self.popup.setScale(0.25)
+                    self.popup.setPos(-3, 0, 3)
+                    self.popup.setH(270)
+                    #self.popup.setH(self.camera, 150)
+                    #self.popup.setCompass(self.camera)
+                    i.node.setScale(3)
+                    
+            
+    def findClickedServer(self, server, IP):
+        info = TextNode(IP)
+        try:
+            hostname = socket.gethostbyaddr(IP)[0]
+        except socket.herror:
+            hostname = "Unknown"
+        os = parse_nmap.networkMap[IP].osclass
+        text = hostname[:8] + "\n" + IP + "\n" + os
+        for i in parse_nmap.networkMap[IP].services:
+            text += "\n" + str(i[0]) + "/" + str(i[1])
+        print text
+        info.setText(text)        
+        info.setCardAsMargin(0, 0, 0.5, 0)
+        info.setCardColor(1.0, 1.0, 1.0, 0.7)
+        info.setTextColor(0.0, 0.0, 0.0, 1.0)
+        info.setFrameAsMargin(0, 0, 0.5, 0)
+        info.setFrameColor(0.0, 0.0, 0.0, .9)
+        info.setCardDecal(True)
+        clickable = info.generate()
+        self.popup = self.hybridview.attachNewNode(clickable)
+        self.popup.reparentTo(server)
+        #self.popup.setH(270)
+        #self.popup.setScale(0.5)
+        self.popup.setPos(-3, -5, 0)
+        self.popup.setTag('myObjectTag', 'ServerPopUp')
+        self.popup.setLightOff() 
+        
+    def goToNodeView(self, original_object, IP):
+        self.single_node = node.NodeView(self, IP, parse_nmap.networkMap[IP].services)
+        self.view = "node"
+        self.hybridview.hide()
+        self.subnetview.hide()
+        self.nodeview.show()
+
+    
+    
+class MouseClick(DirectObject.DirectObject):
+    def __init__(self):
+        self.accept('mouse1', self.leftClick)
+        self.accept('space', self.leftClick)
+        self.accept('mouse3', self.rightClick)
+    def leftClick(self):
+        scene.objectClicked()
+    def rightClick(self):
+        scene.objectRightClicked()
+        
+    
+    
+# Main
+#print os.environ['local_nets']
+threedee_math = threedee_math.threedee_math()
+parser = xml.sax.make_parser()
+parser.setFeature(feature_namespaces, 0)
+dh = parse_nmap.ImportServer()
+parser.setContentHandler(dh)
+xml_file = sys.argv[1]
+parser.parse(xml_file)
+
+scene = Panda()
+m = MouseClick()
+
+
+
+scene.run()

@@ -1,0 +1,571 @@
+<host><status state="up" />
+<address addr="128.3.72.29" addrtype="ipv4" />
+<hostnames><hostname name="warrior.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:0F:76:05" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="open" proto="tcp" portid="80" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osmatch name="Sun Solaris 8" accuracy="100" />
+</os>
+<uptime seconds="6623671" lastboot="Wed Oct 13 21:23:18 2010" />
+<tcpsequence index="107695" class="random positive increments" difficulty="Good luck!" values="4D7F7338,4D854EAD,4D898BBE,4D8AD89D,4D8F0F06" />
+<ipidsequence class="Incremental" values="EB45,EB46,EB47,EB48,EB49" />
+<tcptssequence class="100HZ" values="277AEB14,277AEB32,277AEB50,277AEB6E,277AEB8C" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.30" addrtype="ipv4" />
+<hostnames><hostname name="iss-mail.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:6C:AE:08" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="down" />
+<address addr="128.3.72.31" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.32" addrtype="ipv4" />
+<hostnames><hostname name="hrsrv.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:01:D7:66:4E:C5" vendor="F5 Networks" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="broadband router" vendor="D-Link" osfamily="embedded" accuracy="95" />
+<osclass type="general purpose" vendor="lwIP" osfamily="lwIP" accuracy="93" />
+<osclass type="terminal server" vendor="Xyplex" osfamily="embedded" accuracy="92" />
+<osclass type="media device" vendor="Barix" osfamily="embedded" accuracy="91" />
+<osclass type="terminal server" vendor="Lantronix" osfamily="embedded" accuracy="91" />
+<osclass type="specialized" vendor="Radionics" osfamily="embedded" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="91" />
+<osclass type="general purpose" vendor="FreeBSD" osfamily="FreeBSD" osgen="5.X" accuracy="89" />
+<osclass type="general purpose" vendor="OpenBSD" osfamily="OpenBSD" osgen="3.X" accuracy="89" />
+<osclass type="printer" vendor="Lexmark" osfamily="embedded" accuracy="86" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.3.X" accuracy="86" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.4.X" accuracy="86" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.5.X" accuracy="86" />
+<osclass type="general purpose" vendor="Maxim-IC" osfamily="TiniOS" accuracy="86" />
+<osclass type="general purpose" vendor="NCR" osfamily="BSD-misc" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="3.X" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="4.X" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="5.X" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="6.X" accuracy="86" />
+<osmatch name="lwIP (Lightweight TCP/IP stack) version lwip-0.5.3-win32" accuracy="93" />
+<osmatch name="Xyplex Network 9000 terminal server" accuracy="92" />
+<osmatch name="Barix Exstreamer network MP3 player" accuracy="91" />
+<osmatch name="Lantronix CoBox serial device server or Radionics RAM IV Alarm" accuracy="91" />
+<osmatch name="SunOS 5.10 (sparc)" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 7 with tcp_strong_iss=0" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 7 with tcp_strong_iss=2" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 7 x86" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 8 (SPARC)" accuracy="91" />
+</os>
+</host>
+<host><status state="down" />
+<address addr="128.3.72.33" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.34" addrtype="ipv4" />
+<hostnames><hostname name="iss-log.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:6C:AE:08" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.35" addrtype="ipv4" />
+<hostnames><hostname name="remus.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:A0:98:01:F1:5C" vendor="Network Appliance" addrtype="mac" />
+<os><portused state="open" proto="tcp" portid="80" />
+<osclass type="fileserver" vendor="NetApp" osfamily="Data ONTAP" accuracy="100" />
+<osclass type="web proxy" vendor="NetApp" osfamily="embedded" accuracy="100" />
+<osmatch name="NetApp Filer (Data OnTap 6.5.2) or NetCache (NetApp 5.6 - 6.0.1)" accuracy="100" />
+</os>
+<uptime seconds="6831192" lastboot="Mon Oct 11 11:44:56 2010" />
+<tcpsequence index="9999999" class="truly random" difficulty="Good luck!" values="80D13B38,412188CF,A15B6A31,DAFF693E,BFF8F617,C364C1FA" />
+<ipidsequence class="Broken little-endian incremental" values="1700,1800,1900,1A00,1B00,1C00" />
+<tcptssequence class="100HZ" values="28B791E4,28B79202,28B79220,28B7923E,28B7925C,28B7927A" />
+</host>
+<host><status state="down" />
+<address addr="128.3.72.36" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.37" addrtype="ipv4" />
+<hostnames><hostname name="warrior06.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:0F:76:05" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="open" proto="tcp" portid="80" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osmatch name="Sun Solaris 8" accuracy="100" />
+</os>
+<uptime seconds="6623697" lastboot="Wed Oct 13 21:23:18 2010" />
+<tcpsequence index="124954" class="random positive increments" difficulty="Good luck!" values="4E14557F,4E1BF992,4E1E2859,4E211B6A,4E2470C7,4E282A5B" />
+<ipidsequence class="Incremental" values="EB51,EB52,EB53,EB54,EB55,EB56" />
+<tcptssequence class="100HZ" values="277AF590,277AF5AE,277AF5CC,277AF5EA,277AF608,277AF626" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.38" addrtype="ipv4" />
+<hostnames><hostname name="warrior07.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:0F:76:05" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="open" proto="tcp" portid="80" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osmatch name="Sun Solaris 8" accuracy="100" />
+</os>
+<uptime seconds="6623705" lastboot="Wed Oct 13 21:23:17 2010" />
+<tcpsequence index="66530" class="random positive increments" difficulty="Worthy challenge" values="4E4DA663,4E51C845,4E536783,4E56CD11,4E5AE0F2" />
+<ipidsequence class="Incremental" values="EB5D,EB5E,EB5F,EB60,EB61" />
+<tcptssequence class="100HZ" values="277AF835,277AF853,277AF871,277AF88F,277AF8AD" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.39" addrtype="ipv4" />
+<hostnames><hostname name="warrior08.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:0F:76:05" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="open" proto="tcp" portid="80" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osmatch name="Sun Solaris 8" accuracy="100" />
+</os>
+<uptime seconds="6623712" lastboot="Wed Oct 13 21:23:17 2010" />
+<tcpsequence index="51882" class="random positive increments" difficulty="Worthy challenge" values="4E7CEB95,4E7EE704,4E8354A1,4E866B20,4E892A01,4E8C3406" />
+<ipidsequence class="Incremental" values="EB69,EB6A,EB6B,EB6C,EB6D,EB6E" />
+<tcptssequence class="100HZ" values="277AFAB9,277AFAD7,277AFAF5,277AFB13,277AFB31,277AFB4F" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.40" addrtype="ipv4" />
+<hostnames><hostname name="warrior09.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:0F:76:05" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.41" addrtype="ipv4" />
+<hostnames><hostname name="baag.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:16:36:C5:8D:C9" addrtype="mac" />
+<os><portused state="open" proto="tcp" portid="80" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.4.X" accuracy="100" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.5.X" accuracy="100" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="100" />
+<osmatch name="Linux 2.4.7 - 2.6.11" accuracy="100" />
+</os>
+<uptime seconds="2023" lastboot="Wed Dec 29 11:44:56 2010" />
+<tcpsequence index="1060538" class="random positive increments" difficulty="Good luck!" values="3ABD8829,3ACA5149,3AE428FC,3AC08AF5,3A8770DD" />
+<ipidsequence class="All zeros" values="0,0,0,0,0" />
+<tcptssequence class="1000HZ" values="1ED8FA,1EDA26,1EDB52,1EDC7E,1EDDAA" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.1" addrtype="ipv4" />
+<hostnames><hostname name="iss-asa1-b72.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:1F:9E:98:2C:6A" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="broadband router" vendor="3Com" osfamily="embedded" accuracy="100" />
+<osclass type="power-device" vendor="BayTech" osfamily="embedded" accuracy="100" />
+<osclass type="broadband router" vendor="Cnet" osfamily="embedded" accuracy="100" />
+<osclass type="broadband router" vendor="D-Link" osfamily="embedded" accuracy="100" />
+<osclass type="WAP" vendor="US Robotics" osfamily="embedded" accuracy="100" />
+<osclass type="WAP" vendor="D-Link" osfamily="embedded" accuracy="100" />
+<osclass type="remote management" vendor="HP" osfamily="embedded" accuracy="100" />
+<osclass type="specialized" vendor="Kronos" osfamily="embedded" accuracy="100" />
+<osclass type="broadband router" vendor="Linksys" osfamily="embedded" accuracy="100" />
+<osclass type="WAP" vendor="Linksys" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="100" />
+<osclass type="WAP" vendor="SMC" osfamily="embedded" accuracy="100" />
+<osclass type="webcam" vendor="Panasonic" osfamily="embedded" accuracy="100" />
+<osclass type="firewall" vendor="WatchGuard" osfamily="embedded" accuracy="100" />
+<osclass type="WAP" vendor="ZoomAir" osfamily="embedded" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.2" addrtype="ipv4" />
+<hostnames><hostname name="iss-asa2-b72.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:1D:70:E3:F5:02" addrtype="mac" />
+<os></os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.3" addrtype="ipv4" />
+<hostnames><hostname name="c45s-50b-1275-b72.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:1F:9E:15:2F:FF" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="broadband router" vendor="Cisco" osfamily="embedded" accuracy="100" />
+<osclass type="router" vendor="Cisco" osfamily="IOS" osgen="11.X" accuracy="100" />
+<osclass type="router" vendor="Cisco" osfamily="IOS" osgen="12.X" accuracy="100" />
+<osclass type="switch" vendor="Cisco" osfamily="IOS" osgen="11.X" accuracy="100" />
+<osclass type="switch" vendor="Cisco" osfamily="IOS" osgen="12.X" accuracy="100" />
+<osclass type="WAP" vendor="Cisco" osfamily="IOS" osgen="12.X" accuracy="100" />
+<osclass type="broadband router" vendor="Edimax" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="NT/2K/XP" accuracy="100" />
+<osclass type="telecom-misc" vendor="Nortel" osfamily="embedded" accuracy="100" />
+<osclass type="telecom-misc" vendor="NTT" osfamily="embedded" accuracy="100" />
+<osclass type="switch" vendor="3Com" osfamily="embedded" accuracy="100" />
+<osclass type="hub" vendor="Cisco" osfamily="embedded" accuracy="100" />
+<osclass type="switch" vendor="Enterasys" osfamily="embedded" accuracy="100" />
+<osclass type="remote management" vendor="HP" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Sequent" osfamily="DYNIX" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.4" addrtype="ipv4" />
+<hostnames><hostname name="c29s-iss-inside.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:25:46:5F:F7:C0" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="broadband router" vendor="Cisco" osfamily="embedded" accuracy="100" />
+<osclass type="router" vendor="Cisco" osfamily="IOS" osgen="11.X" accuracy="100" />
+<osclass type="router" vendor="Cisco" osfamily="IOS" osgen="12.X" accuracy="100" />
+<osclass type="switch" vendor="Cisco" osfamily="IOS" osgen="11.X" accuracy="100" />
+<osclass type="switch" vendor="Cisco" osfamily="IOS" osgen="12.X" accuracy="100" />
+<osclass type="WAP" vendor="Cisco" osfamily="IOS" osgen="12.X" accuracy="100" />
+<osclass type="broadband router" vendor="Edimax" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="NT/2K/XP" accuracy="100" />
+<osclass type="telecom-misc" vendor="Nortel" osfamily="embedded" accuracy="100" />
+<osclass type="telecom-misc" vendor="NTT" osfamily="embedded" accuracy="100" />
+<osclass type="switch" vendor="3Com" osfamily="embedded" accuracy="100" />
+<osclass type="hub" vendor="Cisco" osfamily="embedded" accuracy="100" />
+<osclass type="switch" vendor="Enterasys" osfamily="embedded" accuracy="100" />
+<osclass type="remote management" vendor="HP" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Sequent" osfamily="DYNIX" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.5" addrtype="ipv4" />
+<hostnames><hostname name="bastion.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:14:4F:00:FF:D6" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="down" />
+<address addr="128.3.72.6" addrtype="ipv4" />
+</host>
+<host><status state="down" />
+<address addr="128.3.72.7" addrtype="ipv4" />
+</host>
+<host><status state="down" />
+<address addr="128.3.72.8" addrtype="ipv4" />
+</host>
+<host><status state="down" />
+<address addr="128.3.72.9" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.10" addrtype="ipv4" />
+<hostnames><hostname name="flipper.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:14:4F:E2:3A:92" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.11" addrtype="ipv4" />
+<hostnames><hostname name="reliant.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:64:0F:77" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.12" addrtype="ipv4" />
+<hostnames><hostname name="ncc-1701.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:18:EF:B7" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="down" />
+<address addr="128.3.72.13" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.14" addrtype="ipv4" />
+<hostnames><hostname name="defiant.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:01:D7:66:4E:C5" vendor="F5 Networks" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="broadband router" vendor="D-Link" osfamily="embedded" accuracy="95" />
+<osclass type="general purpose" vendor="lwIP" osfamily="lwIP" accuracy="93" />
+<osclass type="terminal server" vendor="Xyplex" osfamily="embedded" accuracy="92" />
+<osclass type="media device" vendor="Barix" osfamily="embedded" accuracy="91" />
+<osclass type="terminal server" vendor="Lantronix" osfamily="embedded" accuracy="91" />
+<osclass type="specialized" vendor="Radionics" osfamily="embedded" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="91" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="91" />
+<osclass type="general purpose" vendor="FreeBSD" osfamily="FreeBSD" osgen="5.X" accuracy="89" />
+<osclass type="general purpose" vendor="OpenBSD" osfamily="OpenBSD" osgen="3.X" accuracy="89" />
+<osclass type="printer" vendor="Lexmark" osfamily="embedded" accuracy="86" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.3.X" accuracy="86" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.4.X" accuracy="86" />
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.5.X" accuracy="86" />
+<osclass type="general purpose" vendor="Maxim-IC" osfamily="TiniOS" accuracy="86" />
+<osclass type="general purpose" vendor="NCR" osfamily="BSD-misc" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="3.X" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="4.X" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="5.X" accuracy="86" />
+<osclass type="general purpose" vendor="Novell" osfamily="NetWare" osgen="6.X" accuracy="86" />
+<osmatch name="lwIP (Lightweight TCP/IP stack) version lwip-0.5.3-win32" accuracy="93" />
+<osmatch name="Xyplex Network 9000 terminal server" accuracy="92" />
+<osmatch name="Barix Exstreamer network MP3 player" accuracy="91" />
+<osmatch name="Lantronix CoBox serial device server or Radionics RAM IV Alarm" accuracy="91" />
+<osmatch name="SunOS 5.10 (sparc)" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 7 with tcp_strong_iss=0" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 7 with tcp_strong_iss=2" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 7 x86" accuracy="91" />
+<osmatch name="Sun Solaris 2.6 - 8 (SPARC)" accuracy="91" />
+</os>
+</host>
+<host><status state="down" />
+<address addr="128.3.72.15" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.16" addrtype="ipv4" />
+<hostnames><hostname name="mother.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:5C:9D:45" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.17" addrtype="ipv4" />
+<hostnames><hostname name="sitescope.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:11:43:DA:88:11" vendor="Dell" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="webcam" vendor="AXIS" osfamily="embedded" accuracy="100" />
+<osclass type="switch" vendor="Cisco" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="IBM" osfamily="MVS" accuracy="100" />
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2003/.NET" accuracy="100" />
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="NT/2K/XP" accuracy="100" />
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="95/98/ME" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.18" addrtype="ipv4" />
+<hostnames><hostname name="anchovy.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:97:30:AF" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="down" />
+<address addr="128.3.72.19" addrtype="ipv4" />
+</host>
+<host><status state="down" />
+<address addr="128.3.72.20" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.21" addrtype="ipv4" />
+<hostnames><hostname name="romulus.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="open" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:A0:98:01:13:7B" vendor="Network Appliance" addrtype="mac" />
+<os><portused state="open" proto="tcp" portid="80" />
+<osclass type="fileserver" vendor="NetApp" osfamily="Data ONTAP" accuracy="100" />
+<osclass type="web proxy" vendor="NetApp" osfamily="embedded" accuracy="100" />
+<osmatch name="NetApp Filer (Data OnTap 6.5.2) or NetCache (NetApp 5.6 - 6.0.1)" accuracy="100" />
+</os>
+<uptime seconds="6831758" lastboot="Mon Oct 11 11:42:19 2010" />
+<tcpsequence index="9999999" class="truly random" difficulty="Good luck!" values="89629396,25D23A30,E37C8594,496C1E9C,F601D567,45EC9F60" />
+<ipidsequence class="Broken little-endian incremental" values="1B00,1C00,1D00,1E00,1F00,2000" />
+<tcptssequence class="100HZ" values="28B86F13,28B86F31,28B86F4F,28B86F6D,28B86F8B,28B86FA9" />
+</host>
+<host><status state="down" />
+<address addr="128.3.72.22" addrtype="ipv4" />
+</host>
+<host><status state="down" />
+<address addr="128.3.72.23" addrtype="ipv4" />
+</host>
+<host><status state="up" />
+<address addr="128.3.72.24" addrtype="ipv4" />
+<hostnames><hostname name="swirl.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:01:D7:66:4E:C5" vendor="F5 Networks" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osmatch name="Apple Mac OS 8.5" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.25" addrtype="ipv4" />
+<hostnames><hostname name="vortex.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="filtered" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:01:D7:66:4E:C5" vendor="F5 Networks" addrtype="mac" />
+<os></os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.26" addrtype="ipv4" />
+<hostnames><hostname name="hawk.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:0D:EA:24" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<host><status state="up" />
+<address addr="128.3.72.27" addrtype="ipv4" />
+<hostnames><hostname name="mound.lbl.gov" type="PTR" /></hostnames>
+<ports><extraports state="unknown" count="0" />
+<port protocol="tcp" portid="80"><state state="closed" /><service name="http" method="table" conf="3" /></port>
+</ports>
+<address addr="00:03:BA:74:18:FF" vendor="Sun Microsystems" addrtype="mac" />
+<os><portused state="closed" proto="tcp" portid="80" />
+<osclass type="WAP" vendor="2Wire" osfamily="embedded" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="8.X" accuracy="100" />
+<osclass type="general purpose" vendor="Apple" osfamily="Mac OS" osgen="9.X" accuracy="100" />
+<osclass type="general purpose" vendor="HP" osfamily="HP-UX" osgen="11.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="10" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="2.X" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="7" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100" />
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="9" accuracy="100" />
+</os>
+</host>
+<runstats><finished time="1293654362" /><hosts up="17" down="10" total="27" />
+<!-- Nmap run completed at Wed Dec 29 12:26:02 2010; 27 IP addresses (17 hosts up) scanned in 140.547 seconds -->
+</runstats></nmaprun>
+

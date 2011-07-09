@@ -1,0 +1,3 @@
+Jan  6 13:26:25 131.243.164.24 sshd[24294]: [ID 800047 auth.error] error: PAM: Authentication failed for root from 2.home
+Jan  6 13:26:27 131.243.164.24 http-alt[24295]: [ID 800047 local1.error] MyApp: My cool application done been hacked!
+Jan  6 13:26:27 131.243.164.24 init[1]: [ID 800047 kern.error] Rootkit detected!

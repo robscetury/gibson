@@ -1,0 +1,17 @@
+import direct.directbase.DirectStart
+from direct.showbase.DirectObject import DirectObject
+
+class Game(DirectObject):
+    def __init__(self):
+        self.accept('escape', __import__('sys').exit)
+        self.parent = loader.loadModel('/Users/dklinedi/Pictures/longslug.egg')
+        self.parent.reparentTo(render)
+        self.child = loader.loadModel('/Users/dklinedi/Pictures/longslug.egg')
+        self.child.reparentTo(self.parent)
+        self.parent.setColor(1, 0, 0, 1)
+        self.child.setColor(0, 0, 1, 1)
+        self.parent.setPos(-0.5, 5, 0)
+        self.child.setPos(1, 0, 0)
+
+Game()
+run()

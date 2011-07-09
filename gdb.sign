@@ -1,0 +1,55 @@
+Attaching to process 5980.
+Reading symbols for shared libraries . done
+Reading symbols for shared libraries ..... done
+0x00007fff80fd09c4 in read ()
+(gdb) info registers
+rax            0x2000003	33554435
+rbx            0x7fff7022e100	140735074722048
+rcx            0x7fff5fbfe698	140734799799960
+rdx            0x1	1
+rsi            0x7fff5fbfe6af	140734799799983
+rdi            0x0	0
+rbp            0x7fff5fbfe6c0	0x7fff5fbfe6c0
+rsp            0x7fff5fbfe698	0x7fff5fbfe698
+r8             0x1	1
+r9             0x0	0
+r10            0x0	0
+r11            0x246	582
+r12            0x7fff5fbfe6af	140734799799983
+r13            0x0	0
+r14            0x10009c060	4295606368
+r15            0x10009df2c	4295614252
+rip            0x7fff80fd09c4	0x7fff80fd09c4 <read+8>
+eflags         0x246	582
+cs             0x2f	47
+ss             0x0	0
+ds             0x0	0
+es             0x0	0
+fs             0x10	16
+gs             0x48	72
+(gdb) x 0x7fff80fd09c4
+0x7fff80fd09c4 <read+8>:	0x0573050f
+(gdb) backtrace
+#0  0x00007fff80fd09c4 in read ()
+#1  0x0000000100060d3e in ?? ()
+#2  0x0000000100061387 in ?? ()
+#3  0x00000001000509d7 in ?? ()
+#4  0x0000000100050d58 in ?? ()
+#5  0x0000000100003ea9 in ?? ()
+#6  0x0000000100005443 in ?? ()
+#7  0x00000001000065c2 in ?? ()
+#8  0x0000000100009259 in ?? ()
+#9  0x00000001000031c7 in ?? ()
+#10 0x00000001000032b5 in ?? ()
+#11 0x0000000100003432 in ?? ()
+#12 0x0000000100003088 in ?? ()
+#13 0x0000000100000ed8 in ?? ()
+(gdb) info frame
+Stack level 0, frame at 0x7fff5fbfe6a0:
+ rip = 0x7fff80fd09c4 in read; saved rip 0x100060d3e
+ called by frame at 0x7fff5fbfe6d0
+ Arglist at 0x7fff5fbfe698, args: 
+ Locals at 0x7fff5fbfe698, Previous frame's sp is 0x7fff5fbfe6a0
+ Saved registers:
+  rip at 0x7fff5fbfe698
+

@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 26 09:55:52 2011
+
+@author: -
+"""
+
+from direct.showbase.ShowBase import ShowBase
+from direct.task import Task
+from pandac.PandaModules import *
+from direct.task import Task
+from direct.gui.OnscreenText import OnscreenText
+from direct.interval.IntervalGlobal import *
+from panda3d.core import Point3
+from direct.showbase import DirectObject
+
+class Panda(ShowBase):
+    def __init__(self):
+        ShowBase.__init__(self)
+        self.mover = NodePath("mover")
+        self.mover.reparentTo(render)
+        self.xaxis = self.loader.loadModel("models/longslug.egg")
+        self.xaxis.reparentTo(render)
+        self.xaxis.setColorScale(1, 0, 0, 1)
+        self.yaxis = self.loader.loadModel("models/longslug.egg")
+        self.yaxis.reparentTo(render)
+        self.yaxis.setH(90)
+        self.yaxis.setColorScale(0, 1, 0, 1)
+        self.zaxis = self.loader.loadModel("models/longslug.egg")
+        self.zaxis.reparentTo(render)
+        self.zaxis.setR(90)
+        self.zaxis.setColorScale(0, 0, 1, 1)
+        
+        plight = PointLight('my plight')
+        plnp = render.attachNewNode(plight)
+        plnp.setPos(0, -5, 5)
+        render.setLight(plnp)
+        
+        alight = AmbientLight('my alight')
+        alnp = render.attachNewNode(alight)
+        alight.setColor(VBase4(0.4, 0.4, 0.4, 1))
+        render.setLight(alnp)
+        self.setBackgroundColor(0.69,0.77,0.88)
+        
+        self.disableMouse()
+        self.useDrive()
+        base.drive.node().setPos(-10, -10, 2)
+        base.drive.node().setHpr(310, -10, 0)
+        
+        self.xaxis = self.loader.loadModel("models/longslug.egg")
+        self.xaxis.reparentTo(self.mover)
+        self.xaxis.setColorScale(1, 0, 0, 1)
+        self.yaxis = self.loader.loadModel("models/longslug.egg")
+        self.yaxis.reparentTo(self.mover)
+        self.yaxis.setH(90)
+        self.yaxis.setColorScale(0, 1, 0, 1)
+        self.zaxis = self.loader.loadModel("models/longslug.egg")
+        self.zaxis.reparentTo(self.mover)
+        self.zaxis.setR(90)
+        self.zaxis.setColorScale(0, 0, 1, 1)
+        self.mover.setScale(.5, .5, .5)
+        
+        pos2 = self.mover.posInterval(5, (1, -1, 1))
+        hpr2 = self.mover.hprInterval(5, (45, 30, 60))
+        myParallel = Parallel(pos2, hpr2, name="par")
+        myParallel.start()
+        
+        
+scene = Panda()
+scene.run()

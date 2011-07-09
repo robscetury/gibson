@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="file:///usr/local/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 5.35DC1 scan initiated Mon Jan 10 12:22:07 2011 as: nmap -sT -p80 -oX amazon.xml -O 174.129.29.73 -->
+<nmaprun scanner="nmap" args="nmap -sT -p80 -oX amazon.xml -O 174.129.29.73" start="1294680127" startstr="Mon Jan 10 12:22:07 2011" version="5.35DC1" xmloutputversion="1.03">
+<scaninfo type="connect" protocol="tcp" numservices="1" services="80"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1294680127" endtime="1294680128"><status state="up" reason="syn-ack"/>
+<address addr="174.129.29.73" addrtype="ipv4"/>
+<hostnames>
+<hostname name="ec2-174-129-29-73.compute-1.amazonaws.com" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<os><portused state="closed" proto="tcp" portid="80"/>
+<osclass type="general purpose" vendor="FreeBSD" osfamily="FreeBSD" osgen="8.X" accuracy="100"/>
+<osclass type="broadband router" vendor="GlobespanVirata" osfamily="embedded" accuracy="100"/>
+<osclass type="broadband router" vendor="Huawei" osfamily="embedded" accuracy="100"/>
+<osclass type="broadband router" vendor="Solwise" osfamily="embedded" accuracy="100"/>
+<osclass type="remote management" vendor="HP" osfamily="iLO" accuracy="100"/>
+<osclass type="bridge" vendor="Linksys" osfamily="embedded" accuracy="100"/>
+<osclass type="broadband router" vendor="Linksys" osfamily="embedded" accuracy="100"/>
+<osclass type="WAP" vendor="Linux" osfamily="Linux" osgen="2.4.X" accuracy="100"/>
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="100"/>
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="XP" accuracy="100"/>
+<osclass type="general purpose" vendor="Sun" osfamily="Solaris" osgen="8" accuracy="100"/>
+</os>
+<times srtt="14677" rttvar="11051" to="100000"/>
+</host>
+<runstats><finished time="1294680128" timestr="Mon Jan 10 12:22:08 2011" elapsed="1.59" summary="Nmap done at Mon Jan 10 12:22:08 2011; 1 IP address (1 host up) scanned in 1.59 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

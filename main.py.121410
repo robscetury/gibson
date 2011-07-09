@@ -1,0 +1,128 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Nov 18 16:40:21 2010
+
+@author: -
+"""
+
+import parse_nmap
+import threedee_math
+from math import pi, sin, cos
+from direct.showbase.ShowBase import ShowBase
+from direct.task import Task
+from pandac.PandaModules import *
+from direct.task import Task
+import sys
+import xml.sax
+from xml.sax.handler import feature_namespaces, ContentHandler
+import string
+import os
+import netaddr
+
+
+class Panda(ShowBase):
+    def __init__(self):
+        ShowBase.__init__(self)
+        self.setBackgroundColor(0.69,0.77,0.88)
+        self.disableMouse()
+        self.useDrive()
+        base.drive.node().setPos(-50, -50, 3)
+        base.drive.node().setHpr(300, 0, 0)
+        plight = DirectionalLight('my plight')
+        plnp = render.attachNewNode(plight)
+        plnp.setHpr(310, 0 ,30)
+        render.setLight(plnp)
+        
+        self.model = BuildModel()
+        self.model.map_servers(self, parse_nmap.networkMap)
+        self.taskMgr.add(self.followCameraTask, "FollowCameraTask")
+
+    
+    def followCameraTask(self, task):
+        for k, v in self.model.servers.iteritems():
+            coords = v.getPos()
+            distance = threedee_math.distance_between(base.drive.node().getPos(), coords)
+            if distance < 100:
+                v.show()
+            else:
+                v.hide()
+        
+        return Task.cont
+    
+    
+class BuildModel():
+    def __init__(self):
+        self.local_nets = os.environ['local_nets']
+        self.subnet_list = self.local_nets.split(' ')
+        self.private_nets = os.environ['private_nets']
+        self.private_net_list = self.private_nets.split(' ')
+        self.x = {}
+        self.servers = {}
+
+        for i in self.subnet_list:
+            self.x[i] = 0
+        for i in self.private_net_list:
+            self.x[i] = 0
+    
+    def map_servers(self, panda, server_list):
+        x = 0
+        for k, v in parse_nmap.networkMap.iteritems():
+            self.place_server(panda, x, k, self.servers)
+            x = x + 1
+    
+    def place_server(self, panda, counter, IP, servers):
+        xcoord = 0
+        ycoord = 0
+        zcoord = 0
+        for i in self.private_net_list:
+            #print i
+            if self.is_member_subnet(IP, i.split()):                
+                z = self.private_net_list.index(i)
+                y = 0
+                self.x[i] = self.x[i]+1
+                xcoord = self.x[i]
+                ycoord = y
+                zcoord = z
+                basecolor = (0.25, 0.41, 0.88, 1)
+        for i in self.subnet_list:
+            #print i
+            #print IP
+            if self.is_member_subnet(IP, i.split()):
+                z = self.subnet_list.index(i)
+                y = -24
+                self.x[i] = self.x[i]+1
+                xcoord = self.x[i]
+                ycoord = y
+                zcoord = z
+                basecolor = (1, 0.7, 1, 0.7)
+        coords = xcoord*12, ycoord, zcoord*12
+        servers[IP] = panda.loader.loadModel("/Users/dklinedi/Pictures/new-cube.egg")
+        servers[IP].reparentTo(panda.render)
+        servers[IP].setScale(1, 1, 1)
+        servers[IP].setPos(xcoord*12, ycoord, zcoord*12)
+        servers[IP].setColorScale(basecolor)
+        
+        distance = threedee_math.distance_between(base.drive.node().getPos(), coords)
+        print distance
+        if distance > 100:
+            servers[IP].hide()
+    
+    def is_member_subnet(self, IP, subnets):
+        if netaddr.all_matching_cidrs(IP, subnets):
+            return True
+        return False
+    
+#print os.environ['local_nets']
+threedee_math = threedee_math.threedee_math()
+parser = xml.sax.make_parser()
+parser.setFeature(feature_namespaces, 0)
+dh = parse_nmap.ImportServer()
+parser.setContentHandler(dh)
+xml_file = sys.argv[1]
+parser.parse(xml_file)
+
+scene = Panda()
+
+
+
+scene.run()

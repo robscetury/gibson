@@ -1,0 +1,5 @@
+t=1290601366.79 no=PortScan na=NOTICE_ALARM_ALWAYS sa=123.214.23.66 sp=60127/tcp da=135.246.91.7 dp=12444/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
+t=1282565007.37 no=AddressScan na=NOTICE_ALARM_ALWAYS sa=216.34.181.48 sp=60127/tcp da=135.246.91.11 dp=12444/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
+t=1288091106.98 no=CountSignature na=NOTICE_ALARM_ALWAYS sa=201.36.181.48 sp=60127/tcp da=135.246.91.23 dp=12444/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
+t=1284435254.02 no=AddressScan na=NOTICE_ALARM_ALWAYS sa=132.216.164.91 sp=60127/tcp da=79.120.86.20 dp=12444/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
+t=1284435254.02 no=AddressScan na=NOTICE_ALARM_ALWAYS sa=132.216.164.69 sp=60127/tcp da=79.120.86.20 dp=12444/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d

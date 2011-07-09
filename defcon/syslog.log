@@ -1,0 +1,2 @@
+Jan  6 13:26:25 192.168.1.14 sshd[24294]: [ID 800047 auth.error] error: PAM: Authentication failed for root from 2.home
+Jan  6 13:26:27 192.168.1.23 hackmed[24295]: [ID 800047 local1.error] MyApp: My cool application done been hacked!
