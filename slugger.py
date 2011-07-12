@@ -44,7 +44,7 @@ class Slugger():
         
         #parent.setColor(parent.getColor())
         self.node.setPos(-2, -10, -2)
-        self.node.setScale(20, 10, 3)
+        self.node.setScale(5, 2.5, .75)
         tag = ":".join(self.data[1:5])
         self.node.setTag('myObjectTag', tag)
         self.node.setTag('type', "Tunnel")
@@ -67,7 +67,7 @@ class Slugger():
         self.node = self.panda.loader.loadModel("models/slug2.egg")
         self.node.reparentTo(parent)
         self.node.setPos(-2, 0, 0)
-        self.node.setScale(3, 3, 3)
+        self.node.setScale(.75, .75, .75)
         self.initial_position = self.node.getPos()
         if direction == "Intra":
             self.starting_position = self.initial_position
@@ -132,7 +132,7 @@ class Slugger():
         self.node1 = self.panda.loader.loadModel("models/slug2.egg")
         self.node1.reparentTo(parent)
         self.node1.setPos(-2, 0, 0)
-        self.node1.setScale(1, 1, 1)
+        self.node1.setScale(.2, .2, .2)
         self.initial_position = self.node1.getPos()
         #print self.initial_position
         if direction == "Intra":
