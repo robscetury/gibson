@@ -81,7 +81,7 @@ class NewServer():
         coords = xcoord*10, ycoord*(-26), zcoord*14
         
         self.panda.model.servers[IP].reparentTo(self.panda.hybridview)
-        self.panda.model.servers[IP].setScale(5, 5, 5)
+        self.panda.model.servers[IP].setScale(4, 4, 4)
         self.panda.model.servers[IP].setPos(xcoord*10, ycoord*(-26), zcoord*14+offset)
         self.panda.model.servers[IP].setTransparency(True)
         self.panda.model.servers[IP].setColorScale(basecolor)
@@ -97,7 +97,7 @@ class NewServer():
         text.setText(hostname[:8] + "\n" + IP + "\n" + os)
         self.panda.model.names[IP] = self.panda.hybridview.attachNewNode(text)
         self.panda.model.names[IP].reparentTo(self.panda.model.servers[IP])
-        self.panda.model.names[IP].setPos( -2.5, -4.2, 3.5)
+        self.panda.model.names[IP].setPos( -1.8, -1.5, 1.5)
 
         
         distance = self.threedee_math.distance_between(base.drive.node().getPos(), coords)
