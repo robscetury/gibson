@@ -81,7 +81,7 @@ class NewServer():
         coords = xcoord*10, ycoord*(-26), zcoord*14
         
         self.panda.model.servers[IP].reparentTo(self.panda.hybridview)
-        self.panda.model.servers[IP].setScale(1, 1, 1)
+        self.panda.model.servers[IP].setScale(5, 5, 5)
         self.panda.model.servers[IP].setPos(xcoord*10, ycoord*(-26), zcoord*14+offset)
         self.panda.model.servers[IP].setTransparency(True)
         self.panda.model.servers[IP].setColorScale(basecolor)

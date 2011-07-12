@@ -87,7 +87,7 @@ class BuildModel():
         coords = xcoord*10, ycoord*(-24), zcoord*12
         servers[IP] = panda.loader.loadModel("models/crt.egg")
         servers[IP].reparentTo(panda.hybridview)
-        servers[IP].setScale(1, 1, 1)
+        servers[IP].setScale(4, 4, 4)
         servers[IP].setPos(xcoord*10, ycoord*(-24), zcoord*12+offset)
         servers[IP].setTransparency(True)
         servers[IP].setColorScale(basecolor)
@@ -114,7 +114,8 @@ class BuildModel():
         text.setText(hostname[:8] + "\n" + IP + "\n" + os)
         self.names[IP] = panda.hybridview.attachNewNode(text)
         self.names[IP].reparentTo(servers[IP])
-        self.names[IP].setPos( -2.5, -4.2, 3.5)
+        self.names[IP].setPos( -1.8, -1.5, 1.5)
+        self.names[IP].setScale(.25, .25, .25)
 
         
         distance = self.threedee_math.distance_between(base.drive.node().getPos(), coords)
