@@ -85,7 +85,7 @@ class BuildModel():
                 
         
         coords = xcoord*10, ycoord*(-24), zcoord*12
-        servers[IP] = panda.loader.loadModel("models/low-cube.egg")
+        servers[IP] = panda.loader.loadModel("models/crt.egg")
         servers[IP].reparentTo(panda.hybridview)
         servers[IP].setScale(1, 1, 1)
         servers[IP].setPos(xcoord*10, ycoord*(-24), zcoord*12+offset)

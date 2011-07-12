@@ -39,7 +39,7 @@ class BuildModel():
         self.slug.setScale(4, 3, 3)
         
         for ip in ip_array:
-            self.nodes[ip] = self.panda.loader.loadModel("models/new-cube.egg")
+            self.nodes[ip] = self.panda.loader.loadModel("models/crt.egg")
             self.nodes[ip].reparentTo(render)
             x = ip_array.index(ip)*-30
             y = 0

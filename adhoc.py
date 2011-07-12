@@ -36,7 +36,7 @@ class NewServer():
             for j in i:
                 self.x[j] = 0
                 
-        self.panda.model.servers[IP] = self.panda.loader.loadModel("models/low-cube.egg")
+        self.panda.model.servers[IP] = self.panda.loader.loadModel("models/crt.egg")
         self.rearrangeServers()
         print self.panda.new_node_counter
         

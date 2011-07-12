@@ -82,7 +82,7 @@ class NodeView():
         self.panda.dummy_center_node.setPos(0, 0, 0)
         self.panda.camera.setPos(-10, -75, 10)
         self.panda.camera.setHpr(90, 0, 0)
-        self.main_node = self.panda.loader.loadModel("models/low-cube.egg")
+        self.main_node = self.panda.loader.loadModel("models/crt.egg")
         self.main_node.reparentTo(panda.nodeview)
         self.main_node.setScale(4, 4, 8)
         self.main_node.setTransparency(1)
