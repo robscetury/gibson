@@ -80,8 +80,9 @@ class BuildModel():
                     #red = 0.1 + 2*((float(zone_number)+1)/10)
                     num = 2 * (zone_number + 1)
                     red = float(float(num) % 10)/10.0
-                    tran = 1.0 - (float(y) / 10.0)
-                    basecolor = (red, 0.41, 0.80, tran)
+                    #tran = 6.0 - (float(y) / 20.0)
+                    tran = 0.7
+                    basecolor = (red, 0.41, 0.60, tran)
                 
         
         coords = xcoord*10, ycoord*(-24), zcoord*12

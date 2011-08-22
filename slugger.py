@@ -68,11 +68,16 @@ class Slugger():
         self.node.reparentTo(parent)
         self.node.setPos(-2, 0, 0)
         self.node.setScale(.75, .75, .75)
+        self.node.getParent().setScale(5)
+        self.node.getParent().setAlphaScale(0.9)
         self.initial_position = self.node.getPos()
         if direction == "Intra":
+            print "Intra"
             self.starting_position = self.initial_position
             self.ending_position = self.panda.model.servers[self.data[5]].getPos()
             x, y, z = self.panda.model.servers[self.data[3]].getPos()
+            print "Going from" + str(x) + " " + str(y) + " "  + str(z)
+            print "To" + str(self.ending_position)
         elif direction == "Outbound":
             x, y, z = self.initial_position
             self.starting_position = (x, y+random.uniform(0, 20), z)
@@ -88,13 +93,15 @@ class Slugger():
         self.node.setTransparency(1)
         if self.data[2] == "SensitiveConnection":
             self.node.setColor(0.76, 0, 0, 1)
+            #parent.setColor(0.76, 0, 0, 1)
         tag = ":".join(self.data[1:5])
         self.node.setTag('myObjectTag', tag)
         if direction == "Intra":
             a, b, c = self.ending_position
             if b - y == 0:
                 y = y+0.01
-            self.ending_position = (a-x, b-y, c-z)
+            self.ending_position = ((a/4)-x, (b-y)/4, (c-z)/4)
+            print str(self.ending_position)
             if a-x == 0:
                 x = 0.01
             heading = atan((a-x)/(b-y) * (180 / pi))
@@ -103,13 +110,13 @@ class Slugger():
                 roll = roll * -1
             self.node.setH(heading)
             self.node.setR(roll)
-            self.position1 = self.node.posInterval(60, self.ending_position, startPos=self.starting_position, fluid=1)
-            self.position2 = self.node.posInterval(60, self.starting_position, startPos=self.ending_position, fluid=1)
+            self.position1 = self.node.posInterval(30, self.ending_position, startPos=self.starting_position, fluid=1)
+            self.position2 = self.node.posInterval(30, self.starting_position, startPos=self.ending_position, fluid=1)
             self.pingpong = Sequence(self.position1, self.position2, name=tag)
             #self.pingpong.loop()
         else:
             self.node.setH(90)
-            self.position1 = self.node.posInterval(60, self.ending_position, startPos=self.starting_position, fluid=1)
+            self.position1 = self.node.posInterval(30, self.ending_position, startPos=self.starting_position, fluid=1)
             self.pingpong = Sequence(self.position1, name=tag)
         
         
@@ -178,13 +185,13 @@ class Slugger():
                 roll = roll * -1
             self.node1.setH(heading)
             self.node1.setR(roll)
-            self.position3 = self.node1.posInterval(60, self.ending_position, startPos=self.starting_position)
-            self.position4 = self.node1.posInterval(60, self.starting_position, startPos=self.ending_position)
+            self.position3 = self.node1.posInterval(30, self.ending_position, startPos=self.starting_position)
+            self.position4 = self.node1.posInterval(30, self.starting_position, startPos=self.ending_position)
             self.pingpong1 = Sequence(self.position3, self.position4, name=tag)
             #self.pingpong1.loop()
         else:
             self.node1.setH(90)
-            self.position3 = self.node1.posInterval(60, self.ending_position, startPos=self.starting_position)
+            self.position3 = self.node1.posInterval(30, self.ending_position, startPos=self.starting_position)
             self.pingpong1 = Sequence(self.position3, name=tag)
             #self.pingpong1.loop()
             

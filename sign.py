@@ -31,62 +31,53 @@ import random
 class Sign():
     def __init__(self, panda):
         self.panda = panda
-        info = TextNode('sign1')
-        text = open('alarm.sign')
-        info.clearTextColor()
-        info.setText(text.read())
-        info.setCardAsMargin(0, 0, 0.5, 0)
-        info.setCardColor(1.0, 1.0, 1.0, 0.4)
-        info.setTextColor(1.0, 0.0, 0.0, 0.7)
-        info.setFrameAsMargin(0, 0, 0.5, 0)
-        info.setFrameColor(0.0, 0.0, 0.0, .9)
-        info.setCardDecal(True)
-        clickable = info.generate()
-        self.popup = self.panda.hybridview.attachNewNode(clickable)
-        self.popup.setH(30)
-        self.popup.setScale(0.5)
-        self.popup.setPos(-10, -45, 15)
-        self.popup.setTag('myObjectTag', 'PopUp')
-        self.popup.setLightOff()
-        text.close()
+        signs = [(TextNode('sign1'))]
+        clickables = []
+        self.popups = []
+        for sign in signs:
+            num = signs.index(sign)
+            text = open(str(num))
+            sign.clearTextColor()
+            sign.setText(text.read())
+            sign.setCardAsMargin(0, 0, 0.5, 0)
+            sign.setCardColor(1.0, 1.0, 1.0, 0.4)
+            sign.setTextColor(1.0, 0, 0, 1.0)
+            sign.setFrameAsMargin(0, 0, 0.5, 0)
+            sign.setFrameColor(0, 0, 0, 0.9)
+            sign.setCardDecal(True)
+            clickables.append(sign.generate())
+            self.popups.append(self.panda.hybridview.attachNewNode(clickables[num]))
+            self.popups[num].setH(30)
+            self.popups[num].setScale(0.5)
+            self.popups[num].setPos(-10 + 5*num, -45 + 5*num, 15 + 5*num)
+            self.popups[num].setTag('myObjectTag', 'PopUp')
+            self.popups[num].setLightOff()
+            text.close()
+            
+        model_sign = self.panda.loader.loadModel("models/sign.egg")
+        model_sign.reparentTo(self.panda.hybridview)
+        model_sign.setPos(0, -100, 10)
+        model_sign.setH(90)
+        model_sign_text = TextNode('model_sign_text')
+        model_sign_text.setTextColor(0, 0, 0, 1)
+        sign_text = ("Hello, world!")
+        model_sign_text.setText(sign_text)
+        text_node = model_sign.attachNewNode(model_sign_text)
+        text_node.setPos(-0.5, 1.8, 0)
+        text_node.setH(-90)
+        text_node.setScale(.6, .6, .6)
         
-        info2 = TextNode('sign2')
-        text = open('syslog.sign')
-        info2.clearTextColor()
-        info2.setText(text.read())
-        info2.setCardAsMargin(0, 0, 0.5, 0)
-        info2.setCardColor(1.0, 1.0, 1.0, 0.4)
-        info2.setTextColor(1.0, 0.0, 0.0, 0.7)
-        info2.setFrameAsMargin(0, 0, 0.5, 0)
-        info2.setFrameColor(0.0, 0.0, 0.0, .9)
-        info2.setCardDecal(True)
-        clickable2 = info2.generate()
-        self.popup2 = self.panda.hybridview.attachNewNode(clickable2)
-        self.popup2.setH(30)
-        self.popup2.setScale(0.5)
-        self.popup2.setPos(-5, -50, 20)
-        self.popup2.setTag('myObjectTag', 'PopUp')
-        self.popup2.setLightOff()
-        text.close
         
-        info3 = TextNode('sign3')
-        text = open('gdb.sign')
-        info3.clearTextColor()
-        info3.setText(text.read())
-        info3.setCardAsMargin(0, 0, 0.5, 0)
-        info3.setCardColor(1.0, 1.0, 1.0, 0.4)
-        info3.setTextColor(1.0, 0.0, 0.0, 0.7)
-        info3.setFrameAsMargin(0, 0, 0.5, 0)
-        info3.setFrameColor(0.0, 0.0, 0.0, .9)
-        info3.setCardDecal(True)
-        clickable3 = info3.generate()
-        self.popup3 = self.panda.hybridview.attachNewNode(clickable3)
-        self.popup3.setH(30)
-        self.popup3.setScale(0.5)
-        self.popup3.setPos(0, -55, 25)
-        self.popup3.setTag('myObjectTag', 'PopUp')
-        self.popup3.setLightOff()
-        text.close
+        
+        signlight = PointLight('signlight')
+        signlight.setColor(VBase4(0.4, 0.4, 0.4, 1))
+        slnp = self.panda.hybridview.attachNewNode(signlight)
+        slnp.setPos(-20, -5, 0)
+        #model_sign.setLightOff()
+        
+            
+            
+        
         
         other_sign = TextNode('block')
         text = "Hostile IP\nblocked"
@@ -102,8 +93,8 @@ class Sign():
         self.x.loop()
         
     def moveSign(self):
-        position1 = self.popup3.posInterval(2, (20, -70, 25),startPos=self.popup3.getPos() )
-        rotate1 = self.popup3.hprInterval(2, (0, 0, 0), self.popup3.getHpr())
+        position1 = self.popups[0].posInterval(2, (20, -70, 25),startPos=self.popups[0].getPos() )
+        rotate1 = self.popups[0].hprInterval(2, (0, 0, 0), self.popups[0].getHpr())
         par = Parallel(position1, rotate1, name="blah")
         par.start()
         

@@ -22,7 +22,7 @@ import socket
 
 class NewServer():
     def __init__(self, IP, panda):
-        print "NewServer"
+        
         self.threedee_math = threedee_math.threedee_math()
         self.panda = panda
         self.IP = IP
@@ -30,7 +30,7 @@ class NewServer():
         
         
         self.panda.model.servers[IP] = True
-        print "Building node for" + IP
+        
         
         for i in self.panda.model.master_zone_array:
             for j in i:
@@ -38,7 +38,7 @@ class NewServer():
                 
         self.panda.model.servers[IP] = self.panda.loader.loadModel("models/crt.egg")
         self.rearrangeServers()
-        print self.panda.new_node_counter
+        
         
     def rearrangeServers(self):
         new_one = False
@@ -53,7 +53,7 @@ class NewServer():
                         if new_one and self.is_member_subnet(self.IP, j.split()):
                             v.setX(v.getX()+10)
                         if k == self.IP:
-                            print "Node loop " + k
+                            #print "Node loop " + k
                             self.buildNew(k, self.x[j])
                             new_one = True
                 
@@ -98,6 +98,7 @@ class NewServer():
         self.panda.model.names[IP] = self.panda.hybridview.attachNewNode(text)
         self.panda.model.names[IP].reparentTo(self.panda.model.servers[IP])
         self.panda.model.names[IP].setPos( -1.8, -1.5, 1.5)
+        self.panda.model.names[IP].setScale(.06, .06, .06)
 
         
         distance = self.threedee_math.distance_between(base.drive.node().getPos(), coords)

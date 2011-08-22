@@ -29,18 +29,39 @@ class BuildSubnetModel():
     def __init__(self, camera, panda, conf_file):
         if not conf_file:
             conf_file = 'None'
+        print conf_file
         self.configuration = config.ConfigFile(conf_file)
         self.camera = camera
         self.panda = panda
         self.view = self.panda.subnetview
-        self.skybox = self.panda.loader.loadModel("models/skybox-big.egg")
-        self.skyboxTexture = self.panda.loader.loadTexture("images/sky1.jpg")
+        if self.configuration.skyshape():
+            skybox_model = "models/" + self.configuration.skyshape()
+        else:
+            skybox_model = "models/skybox"
+        print skybox_model
+        try:
+
+            self.skybox = self.panda.loader.loadModel(skybox_model)
+           
+        except:
+            #traceback.print_exc()
+            print "Skybox Model not found"
+        if self.configuration.skybox_texture():
+            texture = "images/" + self.configuration.skybox_texture()
+        else:
+            texture="images/sky.jpg"
+        try:
+            self.skyboxTexture = self.panda.loader.loadTexture(texture)
+        except:
+            print "Skybox texture not found."
         self.skyboxTexture.setWrapU(Texture.WMRepeat)     
         self.skyboxTexture.setWrapV(Texture.WMRepeat)        
         self.skybox.setTexture(self.skyboxTexture, 1)
         self.skybox.reparentTo(self.view)
         self.skybox.setScale(100)
-        self.skybox.setH(60)
+        self.skybox.setH(30)
+        
+        self.camera.setX(-20)
 
         
         plight = DirectionalLight('my plight')

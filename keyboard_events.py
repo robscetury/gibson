@@ -64,7 +64,7 @@ class KeyboardEvents(DirectObject.DirectObject):
                 self.camera.setP(-50)
                 for i in self.panda.model.names.itervalues():
                     i.setR(-90)
-                    i.setZ(i.getZ()-5)
+                    i.setZ(i.getZ()-1.5)
                     i.setColorScaleOff()
                     i.setColorScale(0, 0, 0, 1)
                 self.orientation = "portrait"
@@ -77,7 +77,7 @@ class KeyboardEvents(DirectObject.DirectObject):
                 for i in self.panda.model.names.itervalues():
                     i.setR(0)
                     #i.setX(i.getX()+10)
-                    i.setZ(i.getZ()+5)
+                    i.setZ(i.getZ()+1.5)
                     i.setColorScaleOff()
                     i.setColorScale(0, 0, 0, 1)
                 self.orientation = "landscape"
@@ -172,9 +172,9 @@ class KeyboardEvents(DirectObject.DirectObject):
         self.signage.moveSign()
         
     def exampleKill(self):
-        self.signage.popup.removeNode()
-        self.signage.popup2.removeNode()
-        self.signage.popup3.removeNode()
+        for i in self.signage.popups:
+            i.removeNode()
+        
         
         self.signage.x.finish()
         self.signage.popup4.removeNode()

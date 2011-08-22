@@ -15,6 +15,7 @@ import build_subnet
 import config
 import node
 import adhoc
+import blades
 
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
@@ -60,6 +61,9 @@ class Panda(ShowBase):
         self.nodeview = NodePath("nodeview")
         self.nodeview.reparentTo(render)
         self.nodeview.hide()
+        self.bladeview = NodePath("bladeview")
+        self.bladeview.reparentTo(render)
+        self.bladeview.hide()
         self.dummy_center_node = render.attachNewNode("dummy_center_node")
         self.dummy_center_node.setPos(0, 0, 0)
         self.camera.reparentTo(self.dummy_center_node)
@@ -184,8 +188,10 @@ class Panda(ShowBase):
             interface = gui.KeyboardEvents(keys, self.model, base.drive.node(), self)
 
             # Build the subnet view model
-            self.subnet = build_subnet.BuildSubnetModel(base.drive.node(), self, self.options.configfile)
-        colour = (0.5,0.8,0.8)
+            self.subnet = build_subnet.BuildSubnetModel(base.drive.node(), self, conf_file)
+        
+        #self.hybridview.hide()
+        #blade = blades.BladeView(self)
         
     def tskReaderPolling(self,taskdata):
         if self.cReader.dataAvailable():
@@ -370,12 +376,12 @@ class Panda(ShowBase):
                     self.popup.setH(self.camera, 150)
                     self.popup.setCompass(self.camera)
                 else:
-                    self.popup.setScale(0.25)
+                    self.popup.setScale(0.10)
                     self.popup.setPos(-3, 0, 3)
                     self.popup.setH(270)
                     #self.popup.setH(self.camera, 150)
                     #self.popup.setCompass(self.camera)
-                    i.node.setScale(3)
+                    i.node.setScale(1.25)
                     
             
     def findClickedServer(self, server, IP):
@@ -413,9 +419,11 @@ class Panda(ShowBase):
         self.nodeview.show()
         
     def is_member_subnet(self, IP, subnets):
-        if netaddr.all_matching_cidrs(IP, subnets):
-            return True
-        return False
+        try:
+            if netaddr.all_matching_cidrs(IP, subnets):
+                return True
+        except:
+            return False
 
     
     
