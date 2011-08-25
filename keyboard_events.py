@@ -169,7 +169,10 @@ class KeyboardEvents(DirectObject.DirectObject):
         self.signage = sign.Sign(self.panda)
         
     def exampleMove(self):
-        self.signage.moveSign()
+        try:
+            self.signage.moveSign()
+        except:
+            pass
         
     def exampleKill(self):
         for i in self.signage.popups:

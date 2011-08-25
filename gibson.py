@@ -311,7 +311,7 @@ class Panda(ShowBase):
                     if pickedObj.getAncestor(1).getNetTag("type") == "Tunnel":
                         pickedObj.removeNode()
                     else:
-                        pickedObj.getAncestor(1).setScale(2)
+                        
                         pickedObj.removeNode()
                     
                 elif obj_id == "ServerPopUp":
@@ -369,7 +369,7 @@ class Panda(ShowBase):
                 self.popup.setTag('myObjectTag', 'PopUp')
                 self.popup.setLightOff()
                 if i.node.getNetTag('type') == "Tunnel":
-                    self.popup.setPos(0.5, -10, 8)
+                    self.popup.setPos(0.5, -1, 2)
                     self.popup.setScale(0.025, 0.05, 0.167)
                     self.popup.setColorScale(0, 0, 0, 0.9)
                     #self.popup.setBillboardAxis()
@@ -377,11 +377,11 @@ class Panda(ShowBase):
                     self.popup.setCompass(self.camera)
                 else:
                     self.popup.setScale(0.10)
-                    self.popup.setPos(-3, 0, 3)
+                    self.popup.setPos(3, 5, 1)
                     self.popup.setH(270)
                     #self.popup.setH(self.camera, 150)
                     #self.popup.setCompass(self.camera)
-                    i.node.setScale(1.25)
+                    #i.node.setScale(1)
                     
             
     def findClickedServer(self, server, IP):

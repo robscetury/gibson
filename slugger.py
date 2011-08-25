@@ -110,13 +110,13 @@ class Slugger():
                 roll = roll * -1
             self.node.setH(heading)
             self.node.setR(roll)
-            self.position1 = self.node.posInterval(30, self.ending_position, startPos=self.starting_position, fluid=1)
-            self.position2 = self.node.posInterval(30, self.starting_position, startPos=self.ending_position, fluid=1)
+            self.position1 = self.node.posInterval(60, self.ending_position, startPos=self.starting_position, fluid=1)
+            self.position2 = self.node.posInterval(60, self.starting_position, startPos=self.ending_position, fluid=1)
             self.pingpong = Sequence(self.position1, self.position2, name=tag)
             #self.pingpong.loop()
         else:
             self.node.setH(90)
-            self.position1 = self.node.posInterval(30, self.ending_position, startPos=self.starting_position, fluid=1)
+            self.position1 = self.node.posInterval(60, self.ending_position, startPos=self.starting_position, fluid=1)
             self.pingpong = Sequence(self.position1, name=tag)
         
         
@@ -185,13 +185,13 @@ class Slugger():
                 roll = roll * -1
             self.node1.setH(heading)
             self.node1.setR(roll)
-            self.position3 = self.node1.posInterval(30, self.ending_position, startPos=self.starting_position)
-            self.position4 = self.node1.posInterval(30, self.starting_position, startPos=self.ending_position)
+            self.position3 = self.node1.posInterval(60, self.ending_position, startPos=self.starting_position)
+            self.position4 = self.node1.posInterval(60, self.starting_position, startPos=self.ending_position)
             self.pingpong1 = Sequence(self.position3, self.position4, name=tag)
             #self.pingpong1.loop()
         else:
             self.node1.setH(90)
-            self.position3 = self.node1.posInterval(30, self.ending_position, startPos=self.starting_position)
+            self.position3 = self.node1.posInterval(60, self.ending_position, startPos=self.starting_position)
             self.pingpong1 = Sequence(self.position3, name=tag)
             #self.pingpong1.loop()
             

@@ -41,15 +41,7 @@ class BroReader():
         string = "".join(fields[2:])
         output = "|".join([time,category,"ALARM", source,source_p,destination,dest_p,string])
         
-        #new_line = record.replace("\\ ", "\\")
-        #fields = new_line.split(" ")
-        #for i in fields:
-        #    if (i == fields[2]):
-        #        continue
-        #    parts = i.split("=")
-        #    dumb_array = (out_line, parts[1])
-        #    out_line = "|".join(dumb_array)
-        #output = out_line.replace("\\"," ")
+        
         return output
         
         
