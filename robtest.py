@@ -29,11 +29,11 @@ class SceneClass(template.Panda):
         linfog.setLinearFallback(45,160,320)
         render.attachNewNode(linfog)
         render.setFog(linfog)
-        self.cube2.setPos(self.cube, 15, 5, 5)
-        
+        #self.cube2.setPos(self.cube, 15, 5, 5)
+        self.spring.perturb(Vec3(25,25,1))
     def objectClicked(self):
-        self.cube2.setPos(self.cube, 15, 5, 5)
-
+        #self.cube2.setPos(self.cube, 15, 5, 5)
+        self.spring.perturb( Vec3(10,10,10), 2500)
     def move(self, task):
         
         #r = self.cube.getHpr()

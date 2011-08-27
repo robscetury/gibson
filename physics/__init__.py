@@ -30,10 +30,27 @@ class Spring(object):
             self._force2 = None
             self._lastPosNode1 = self._node1.getPos()
             self._lastPosNode2 = self._node2.getPos()
+            self._impulse1 = None
+            self._impulse2 = None
+            self._timeOut = None
       def timer(self):
+            actor1 = self._actor1.getPhysical(0)
+            actor2 = self._actor2.getPhysical(0)
             if self._force1:
-                  self._actor1.getPhysical(0).removeLinearForce(self._force1)
-                  self._actor2.getPhysical(0).removeLinearForce(self._force2)
+                  actor1.removeLinearForce(self._force1)
+                  actor2.removeLinearForce(self._force2)
+            if self._impulse1:
+                  if globalClock.getLongTime() > self._timeOut:
+                        print "removing perturbation"
+                        try:
+                              actor1.removeLinearForce(self._impulse1)
+                              actor2.removeLinearForce(self._impulse2)
+                        except Exception, e:
+                              print e
+                              print "failed"
+                        self._impulse1 = None
+                        self._impulse2 = None
+                        self._timeOut = None
             force = self.getForce()
             #print force
             
@@ -65,7 +82,7 @@ class Spring(object):
             #newTime = globalClock.getDt()
             #if newTime > self.lastTime:
             distance = self._node1.getPos(self._render) - self._node2.getPos(self._render)
-            print 'distance %s'%distance
+            #print 'distance %s'%distance
             zDistance = self._zeroDistance
             force = Vec3( self._springConstant * ( zDistance.x - distance.x), self._springConstant * (zDistance.y - distance.y), self._springConstant* (zDistance.z - distance.z))
                           
@@ -74,7 +91,7 @@ class Spring(object):
             posDelta1 = self._node1.getPos(self._render) - self._lastPosNode1
             
             posDelta2 =  self._node2.getPos(self._render) - self._lastPosNode2
-            print posDelta1, posDelta2
+            #print posDelta1, posDelta2
             posDelta = posDelta1 + posDelta2
             self._lastPosNode1 = self._node1.getPos(self._render)
             self._lastPosNode2 = self._node2.getPos(self._render)
@@ -85,13 +102,13 @@ class Spring(object):
             velocity = self._actor1.getPhysicsObject().getVelocity()
             force2Vec = Vec3( velocity.x  * (  self._drag), velocity.y  * ( self._drag),  velocity.z*(self._drag))
             
-            print "Drag Force " + str(force2Vec)
+            #print "Drag Force " + str(force2Vec)
             force = self._roundVec(force - force2Vec)
-            print "Spring force " + str(force)
+            #print "Spring force " + str(force)
             #self.lastTime = newTime
             #print "Combined " + str(force)
-            
-            return force
+            if force.length()>.01:
+                  return force      
       
                                                                     
       def round_to_n(self, x, n):
@@ -106,3 +123,28 @@ class Spring(object):
             vector.y = self.round_to_n(vector.y, 3)
             vector.z = self.round_to_n(vector.z, 3)
             return vector
+
+      def perturb(self, force, time=1000):
+            print "perturbing %s, %s"%(force, time)
+            node1 = self._node1
+            node2 = self._node2
+            actor1 = self._actor1
+            actor2 = self._actor2
+            self._timeOut = globalClock.getLongTime() + time/1000
+            force2 = node2.getRelativeVector( node1, force)
+            force2 = Vec3( -1*force2.x, -1*force2.y, -1*force2.z)
+            
+            forceN1 = ForceNode('Impulse1')
+            lvf1 = LinearVectorForce( force )
+            lvf1.setMassDependent(1)
+            forceN1.addForce(lvf1)
+            node1.attachNewNode(forceN1)
+            actor1.getPhysical(0).addLinearForce(lvf1)
+            forceN2 = ForceNode("Impulse2")
+            lvf2 = LinearVectorForce( force2)
+            lvf2.setMassDependent(1)
+            forceN2.addForce(lvf2)
+            node2.attachNewNode(forceN2)
+            actor2.getPhysical(0).addLinearForce(lvf2)
+            self._impulse1 = lvf1
+            self._impulse2 = lvf2
