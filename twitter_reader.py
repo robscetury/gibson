@@ -8,6 +8,7 @@ import send_event
 import traceback
 
 REAL_TIME_PAUSE = True
+REAL_TIME_SCALEFACTOR = 10 # time moves faster if this < 1
 
 def findMentions(tweet):
     iter =  re.finditer(r'(\A|\s)@(\w+)', tweet)
@@ -52,8 +53,9 @@ class TwitterReader():
                     print message
                     #print status.GetCreatedAtInSeconds() - startTime
                     if REAL_TIME_PAUSE:
-                        time.sleep( status.GetCreatedAtInSeconds() - startTime)
-                        totalWait += (status.GetCreatedAtInSeconds() - startTime)
+                        print "Wating %i seconds"%((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
+                        time.sleep( (status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
+                        totalWait += ((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
                     startTime = status.GetCreatedAtInSeconds()
             except:
                 traceback.print_exc()
