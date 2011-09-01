@@ -5,6 +5,9 @@ import twitter
 import time 
 import re
 import send_event
+import traceback
+
+REAL_TIME_PAUSE = True
 
 def findMentions(tweet):
     iter =  re.finditer(r'(\A|\s)@(\w+)', tweet)
@@ -40,14 +43,24 @@ class TwitterReader():
         while 1:
             try:
                 statuses = a.GetFriendsTimeline(since_id=self.since_id)
-                for status in statuses:
-                  message = self.format(status)
-                  socket.send_event(self._ip, self._port, message.encode("ascii", 'replace'))
-                  print message
+                startTime = statuses[-1].GetCreatedAtInSeconds()
+                totalWait = 0
+                for status in range(len(statuses)-1, 0, -1):
+                    status = statuses[status]
+                    message = self.format(status)
+                    socket.send_event(self._ip, self._port, message.encode("ascii", 'replace'))
+                    print message
+                    #print status.GetCreatedAtInSeconds() - startTime
+                    if REAL_TIME_PAUSE:
+                        time.sleep( status.GetCreatedAtInSeconds() - startTime)
+                        totalWait += (status.GetCreatedAtInSeconds() - startTime)
+                    startTime = status.GetCreatedAtInSeconds()
             except:
+                traceback.print_exc()
                 pass # most likely a connection error...so lets try again later...
             print "sleeping..."
-            time.sleep(60)
+            if totalWait < 60:
+                time.sleep(60 - totalWait)
 if __name__=="__main__":
     reader = TwitterReader()
     reader.run()
