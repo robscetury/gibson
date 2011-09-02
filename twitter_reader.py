@@ -7,7 +7,7 @@ import re
 import send_event
 import traceback
 
-REAL_TIME_PAUSE = True
+REAL_TIME_PAUSE = False
 REAL_TIME_SCALEFACTOR = 10 # time moves faster if this < 1
 
 def findMentions(tweet):
@@ -36,11 +36,26 @@ class TwitterReader():
         
         return "|".join([str(timesent), type, "ALARM", u.user.screen_name, "N/A", mentions, "N/A", u.text])
 
+
+    def formatList(self, lstType, lst):
+        lstString = ",".join(lst)
+        return "|".join( [str( int(time.time() * 1000)), lstType, lstString])
     def run(self):
         a = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET, USER_ACCESS_TOKEN,
         ACCESS_TOKEN_SECRET)
         self.since_id = None
         socket = send_event.EncapsulateForPanda()
+        friends = a.GetFriends()
+        friendList = [ "@%s"%u.screen_name for u in friends]
+        message = self.formatList("friendList", friendList)
+        socket.send_event(self._ip, self._port, message.encode("ascii","replace"))
+        print message
+        followers = a.GetFollowers()
+        followerList = [ "@%s"%u.screen_name for u in followers]
+        message = self.formatList("followerList", followerList)
+        
+        socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
+        print message
         while 1:
             try:
                 statuses = a.GetFriendsTimeline(since_id=self.since_id)
@@ -57,6 +72,8 @@ class TwitterReader():
                         time.sleep( (status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
                         totalWait += ((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
                     startTime = status.GetCreatedAtInSeconds()
+            except KeyboardInterrupt, e:
+                break
             except:
                 traceback.print_exc()
                 pass # most likely a connection error...so lets try again later...
