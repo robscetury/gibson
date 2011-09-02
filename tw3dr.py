@@ -187,12 +187,12 @@ class SceneClass(template.Panda):
                         for d in data[5].split(","):
                             id = data[0] + data[1] + data[3] + "." + d.strip()
                             id = data[3]
-                            self.moveSpring(id)
-                    else:
-                        id = data[0] + data[1] + data[3]
-                        id = data[3]
+                            self.moveSpring(id.replace("@", ""))
+
+                    id = data[0] + data[1] + data[3]
+                    id = data[3]
                         #self.slugs[id] = Tweet(self, id)
-                        self.moveSpring(id)
+                    self.moveSpring(id)
                 #id_builder = (data[1], data[3], data[4], data[5], data[6])
                 #id = "".join(id_builder)
                 #try:
@@ -215,6 +215,6 @@ class SceneClass(template.Panda):
             node2.setColor(0.76, 0, 0, 1)
             print "moving spring"
             force = node1.getPos() - node2.getPos()
-            force = Vec3( (-10/force.length()) * force.x, (-10/force.length())* force.y , (-10/force.length()) * force.z)
+            force = Vec3( (-100/force.length()) * force.x, (-100/force.length())* force.y , (-100/force.length()) * force.z)
             self._springMgr.perturbSpring(node1, node2, force, 4000)
 template.startGibson(SceneClass)

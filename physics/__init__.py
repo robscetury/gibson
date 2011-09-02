@@ -166,7 +166,7 @@ class SpringManager(object):
             self._render = render
             self._actorMap = {}
             self._springMap= {}
-      def addSpring(self, node1, node2, mass = 10, springConstant = 10, drag = 1):
+      def addSpring(self, node1, node2, mass = 10, springConstant = 10, drag = 20):
             if not self._springMap.get( (node1, node2)):
                   actor1 = self._actorMap.get(node1)
                   actor2 = self._actorMap.get(node2)
