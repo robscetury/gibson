@@ -7,7 +7,7 @@ import re
 import send_event
 import traceback
 
-REAL_TIME_PAUSE = False
+REAL_TIME_PAUSE = True
 REAL_TIME_SCALEFACTOR = 10 # time moves faster if this < 1
 
 def findMentions(tweet):

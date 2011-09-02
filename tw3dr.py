@@ -21,7 +21,7 @@ class Tweet(slugger.SluggerBase):
         self.createSlug("Inbound")
         
     def createSlug(self, direction):
-        print u"creating slug for @%s"%self.data[3]
+        #print u"creating slug for @%s"%self.data[3]
         parentName = str("@%s"%self.data[3])
         parent = self.panda.friends.get(parentName.strip())
         dest = self.panda.dummy_center_node
@@ -29,7 +29,7 @@ class Tweet(slugger.SluggerBase):
             parent = self.panda.followers.get(parentName.strip())
                 
         if parent:
-            print parent
+            #print parent
             self.node = self.panda.loader.loadModel("models/slug2.egg")
             self.node.reparentTo(parent)
             self.node.setPos(parent.getPos())
@@ -37,14 +37,14 @@ class Tweet(slugger.SluggerBase):
             #self.node.getParent().setScale(5)
             #self.node.getParent().setAlphaScale(0.9)
             self.initial_position = self.node.getPos()
-            print "got node"
+            #print "got node"
             if direction == "Intra":
-                print "Intra"
+                #print "Intra"
                 self.starting_position = self.initial_position
                 self.ending_position = dest.getPos()
                 x, y, z = self.panda.nodes["@%s"%self.data[3]].getPos()
-                print "Going from" + str(x) + " " + str(y) + " "  + str(z)
-                print "To" + str(self.ending_position)
+                #print "Going from" + str(x) + " " + str(y) + " "  + str(z)
+                #print "To" + str(self.ending_position)
             elif direction == "Outbound":
                 x, y, z = self.initial_position
                 self.starting_position = (x, y+random.uniform(0, 20), z)
@@ -68,7 +68,7 @@ class Tweet(slugger.SluggerBase):
                 if b - y == 0:
                     y = y+0.01
                 self.ending_position = ((a/4)-x, (b-y)/4, (c-z)/4)
-                print str(self.ending_position)
+                #print str(self.ending_position)
                 if a-x == 0:
                     x = 0.01
                 heading = atan((a-x)/(b-y) * (180 / pi))
@@ -90,7 +90,7 @@ class Tweet(slugger.SluggerBase):
             self.node1.setPos(-2, 0, 0)
             #self.node1.setScale(.2, .2, .2)
             self.initial_position = self.node1.getPos()
-            print self.initial_position
+            #print self.initial_position
             if direction == "Intra":
                 self.starting_position = self.initial_position
                 self.ending_position = dstNet.getPos()
@@ -105,7 +105,7 @@ class Tweet(slugger.SluggerBase):
                     ycoord = (y-50)+random.uniform(0, 20)
                 self.ending_position = (x, ycoord, z)
             elif direction == "Inbound":
-                print "Inboud"
+                #print "Inboud"
                 x, y, z = self.node.getRelativePoint(self.node, self.initial_position)
                 self.starting_position = (x, y, z)
                 self.ending_position = self.node.getRelativePoint(self.node, dest.getPos())
@@ -117,7 +117,7 @@ class Tweet(slugger.SluggerBase):
             self.position3 = self.node1.posInterval(30, self.ending_position, startPos=self.starting_position)
             self.pingpong1 = Sequence(self.position3, name=self.data[4])
             self.pingpong1.loop()
-            print "This is it:" +str(self.starting_position) + ", " + str(self.ending_position)
+            #print "This is it:" +str(self.starting_position) + ", " + str(self.ending_position)
         else:
             print "no parent found"
             
@@ -133,9 +133,10 @@ class SceneClass(template.Panda):
         udpSocket = self.cManager.openUDPConnection(1723)
         self.cReader.addConnection(udpSocket)
         self.taskMgr.add(self.tskReaderPolling,"Poll the connection reader",-40)
+        self.taskMgr.add(self.update, "update")
         self.friends = dict()
         self.followers = dict()
-
+        self._springMgr = SpringManager(self, self.render)
         self.myNode = render.attachNewNode("dummy_center_node")
         self.dummy_center_node.setPos(0, 0, 0)
         self.setBackgroundColor(0.69,0.77,0.88)
@@ -148,21 +149,26 @@ class SceneClass(template.Panda):
     def move(self, task):
         pass
     def update(self, task):
-        pass
+        self._springMgr.timer()
+        return task.cont
     def buildFollowerCluster(self, lst):
         lstCount = len(lst.split(","))
-        self.followerCluster = build_cluster.ModelBase(self, lstCount, 75)
+        self.followerCluster = build_cluster.ModelBase(self, lstCount, 30)
         count = 0
         for l in lst.split(","):
             self.followers[ l.strip() ] = self.followerCluster.nodes[count]
+            sphere = self.followerCluster.center
+            self._springMgr.addSpring(sphere, self.followerCluster.nodes[count])
             count = count + 1
         print self.followers.keys()
     def buildFriendCluster(self, lst):
         lstCount = len(lst.split(","))
-        self.friendCluster = build_cluster.ModelBase(self, lstCount, 30)
+        self.friendCluster = build_cluster.ModelBase(self, lstCount, 15)
         count = 0
         for l in lst.split(","):
             self.friends[l.strip()] = self.friendCluster.nodes[count]
+            sphere = self.friendCluster.center
+            self._springMgr.addSpring(sphere, self.friendCluster.nodes[count])
             count = count + 1
         print self.friends.keys()
     def tskReaderPolling(self,taskdata):
@@ -180,10 +186,13 @@ class SceneClass(template.Panda):
                     if data[5]:
                         for d in data[5].split(","):
                             id = data[0] + data[1] + data[3] + "." + d.strip()
-                            self.slugs[id] = Tweet(self, data)
+                            id = data[3]
+                            self.moveSpring(id)
                     else:
                         id = data[0] + data[1] + data[3]
-                        self.slugs[id] = Tweet(self, data)
+                        id = data[3]
+                        #self.slugs[id] = Tweet(self, id)
+                        self.moveSpring(id)
                 #id_builder = (data[1], data[3], data[4], data[5], data[6])
                 #id = "".join(id_builder)
                 #try:
@@ -193,5 +202,19 @@ class SceneClass(template.Panda):
                 
                 
         return Task.cont
-
+    def moveSpring(self, id):
+        print "@%s"%id
+        node2 = self.friends.get(str("@%s"%id).strip())
+        if not node2:
+            node2 = self.followers.get(str("@%s"%id).strip())
+            node1 = self.followerCluster.center
+        else:
+            node1 = self.friendCluster.center
+        print node1, node2
+        if node2:
+            node2.setColor(0.76, 0, 0, 1)
+            print "moving spring"
+            force = node1.getPos() - node2.getPos()
+            force = Vec3( (-10/force.length()) * force.x, (-10/force.length())* force.y , (-10/force.length()) * force.z)
+            self._springMgr.perturbSpring(node1, node2, force, 4000)
 template.startGibson(SceneClass)
