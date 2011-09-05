@@ -10,25 +10,56 @@ from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 
 import netaddr
-
+import subprocess
 from math import pi, atan
 import time
 import random
 import re
+
+FOAF_FORCE = Vec3(5,5,5)
+
 class Tweet(slugger.SluggerBase):
     def __init__(self,panda, data):
         slugger.SluggerBase.__init__(self, panda, data)
+        #self.dest = dest
         self.createSlug("Inbound")
         
     def createSlug(self, direction):
         #print u"creating slug for @%s"%self.data[3]
         parentName = str("@%s"%self.data[3])
         parent = self.panda.friends.get(parentName.strip())
-        dest = self.panda.dummy_center_node
+        #dest = self.panda.dummy_center_node
+        #dest = self.dest
         if not parent:
             parent = self.panda.followers.get(parentName.strip())
-                
+            dest = self.panda.followerCluster.center
+        else:
+            dest = self.panda.friendCluster.center
         if parent:
+            self.starting_position = dest.getRelativePoint(dest, parent.getPos())
+            print "found Parent"
+            #self.node = self.panda.loader.loadModel('models/slug2.egg')
+            #self.node.setPos(parent.getPos())
+            self.initial_position = dest.getRelativePoint(dest, parent.getPos())
+            print self.initial_position
+            self.ending_position = dest.getRelativePoint(dest, dest.getPos())
+            print self.ending_position
+            #self.position1 = self.node.posInterval(30, self.ending_position, startPos=self.starting_position, fluid=1)
+            #self.position2 = self.node.posInterval(30, self.starting_position, startPos=self.ending_position, fluid=1)
+            #self.pingpong = Sequence(self.position1, self.position2, name=self.data[-1])
+            #self.pingpong.start()
+            self.node1 = self.panda.loader.loadModel("models/slug2.egg")
+            self.node1.reparentTo(dest)
+            self.node1.setPos( dest.getRelativePoint(dest, parent.getPos()))
+            self.node1.lookAt(dest)
+            #self.node1.setH(90)
+            self.node1.setHpr(dest, Vec3(90, 90,180))
+            self.position3 = self.node1.posInterval(30, self.ending_position, startPos=self.starting_position)
+            self.pingpong1 = Sequence(self.position3)#, name=self.data[-1])
+            self.pingpong1.start()
+            return
+        
+        
             #print parent
             self.node = self.panda.loader.loadModel("models/slug2.egg")
             self.node.reparentTo(parent)
@@ -134,43 +165,173 @@ class SceneClass(template.Panda):
         self.cReader.addConnection(udpSocket)
         self.taskMgr.add(self.tskReaderPolling,"Poll the connection reader",-40)
         self.taskMgr.add(self.update, "update")
+        self.taskMgr.doMethodLater(2, self.startEventDaemon, 'launch')
         self.friends = dict()
         self.followers = dict()
         self._springMgr = SpringManager(self, self.render)
         self.myNode = render.attachNewNode("dummy_center_node")
         self.dummy_center_node.setPos(0, 0, 0)
-        self.setBackgroundColor(0.69,0.77,0.88)
-        #self.skybox = self.loader.loadModel("models/skysphere.egg")
-        #self.skyboxTexture = self.loader.loadTexture("images/tron.png")
+        print "Setting up skybox"
+        self.camera.reparentTo(self.dummy_center_node)
+        bg_color = (0.69,0.77,0.88)
+        #self.setBackgroundColor(bg_color)
+        skybox_model = "models/skysphere.egg"
+        try:
+
+            self.skybox = self.loader.loadModel(skybox_model)
+               
+        except:
+            traceback.print_exc()
+            print "Skybox Model not found"
+        texture="images/book.jpg"
+        try:
+            self.skyboxTexture = self.loader.loadTexture(texture)
+        except:
+            print "Skybox texture not found."
+        print self.skybox, self.skyboxTexture
+        #self.skyboxTexture.setWrapU(Texture.WMRepeat)     
+        #self.skyboxTexture.setWrapV(Texture.WMRepeat)        
+
         
-        #self.enableParticles()
+    
+        self.skybox.reparentTo(self.cam)
+        self.skybox.setScale(2)
+        self.skybox.setCompass()
+        self.camLens.setFar(500)
+        self.skybox.setTexture(self.skyboxTexture, 1)
+        self.skybox.setBin('background', 1)
+        self.skybox.setDepthWrite(0)
+        self.skybox.setLightOff()
+          
+        self.skybox.setCollideMask(BitMask32.allOff())
+        print "done"
+        #self.setBackgroundColor(0.69,0.77,0.88)
+        self.finalExitCallbacks.append(self.cleanup)
+        self._oortCloudDistance = 501
+        self._oortCloudClusters = dict()
+        self._oortCloudNodes = dict()
+        
+        
+    def buildOortCloud(self, username, foafList):
+        foaflist = foafList.split(",")
+        for u in foaflist:
+            if u in self.followers:
+                print "gotta follower %s"%u 
+                node = self.followers[u]
+                sphere = self.followerCluster.center
+                s = self._springMgr._springMap[ (sphere, node)]
+                print s._zeroDistance
+                zDistance = s._zeroDistance
+                s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                print s._zeroDistance
+                newZDistance = s._zeroDistance
+                node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
+                s.perturb(FOAF_FORCE)
+                s = None
+                if u in self.followers:
+                    s= self._springMgr.addSpring( self.followers[username], node)
+                elif username in self.friends:
+                    s= self._springMgr.addSpring( self.friends[username], node)
+                if s:
+                    s.perturb(FOAF_FORCE)
+            elif u in self.friends:
+                node = self.friends[u]
+                sphere = self.friendCluster.center
+                s = self._springMgr._springMap[ (sphere, node)]
+                print s._zeroDistance
+                zDistance = s._zeroDistance
+                s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                print s._zeroDistance
+                newZDistance = s._zeroDistance
+                #s = self._springMgr.addSpring(sphere, node, lengthFactor =3)
+                #newZDistance = s._zeroDistance
+                #print newZDistance
+                node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
+                s.perturb(FOAF_FORCE)
+                if username in self.friends:
+                    s = self._springMgr.addSpring( self.friends[username], node)
+                    s.perturb(FOAF_FORCE)
+                elif username in self.followers:
+                    self._springMgr.addSpring( self.followers[username], node)
+                    s.perturb(FOAF_FORCE)
+                print "gotta friend %s"%u
+            else:
+                lstCount = len(foafList.split(","))
+                self._oortCloudClusters[username]=build_cluster.ModelBase(self, lstCount, self._oortCloudDistance)
+                
+                
+                self._oortCloudDistance += 10
+                count = 0
+                for l in foafList.split(","):
+                    if l.strip() not in self._oortCloudNodes:
+                        self._oortCloudNodes[ l.strip() ] = self._oortCloudClusters[username].nodes[count]
+                        self._oortCloudNodes[ l.strip()].setColor(.4, .4, .4, .5)
+                        sphere = self._oortCloudClusters[username].center
+                        self._springMgr.addSpring(sphere, self._oortCloudClusters[username].nodes[count])
+                        count = count + 1
+                #print "put in Oort Cloud"
+        
+    def startEventDaemon(self, task):
+        self._daemon = subprocess.Popen(['ppython',
+                                         'event_daemon.py',
+                                         'localhost',
+                                         '1723',
+                                         'twitter'])
+        return task.done
+    
+    def cleanup(self):
+        print "gc called"
+        if hasattr(self, "_daemon"):
+            print "killing"
+            #self._daemon.kill()
+            #self._daemon.kill()
+            pid = self._daemon.pid
+            subprocess.call(["kill", "-9", str(pid)])
+            self._daemon = None
+            print "killed"
     def objectClicked(self):
         pass
     def move(self, task):
         pass
     def update(self, task):
-        self._springMgr.timer()
+        #self._springMgr.timer()
+        delList = list()
+        for slug in self.slugs:
+            if hasattr(self.slugs[slug], "node1"):
+                if self.slugs[slug].node1.getPos() == Vec3(0,0,0):
+                    print "deleting slug"
+                    delList.append( slug)
+                    #del self.slugs[slug]
+            else:
+                #del self.slugs[slug]
+                delList.append(slug)
+        for s in delList:
+            del self.slugs[s]
         return task.cont
     def buildFollowerCluster(self, lst):
         lstCount = len(lst.split(","))
-        self.followerCluster = build_cluster.ModelBase(self, lstCount, 30)
+        self.followerCluster = build_cluster.ModelBase(self, lstCount,75)
         count = 0
         for l in lst.split(","):
-            self.followers[ l.strip() ] = self.followerCluster.nodes[count]
-            sphere = self.followerCluster.center
-            self._springMgr.addSpring(sphere, self.followerCluster.nodes[count])
-            count = count + 1
-        print self.followers.keys()
+            if l.strip() not in self.friends:
+                self.followers[ l.strip() ] = self.followerCluster.nodes[count]
+                self.followers[ l.strip()].setColor(.8, .8, .8, .5)
+                sphere = self.followerCluster.center
+                self._springMgr.addSpring(sphere, self.followerCluster.nodes[count])
+                count = count + 1
+        #print self.followers.keys()
     def buildFriendCluster(self, lst):
         lstCount = len(lst.split(","))
-        self.friendCluster = build_cluster.ModelBase(self, lstCount, 15)
+        self.friendCluster = build_cluster.ModelBase(self, lstCount, 50)
         count = 0
         for l in lst.split(","):
-            self.friends[l.strip()] = self.friendCluster.nodes[count]
-            sphere = self.friendCluster.center
-            self._springMgr.addSpring(sphere, self.friendCluster.nodes[count])
-            count = count + 1
-        print self.friends.keys()
+            if l.strip() not in self.followers:
+                self.friends[l.strip()] = self.friendCluster.nodes[count]
+                self.friends[l.strip()].setColor(.5,.5,5,.3)
+                sphere = self.friendCluster.center
+                self._springMgr.addSpring(sphere, self.friendCluster.nodes[count])
+                count = count + 1
+        #print self.friends.keys()
     def tskReaderPolling(self,taskdata):
         if self.cReader.dataAvailable():
             datagram=NetDatagram()
@@ -181,6 +342,8 @@ class SceneClass(template.Panda):
                     self.buildFriendCluster( data[2] )
                 elif data[1] == "followerList":
                     self.buildFollowerCluster(data[2])
+                elif data[1] == "foaf":
+                    self.buildOortCloud(data[2], data[3])
                 else:
 
                     if data[5]:
@@ -188,10 +351,12 @@ class SceneClass(template.Panda):
                             id = data[0] + data[1] + data[3] + "." + d.strip()
                             id = data[3]
                             self.moveSpring(id.replace("@", ""))
+                            self.slugs["|".join(data)] = Tweet(self, data)
 
                     id = data[0] + data[1] + data[3]
                     id = data[3]
-                        #self.slugs[id] = Tweet(self, id)
+                    
+                    self.slugs["|".join(data)] = Tweet(self, data)
                     self.moveSpring(id)
                 #id_builder = (data[1], data[3], data[4], data[5], data[6])
                 #id = "".join(id_builder)
@@ -212,9 +377,15 @@ class SceneClass(template.Panda):
             node1 = self.friendCluster.center
         print node1, node2
         if node2:
-            node2.setColor(0.76, 0, 0, 1)
+            #node2.setColor(0.76, 0, 0, 1)
             print "moving spring"
             force = node1.getPos() - node2.getPos()
             force = Vec3( (-100/force.length()) * force.x, (-100/force.length())* force.y , (-100/force.length()) * force.z)
             self._springMgr.perturbSpring(node1, node2, force, 4000)
+
 template.startGibson(SceneClass)
+print "Done with scene!"
+template.scene.__del__()
+print "Del called"
+del(template.scene)
+print "Scene deleted"

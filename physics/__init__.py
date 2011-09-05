@@ -2,7 +2,7 @@ from pandac.PandaModules import OdeBody, OdeMass, ActorNode, Vec3, ForceNode, Li
 
 class Spring(object):
 
-      def __init__(self, base, render,  node1, node2, nodeMass=1, springConstant = 1, drag=5, actor1=None, actor2=None):
+      def __init__(self, base, render,  node1, node2, nodeMass=1, springConstant = 1, drag=5, actor1=None, actor2=None, lengthFactor =1):
             self._render = render
             self._base = base
             self._base.enableParticles()
@@ -31,7 +31,12 @@ class Spring(object):
             self._springConstant = float(springConstant)
             self._drag = float(drag)
             self.lastTime = globalClock.getDt()
-            self._zeroDistance = self._node1.getPos() - self._node2.getPos()
+            if lengthFactor == 1:
+                  self._zeroDistance = self._node1.getPos() - self._node2.getPos()
+            else:
+                  vec = self._node1.getPos() - self._node2.getPos()
+                  vec = Vec3(  (vec.x/lengthFactor), (vec.y/lengthFactor), (vec.z/lengthFactor) )
+                  self._zeroDistance = vec
             self._force1 = None
             self._force2 = None
             self._lastPosNode1 = self._node1.getPos()
@@ -39,7 +44,8 @@ class Spring(object):
             self._impulse1 = None
             self._impulse2 = None
             self._timeOut = None
-      def timer(self):
+            self._base.taskMgr.add(self.timer, "update")
+      def timer(self, task):
             actor1 = self._actor1.getPhysical(0)
             actor2 = self._actor2.getPhysical(0)
             if self._force1:
@@ -82,7 +88,7 @@ class Spring(object):
                   self._actor2.getPhysical(0).addLinearForce(lvf2)
                   self._force1 = lvf1
                   self._force2 = lvf2
-
+            return task.cont
       def getForce(self):
             
             #newTime = globalClock.getDt()
@@ -116,8 +122,10 @@ class Spring(object):
             if force.length()>.01:
                   return force
             else:
-                  self._node1.setColor( self._node1.getColor())
-                  self._node2.setColor( self._node2.getColor())
+                  if hasattr(self, "_backToColor") and self._backToColor:
+                        self._node1.setColor( self._backToColor )
+                        self._node2.setColor( self._backToColor )
+                        self._backToColor = None
       
                                                                     
       def round_to_n(self, x, n):
@@ -133,7 +141,7 @@ class Spring(object):
             vector.z = self.round_to_n(vector.z, 3)
             return vector
 
-      def perturb(self, force, time=1000):
+      def perturb(self, force, time=1000, backToColor=None):
             #print "perturbing %s, %s"%(force, time)
             node1 = self._node1
             node2 = self._node2
@@ -157,6 +165,8 @@ class Spring(object):
             actor2.getPhysical(0).addLinearForce(lvf2)
             self._impulse1 = lvf1
             self._impulse2 = lvf2
+            if backToColor:
+                  self._backToColor = backToColor
             
             
 class SpringManager(object):
@@ -166,11 +176,11 @@ class SpringManager(object):
             self._render = render
             self._actorMap = {}
             self._springMap= {}
-      def addSpring(self, node1, node2, mass = 10, springConstant = 10, drag = 20):
+      def addSpring(self, node1, node2, mass = 10, springConstant = 10, drag = 20, lengthFactor = 1):
             if not self._springMap.get( (node1, node2)):
                   actor1 = self._actorMap.get(node1)
                   actor2 = self._actorMap.get(node2)
-                  s = Spring(self._base, self._render, node1, node2, mass, springConstant, drag, actor1, actor2)
+                  s = Spring(self._base, self._render, node1, node2, mass, springConstant, drag, actor1, actor2, lengthFactor)
                   #if not actor1:
                   #      self._actorMap[node1] = s._actor1
                   #if not actor2:
@@ -180,9 +190,9 @@ class SpringManager(object):
       def perturbSpring(self, node1, node2, force, time):
             s = self._springMap.get( (node1, node2))
             if s:
-                  s.perturb( force, time)
+                  s.perturb( force, time ,node1.getColor())
             
-      def timer(self):
-            for s in self._springMap:
-                  s = self._springMap[s]
-                  s.timer()
+      #def timer(self):
+      #      for s in self._springMap:
+      #            s = self._springMap[s]
+      #            s.timer()

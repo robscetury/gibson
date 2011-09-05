@@ -6,18 +6,22 @@ import time
 import re
 import send_event
 import traceback
-
-REAL_TIME_PAUSE = True
+import sets 
+REAL_TIME_PAUSE = False
 REAL_TIME_SCALEFACTOR = 10 # time moves faster if this < 1
 
 def findMentions(tweet):
     iter =  re.finditer(r'(\A|\s)@(\w+)', tweet)
     return iter
+
+
 class TwitterReader():
 
     def __init__(self, ip, port):
         self._port  = port
         self._ip = ip
+        self.followerIdList = sets.Set()
+
     def format(self, u):
         if self.since_id==None or u.GetId() > self.since_id:
             self.since_id = u.GetId()
@@ -40,6 +44,12 @@ class TwitterReader():
     def formatList(self, lstType, lst):
         lstString = ",".join(lst)
         return "|".join( [str( int(time.time() * 1000)), lstType, lstString])
+        
+    def formatFOAFList(self, username, lst):
+        lst = [ "@%s"%l for l in lst]
+        lstString = ",".join(lst)
+        return "|".join([ str(int(time.time() * 1000)), "foaf", "@%s"%username, lstString])
+    
     def run(self):
         a = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET, USER_ACCESS_TOKEN,
         ACCESS_TOKEN_SECRET)
@@ -49,18 +59,28 @@ class TwitterReader():
         friendList = [ "@%s"%u.screen_name for u in friends]
         message = self.formatList("friendList", friendList)
         socket.send_event(self._ip, self._port, message.encode("ascii","replace"))
+        [ self.followerIdList.add(u.screen_name) for u in friends]
         print message
         followers = a.GetFollowers()
         followerList = [ "@%s"%u.screen_name for u in followers]
         message = self.formatList("followerList", followerList)
-        
+        [self.followerIdList.add(u.screen_name) for u in followers]
         socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
         print message
+        lastFollowerCall = 0
         while 1:
             try:
+                totalWait = 0
+                if (time.time() - lastFollowerCall ) > 30:
+                    userId = self.followerIdList.pop()
+                    f = a.GetFriends(userId)
+                    message = self.formatFOAFList(userId, [u.screen_name for u in f])
+                    socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
+                    print message
+                    lastFollowerCall = time.time()
                 statuses = a.GetFriendsTimeline(since_id=self.since_id)
                 startTime = statuses[-1].GetCreatedAtInSeconds()
-                totalWait = 0
+               
                 for status in range(len(statuses)-1, 0, -1):
                     status = statuses[status]
                     message = self.format(status)
@@ -78,8 +98,9 @@ class TwitterReader():
                 traceback.print_exc()
                 pass # most likely a connection error...so lets try again later...
             print "sleeping..."
-            if totalWait < 60:
-                time.sleep(60 - totalWait)
+            if totalWait < 30:
+                time.sleep(30 - totalWait)
+
 if __name__=="__main__":
     reader = TwitterReader()
     reader.run()

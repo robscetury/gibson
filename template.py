@@ -106,6 +106,7 @@ def startGibson(sceneClass=None):
     m = MouseClick()
     globals()["scene"] = scene
     scene.run()
+    print "Done"
 
 
 
