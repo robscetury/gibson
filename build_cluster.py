@@ -25,13 +25,16 @@ from math import sin, cos, pi, sqrt, atan
 import random
 
 class ModelBase():
-    def __init__(self, panda, nodes, radius = 5):
+    def __init__(self, panda, nodes, radius = 5, center = None):
         self.panda = panda
         self.nodes = {}
         self.slugs = {}
-        self.center = self.panda.loader.loadModel("models/sphere.egg")
-        self.center.reparentTo(render)
-        self.center.setColorScale(0.7, 0.41, 0.80, 1)
+        if not center:
+            self.center = self.panda.loader.loadModel("models/sphere.egg")
+            self.center.reparentTo(render)
+            self.center.setColorScale(0.7, 0.41, 0.80, 1)
+        else:
+            self.center = center
         self._radius = radius
         self.draw_nodes(nodes)
 

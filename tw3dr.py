@@ -16,7 +16,7 @@ import time
 import random
 import re
 
-FOAF_FORCE = Vec3(5,5,5)
+FOAF_FORCE = Vec3(50,50,50)
 
 class Tweet(slugger.SluggerBase):
     def __init__(self,panda, data):
@@ -210,11 +210,15 @@ class SceneClass(template.Panda):
         self._oortCloudDistance = 501
         self._oortCloudClusters = dict()
         self._oortCloudNodes = dict()
-        
+        self.center = self.loader.loadModel("models/sphere.egg")
+        self.center.reparentTo(self.render)
+        self.center.setColorScale(0.7, 0.41, 0.80, 1)
         
     def buildOortCloud(self, username, foafList):
+        print "in buildOortCloud"
         foaflist = foafList.split(",")
         for u in foaflist:
+            #print u
             if u in self.followers:
                 print "gotta follower %s"%u 
                 node = self.followers[u]
@@ -225,15 +229,21 @@ class SceneClass(template.Panda):
                 s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
                 print s._zeroDistance
                 newZDistance = s._zeroDistance
-                node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
+                #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
                 s.perturb(FOAF_FORCE)
                 s = None
-                if u in self.followers:
+                if username in self.followers:
                     s= self._springMgr.addSpring( self.followers[username], node)
+                    zDistance = s._zeroDistance
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    print s._zeroDistance
                 elif username in self.friends:
                     s= self._springMgr.addSpring( self.friends[username], node)
+                    zDistance = s._zeroDistance
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    print s._zeroDistance
                 if s:
-                    s.perturb(FOAF_FORCE)
+                    s.perturb(FOAF_FORCE, 2000)
             elif u in self.friends:
                 node = self.friends[u]
                 sphere = self.friendCluster.center
@@ -246,31 +256,38 @@ class SceneClass(template.Panda):
                 #s = self._springMgr.addSpring(sphere, node, lengthFactor =3)
                 #newZDistance = s._zeroDistance
                 #print newZDistance
-                node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
-                s.perturb(FOAF_FORCE)
+                #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
+                s.perturb(FOAF_FORCE, 2000)
                 if username in self.friends:
                     s = self._springMgr.addSpring( self.friends[username], node)
-                    s.perturb(FOAF_FORCE)
+                    zDistance = s._zeroDistance
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    print s._zeroDistance
+                    s.perturb(FOAF_FORCE, 2000)
                 elif username in self.followers:
                     self._springMgr.addSpring( self.followers[username], node)
-                    s.perturb(FOAF_FORCE)
+                    zDistance = s._zeroDistance
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    print s._zeroDistance
+                    s.perturb(FOAF_FORCE, 2000)
                 print "gotta friend %s"%u
             else:
-                lstCount = len(foafList.split(","))
-                self._oortCloudClusters[username]=build_cluster.ModelBase(self, lstCount, self._oortCloudDistance)
+                #return # for now, see if it is causing performance issues to have all these nodes and springs
+                #lstCount = len(foafList.split(","))
+                #self._oortCloudClusters[username]=build_cluster.ModelBase(self, lstCount, self._oortCloudDistance, center=self.center)
                 
                 
-                self._oortCloudDistance += 10
-                count = 0
-                for l in foafList.split(","):
-                    if l.strip() not in self._oortCloudNodes:
-                        self._oortCloudNodes[ l.strip() ] = self._oortCloudClusters[username].nodes[count]
-                        self._oortCloudNodes[ l.strip()].setColor(.4, .4, .4, .5)
-                        sphere = self._oortCloudClusters[username].center
-                        self._springMgr.addSpring(sphere, self._oortCloudClusters[username].nodes[count])
-                        count = count + 1
+                #self._oortCloudDistance += 10
+                #count = 0
+                #for l in foafList.split(","):
+                #    if l.strip() not in self._oortCloudNodes:
+                #        self._oortCloudNodes[ l.strip() ] = self._oortCloudClusters[username].nodes[count]
+                #        self._oortCloudNodes[ l.strip()].setColor(.4, .4, .4, .5)
+                #        sphere = self._oortCloudClusters[username].center
+                #        self._springMgr.addSpring(sphere, self._oortCloudClusters[username].nodes[count])
+                #        count = count + 1
                 #print "put in Oort Cloud"
-        
+                pass
     def startEventDaemon(self, task):
         self._daemon = subprocess.Popen(['ppython',
                                          'event_daemon.py',
@@ -310,7 +327,7 @@ class SceneClass(template.Panda):
         return task.cont
     def buildFollowerCluster(self, lst):
         lstCount = len(lst.split(","))
-        self.followerCluster = build_cluster.ModelBase(self, lstCount,75)
+        self.followerCluster = build_cluster.ModelBase(self, lstCount,75, center=self.center)
         count = 0
         for l in lst.split(","):
             if l.strip() not in self.friends:
@@ -322,7 +339,7 @@ class SceneClass(template.Panda):
         #print self.followers.keys()
     def buildFriendCluster(self, lst):
         lstCount = len(lst.split(","))
-        self.friendCluster = build_cluster.ModelBase(self, lstCount, 50)
+        self.friendCluster = build_cluster.ModelBase(self, lstCount, 50, center=self.center)
         count = 0
         for l in lst.split(","):
             if l.strip() not in self.followers:
