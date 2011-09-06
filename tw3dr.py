@@ -224,10 +224,10 @@ class SceneClass(template.Panda):
                 node = self.followers[u]
                 sphere = self.followerCluster.center
                 s = self._springMgr._springMap[ (sphere, node)]
-                print s._zeroDistance
-                zDistance = s._zeroDistance
-                s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                print s._zeroDistance
+                #print s._zeroDistance
+                #zDistance = s._zeroDistance
+                #s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                #print s._zeroDistance
                 newZDistance = s._zeroDistance
                 #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
                 s.perturb(FOAF_FORCE)
@@ -235,12 +235,12 @@ class SceneClass(template.Panda):
                 if username in self.followers:
                     s= self._springMgr.addSpring( self.followers[username], node)
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                 elif username in self.friends:
                     s= self._springMgr.addSpring( self.friends[username], node)
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                 if s:
                     s.perturb(FOAF_FORCE, 2000)
@@ -248,11 +248,11 @@ class SceneClass(template.Panda):
                 node = self.friends[u]
                 sphere = self.friendCluster.center
                 s = self._springMgr._springMap[ (sphere, node)]
-                print s._zeroDistance
-                zDistance = s._zeroDistance
-                s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                print s._zeroDistance
-                newZDistance = s._zeroDistance
+                #print s._zeroDistance
+                #zDistance = s._zeroDistance
+                #s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                #print s._zeroDistance
+                #newZDistance = s._zeroDistance
                 #s = self._springMgr.addSpring(sphere, node, lengthFactor =3)
                 #newZDistance = s._zeroDistance
                 #print newZDistance
@@ -261,13 +261,13 @@ class SceneClass(template.Panda):
                 if username in self.friends:
                     s = self._springMgr.addSpring( self.friends[username], node)
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                     s.perturb(FOAF_FORCE, 2000)
                 elif username in self.followers:
                     self._springMgr.addSpring( self.followers[username], node)
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                     s.perturb(FOAF_FORCE, 2000)
                 print "gotta friend %s"%u

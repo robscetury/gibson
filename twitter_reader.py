@@ -71,7 +71,7 @@ class TwitterReader():
         while 1:
             try:
                 totalWait = 0
-                if (time.time() - lastFollowerCall ) > 30:
+                if (time.time() - lastFollowerCall ) > 15:
                     userId = self.followerIdList.pop()
                     f = a.GetFriends(userId)
                     message = self.formatFOAFList(userId, [u.screen_name for u in f])
@@ -98,8 +98,8 @@ class TwitterReader():
                 traceback.print_exc()
                 pass # most likely a connection error...so lets try again later...
             print "sleeping..."
-            if totalWait < 30:
-                time.sleep(30 - totalWait)
+            if totalWait < 15:
+                time.sleep(15 - totalWait)
 
 if __name__=="__main__":
     reader = TwitterReader()
