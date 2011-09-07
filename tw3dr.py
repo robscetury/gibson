@@ -15,7 +15,7 @@ from math import pi, atan
 import time
 import random
 import re
-
+import traceback
 FOAF_FORCE = Vec3(50,50,50)
 
 class Tweet(slugger.SluggerBase):
@@ -36,6 +36,7 @@ class Tweet(slugger.SluggerBase):
         else:
             dest = self.panda.friendCluster.center
         if parent:
+            parent.setTag("Status", self.data[-1])
             self.starting_position = dest.getRelativePoint(dest, parent.getPos())
             print "found Parent"
             #self.node = self.panda.loader.loadModel('models/slug2.egg')
@@ -52,6 +53,10 @@ class Tweet(slugger.SluggerBase):
             self.node1.reparentTo(dest)
             self.node1.setPos( dest.getRelativePoint(dest, parent.getPos()))
             self.node1.lookAt(dest)
+            self.node1.setTag('postedby', self.data[3])
+            self.node1.setTag('myObjectTag', self.data[-1])
+            if len(self.data[5].split( ","))> 0:
+                self.node1.setTag("Mentions", self.data[5])
             #self.node1.setH(90)
             self.node1.setHpr(dest, Vec3(90, 90,180))
             self.position3 = self.node1.posInterval(30, self.ending_position, startPos=self.starting_position)
@@ -214,7 +219,23 @@ class SceneClass(template.Panda):
         self.center.reparentTo(self.render)
         self.center.setColorScale(0.7, 0.41, 0.80, 1)
         
+         # Get Mouse Clicks
+        self.myHandler = CollisionHandlerQueue()
+        self.myTraverser = CollisionTraverser()
+        self.myTraverser.setRespectPrevTransform(True)
+        
+        # Uncomment following line to make collisions (mouse clicks) visible on screen
+        #self.myTraverser.showCollisions(render)
+        pickerNode = CollisionNode('mouseRay')
+        pickerNP = camera.attachNewNode(pickerNode)
+        pickerNode.setFromCollideMask(GeomNode.getDefaultCollideMask())
+        self.pickerRay = CollisionRay()
+        pickerNode.addSolid(self.pickerRay)
+        self.myTraverser.addCollider(pickerNP, self.myHandler)
+       
+        
     def buildOortCloud(self, username, foafList):
+        return 
         print "in buildOortCloud"
         foaflist = foafList.split(",")
         for u in foaflist:
@@ -306,8 +327,8 @@ class SceneClass(template.Panda):
             subprocess.call(["kill", "-9", str(pid)])
             self._daemon = None
             print "killed"
-    def objectClicked(self):
-        pass
+    #def objectClicked(self):
+    #    pass
     def move(self, task):
         pass
     def update(self, task):
@@ -333,6 +354,7 @@ class SceneClass(template.Panda):
             if l.strip() not in self.friends:
                 self.followers[ l.strip() ] = self.followerCluster.nodes[count]
                 self.followers[ l.strip()].setColor(.8, .8, .8, .5)
+                self.followers[l.strip()].setTag("myObjectTag", "follower|%s"%l.strip())
                 sphere = self.followerCluster.center
                 self._springMgr.addSpring(sphere, self.followerCluster.nodes[count])
                 count = count + 1
@@ -345,6 +367,7 @@ class SceneClass(template.Panda):
             if l.strip() not in self.followers:
                 self.friends[l.strip()] = self.friendCluster.nodes[count]
                 self.friends[l.strip()].setColor(.5,.5,5,.3)
+                self.friends[l.strip()].setTag("myObjectTag", "friend|%s"%l.strip())
                 sphere = self.friendCluster.center
                 self._springMgr.addSpring(sphere, self.friendCluster.nodes[count])
                 count = count + 1
@@ -399,6 +422,179 @@ class SceneClass(template.Panda):
             force = node1.getPos() - node2.getPos()
             force = Vec3( (-100/force.length()) * force.x, (-100/force.length())* force.y , (-100/force.length()) * force.z)
             self._springMgr.perturbSpring(node1, node2, force, 4000)
+
+    def findFriend(self, friendNode, friendId):
+        self.UserPopup(friendNode, friendId)
+    def findFollower(self, followerNode, follower):
+        self.UserPopup(followerNode, follower)
+    def UserPopup(self, node, fId):
+        fId = fId.split("|")[-1]
+        info = TextNode(str(fId))
+        text = "\n".join( [fId, node.getTag("Status")])
+        #text = "\n".join(i.data[1:])
+        info.clearTextColor()
+        info.setText(text)
+        info.setCardAsMargin(0, 0, 0.5, 0)
+        info.setCardColor(1.0, 1.0, 1.0, 0.7)
+        info.setTextColor(1.0, 0.0, 0.0, 1.0)
+        info.setFrameAsMargin(0, 0, 0.5, 0)
+        info.setFrameColor(0.0, 0.0, 0.0, .9)
+        info.setCardDecal(True)
+        clickable = info.generate()
+        self.popup = node.attachNewNode(clickable)
+        self.popup.reparentTo(node)
+        self.popup.setH(270)
+        #self.popup.setScale(0.25)
+        x, y, z = node.getPos()
+        #self.popup.setPos(-3, 3, 3)
+        self.popup.setTag('myObjectTag', 'ServerPopUp')
+        self.popup.setLightOff()
+                
+        #self.popup.setScale(0.10)
+        #self.popup.setPos(-3, 0, 3)
+
+        #self.popup.setH(self.camera, 150)
+        self.popup.lookAt(self.camera)
+        #self.popup.setCompass(self.camera)
+        self.popup.setHpr(self.camera, 0, 0, 0)
+    def objectClicked(self):
+        print "objectClicked"
+        mpos = base.mouseWatcherNode.getMouse()
+        self.pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
+ 
+        self.myTraverser.traverse(render)
+        # Assume for simplicity's sake that myHandler is a CollisionHandlerQueue.
+        #print self.myHandler.getNumEntries()
+        if self.myHandler.getNumEntries() > 0:
+            for i in range(self.myHandler.getNumEntries()):
+                entry = self.myHandler.getEntry(i)
+                #print entry
+            self.myHandler.sortEntries()
+            pickedObj = self.myHandler.getEntry(0).getIntoNodePath()
+            print "pickedObj is %s"%pickedObj
+            obj_id = pickedObj.getNetTag('myObjectTag')            
+            print "obj_id is %s"%obj_id
+            
+            #try:
+            #    pickedObj2 = self.myHandler.getEntry(1).getIntoNodePath()
+            #    obj_id2 = pickedObj2.getNetTag('myObjectTag')
+            #    print obj_id2
+            #except:
+            #    traceback.print_exc()
+            #    pass
+            #
+            #try:
+            #    pickedObj3 = self.myHandler.getEntry(2).getIntoNodePath()
+            #    obj_id3 = pickedObj3.getNetTag('myObjectTag')
+            #    print obj_id3
+            #except:
+            #    traceback.print_exc()
+            #    pass
+            
+            pickedObj = pickedObj.findNetTag('myObjectTag')
+            if not pickedObj.isEmpty():
+                if obj_id.startswith("friend"):
+                    self.findFriend(pickedObj, obj_id)
+                elif obj_id.startswith("follower"):
+                    self.findFollower(pickedObj, obj_id)
+                elif obj_id == "PopUp":
+                    print "Pop Up"
+                    if pickedObj.getAncestor(1).getNetTag("type") == "Tunnel":
+                        pickedObj.removeNode()
+                    else:
+                        #pickedObj.getAncestor(1).setScale(2)
+                        pickedObj.removeNode()
+                    
+                elif obj_id == "ServerPopUp":
+                    pickedObj.removeNode()
+                elif (re.search("^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$", str(obj_id))):
+                    self.findClickedServer(pickedObj, str(obj_id))
+                else:
+                    self.findClickedSlug(pickedObj, str(obj_id))
+                    
+    def objectRightClicked(self):
+        mpos = base.mouseWatcherNode.getMouse()
+        self.pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
+ 
+        self.myTraverser.traverse(render)
+        # Assume for simplicity's sake that myHandler is a CollisionHandlerQueue.
+        if self.myHandler.getNumEntries() > 0:
+            for i in range(self.myHandler.getNumEntries()):
+                entry = self.myHandler.getEntry(i)
+            self.myHandler.sortEntries()
+            pickedObj = self.myHandler.getEntry(0).getIntoNodePath()
+            obj_id = pickedObj.getNetTag('myObjectTag')
+            pickedObj = pickedObj.findNetTag('myObjectTag')
+            if not pickedObj.isEmpty():
+                if (re.search("^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$", str(obj_id))):
+                    self.goToNodeView(pickedObj, str(obj_id))
+                
+        
+             
+                
+    def findClickedSlug(self, slug, slug_id):
+        
+        
+        info = TextNode(str(slug_id))
+        text = "\n".join( [slug.getTag("postedby"), slug.getTag("Mentions"), slug_id])
+        #text = "\n".join(i.data[1:])
+        info.clearTextColor()
+        info.setText(text)
+        info.setCardAsMargin(0, 0, 0.5, 0)
+        info.setCardColor(1.0, 1.0, 1.0, 0.7)
+        info.setTextColor(1.0, 0.0, 0.0, 1.0)
+        info.setFrameAsMargin(0, 0, 0.5, 0)
+        info.setFrameColor(0.0, 0.0, 0.0, .9)
+        info.setCardDecal(True)
+        clickable = info.generate()
+        self.popup = slug.attachNewNode(clickable)
+        self.popup.reparentTo(slug)
+        self.popup.setH(270)
+        #self.popup.setScale(0.25)
+        x, y, z = slug.getPos()
+        #self.popup.setPos(-3, 3, 3)
+        self.popup.setTag('myObjectTag', 'PopUp')
+        self.popup.setLightOff()
+                
+        #self.popup.setScale(0.10)
+        #self.popup.setPos(-3, 0, 3)
+
+        #self.popup.setH(self.camera, 150)
+        self.popup.lookAt(self.camera)
+        #self.popup.setCompass(self.camera)
+        self.popup.setHpr(self.camera, 0, 0, 0)
+        
+        
+        #i.node.setScale(1.25)
+                    
+            
+    def findClickedServer(self, server, IP):
+        info = TextNode(IP)
+        try:
+            hostname = socket.gethostbyaddr(IP)[0]
+        except socket.herror:
+            hostname = "Unknown"
+        os = parse_nmap.networkMap[IP].osclass
+        text = hostname[:8] + "\n" + IP + "\n" + os
+        for i in parse_nmap.networkMap[IP].services:
+            text += "\n" + str(i[0]) + "/" + str(i[1])
+        print text
+        info.setText(text)        
+        info.setCardAsMargin(0, 0, 0.5, 0)
+        info.setCardColor(1.0, 1.0, 1.0, 0.7)
+        info.setTextColor(0.0, 0.0, 0.0, 1.0)
+        info.setFrameAsMargin(0, 0, 0.5, 0)
+        info.setFrameColor(0.0, 0.0, 0.0, .9)
+        info.setCardDecal(True)
+        clickable = info.generate()
+        self.popup = self.attachNewNode(clickable)
+        self.popup.reparentTo(server)
+        #self.popup.setH(270)
+        #self.popup.setScale(0.5)
+        self.popup.setPos(-3, -5, 0)
+        self.popup.setTag('myObjectTag', 'ServerPopUp')
+        self.popup.setLightOff() 
+
 
 template.startGibson(SceneClass)
 print "Done with scene!"

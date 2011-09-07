@@ -71,13 +71,13 @@ class TwitterReader():
         while 1:
             try:
                 totalWait = 0
-                if (time.time() - lastFollowerCall ) > 15:
-                    userId = self.followerIdList.pop()
-                    f = a.GetFriends(userId)
-                    message = self.formatFOAFList(userId, [u.screen_name for u in f])
-                    socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
-                    print message
-                    lastFollowerCall = time.time()
+                #if (time.time() - lastFollowerCall ) > 15:
+                #    userId = self.followerIdList.pop()
+                #    f = a.GetFriends(userId)
+                #    message = self.formatFOAFList(userId, [u.screen_name for u in f])
+                #    socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
+                #    print message
+                #    lastFollowerCall = time.time()
                 statuses = a.GetFriendsTimeline(since_id=self.since_id)
                 startTime = statuses[-1].GetCreatedAtInSeconds()
                
