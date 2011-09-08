@@ -24,17 +24,22 @@ import operator
 from math import sin, cos, pi, sqrt, atan
 import random
 
-class BuildModel():
-    def __init__(self, panda, nodes):
+class ModelBase():
+    def __init__(self, panda, nodes, radius = 5, center = None):
         self.panda = panda
         self.nodes = {}
         self.slugs = {}
-        self.center = self.panda.loader.loadModel("models/sphere.egg")
-        self.center.reparentTo(render)
-        self.center.setColorScale(0.7, 0.41, 0.80, 1)
+        if not center:
+            self.center = self.panda.loader.loadModel("models/sphere.egg")
+            self.center.reparentTo(render)
+            self.center.setColorScale(0.7, 0.41, 0.80, 1)
+        else:
+            self.center = center
+        self._radius = radius
         self.draw_nodes(nodes)
-        
+
     def draw_nodes(self, number_of_nodes):
+       
         number_of_nodes = float(number_of_nodes)
         pts = []
         inc = pi * (3 - sqrt(5))
@@ -47,12 +52,25 @@ class BuildModel():
             #step = 360 / number_of_nodes
             #degrees = degrees + step
             #radians = degrees * (pi / 180)
-            self.nodes[i] = self.panda.loader.loadModel("models/low-cube.egg")
+            self.nodes[i] = self.panda.loader.loadModel("models/crt.egg")
             self.nodes[i].reparentTo(render)
-            self.nodes[i].setPos(75 * (cos(phi)*r), 75*y, 75 * (sin(phi)*r))
+            self.nodes[i].setPos(self._radius * (cos(phi)*r), self._radius*y, self._radius * (sin(phi)*r))
             
             self.nodes[i].setColorScale(0.5, 0.41, 0.80, 1)
             self.nodes[i].reparentTo(self.center)
+
+class BuildModel(ModelBase):
+    def __init__(self, panda, nodes):
+        ModelBase.__init__(self, panda, nodes)
+        
+    def draw_nodes(self, number_of_nodes):
+        number_of_nodes = float(number_of_nodes)
+        pts = []
+        inc = pi * (3 - sqrt(5))
+        off = 2 / number_of_nodes
+        
+        ModelBase.draw_nodes(self, number_of_nodes)
+        
             
         for i in range(30):
             self.slugs[i] = self.panda.loader.loadModel("models/slug2.egg")
@@ -80,3 +98,8 @@ class BuildModel():
             self.pingpong = Sequence(self.position1, self.position2, name=str(i))
             self.pingpong.loop()
             
+
+
+
+
+

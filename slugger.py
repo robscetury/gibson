@@ -15,12 +15,23 @@ import random
 import re
 
 
-class Slugger():
-    
-    def __init__(self, panda, data, subnet):
+class SluggerBase():
+    def __init__(self, panda, data):
         self.starting_position = (0, 0, 0)
         self.data = data
         self.panda = panda
+        
+        
+    def createTunnel(self):
+        raise "Not Implemented"
+    
+    def createSlug(self):
+        raise "Not Implemented"
+    
+class Slugger(SluggerBase):
+    
+    def __init__(self, panda, data, subnet):
+        SluggerBase.__init__(self, panda, data)
         self.subnet = subnet
         #print "got it"
         if self.data[6] == "22/tcp" or self.data[6] == "1521/tcp":
