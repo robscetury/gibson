@@ -16,6 +16,7 @@ import time
 import random
 import re
 import traceback
+import os
 FOAF_FORCE = Vec3(50,50,50)
 
 class Tweet(slugger.SluggerBase):
@@ -232,10 +233,10 @@ class SceneClass(template.Panda):
         self.pickerRay = CollisionRay()
         pickerNode.addSolid(self.pickerRay)
         self.myTraverser.addCollider(pickerNP, self.myHandler)
-       
+        self._tempFiles = list()
         
     def buildOortCloud(self, username, foafList):
-        return 
+         
         print "in buildOortCloud"
         foaflist = foafList.split(",")
         for u in foaflist:
@@ -254,17 +255,17 @@ class SceneClass(template.Panda):
                 s.perturb(FOAF_FORCE)
                 s = None
                 if username in self.followers:
-                    s= self._springMgr.addSpring( self.followers[username], node)
+                    s= self._springMgr.addSpring( self.followers[username], node, springConstant=5,drag=100)
                     zDistance = s._zeroDistance
                     s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                 elif username in self.friends:
-                    s= self._springMgr.addSpring( self.friends[username], node)
+                    s= self._springMgr.addSpring( self.friends[username], node, springConstant=5,drag=100)
                     zDistance = s._zeroDistance
                     s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                 if s:
-                    s.perturb(FOAF_FORCE, 2000)
+                    s.perturb(FOAF_FORCE, 1500)
             elif u in self.friends:
                 node = self.friends[u]
                 sphere = self.friendCluster.center
@@ -278,19 +279,19 @@ class SceneClass(template.Panda):
                 #newZDistance = s._zeroDistance
                 #print newZDistance
                 #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
-                s.perturb(FOAF_FORCE, 2000)
+                s.perturb(FOAF_FORCE, 1500)
                 if username in self.friends:
-                    s = self._springMgr.addSpring( self.friends[username], node)
+                    s = self._springMgr.addSpring( self.friends[username], node,springConstant=5, drag=100)
                     zDistance = s._zeroDistance
                     s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
-                    s.perturb(FOAF_FORCE, 2000)
+                    s.perturb(FOAF_FORCE, 1500)
                 elif username in self.followers:
-                    self._springMgr.addSpring( self.followers[username], node)
+                    self._springMgr.addSpring( self.followers[username], node,springConstant=5, drag=100)
                     zDistance = s._zeroDistance
                     s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
-                    s.perturb(FOAF_FORCE, 2000)
+                    s.perturb(FOAF_FORCE, 1500)
                 print "gotta friend %s"%u
             else:
                 #return # for now, see if it is causing performance issues to have all these nodes and springs
@@ -327,6 +328,11 @@ class SceneClass(template.Panda):
             subprocess.call(["kill", "-9", str(pid)])
             self._daemon = None
             print "killed"
+        for f in self._tempFiles:
+            try:
+                os.remove(f)
+            except:
+                pass
     #def objectClicked(self):
     #    pass
     def move(self, task):
@@ -377,27 +383,47 @@ class SceneClass(template.Panda):
             datagram=NetDatagram()
             if self.cReader.getData(datagram):
                 data = datagram.getMessage().split("|")
-                
+                print data[1]
                 if data[1] == "friendList":
                     self.buildFriendCluster( data[2] )
                 elif data[1] == "followerList":
                     self.buildFollowerCluster(data[2])
                 elif data[1] == "foaf":
                     self.buildOortCloud(data[2], data[3])
+                elif data[1] == "textureFile":
+                    self.applyTexture(data[2], data[3])
+                elif data[1] == "InitStatus":
+                    fr = self.friends.get("@%s"%data[2])
+                    if not fr:
+                        fr = self.followers.get("@%"%data[2])
+                    if fr:
+                        fr.setTag("Status", data[3])
+                    else:
+                        print data[2]
+                        
                 else:
 
                     if data[5]:
                         for d in data[5].split(","):
                             id = data[0] + data[1] + data[3] + "." + d.strip()
                             id = data[3]
-                            self.moveSpring(id.replace("@", ""))
-                            self.slugs["|".join(data)] = Tweet(self, data)
+                            
+                            try:
+                                self.moveSpring(id.replace("@", ""))
+                                self.slugs["|".join(data)] = Tweet(self, data)
+                            except:
+                                pass
 
                     id = data[0] + data[1] + data[3]
                     id = data[3]
+                    try:
+                        self.slugs["|".join(data)] = Tweet(self, data)
+                        self.moveSpring(id)
+                    except:
+                        pass
+                
                     
-                    self.slugs["|".join(data)] = Tweet(self, data)
-                    self.moveSpring(id)
+
                 #id_builder = (data[1], data[3], data[4], data[5], data[6])
                 #id = "".join(id_builder)
                 #try:
@@ -407,6 +433,21 @@ class SceneClass(template.Panda):
                 
                 
         return Task.cont
+    def applyTexture(self, name, filename):
+        self._tempFiles.append(filename)
+        try:
+            t = self.loader.loadTexture(filename)
+            node = self.followers.get("@%s"%name)
+            if not node:
+                node = self.friends.get("@%s"%name)
+            if node:
+                node.clearTexture()
+                node.setColor(1,1,1,1)
+                #node.clearColor()
+                node.setTexture(t)
+        except:
+            pass
+            
     def moveSpring(self, id):
         print "@%s"%id
         node2 = self.friends.get(str("@%s"%id).strip())
@@ -433,6 +474,8 @@ class SceneClass(template.Panda):
         text = "\n".join( [fId, node.getTag("Status")])
         #text = "\n".join(i.data[1:])
         info.clearTextColor()
+        info.clearCardTexture()
+        
         info.setText(text)
         info.setCardAsMargin(0, 0, 0.5, 0)
         info.setCardColor(1.0, 1.0, 1.0, 0.7)
@@ -449,7 +492,8 @@ class SceneClass(template.Panda):
         #self.popup.setPos(-3, 3, 3)
         self.popup.setTag('myObjectTag', 'ServerPopUp')
         self.popup.setLightOff()
-                
+        self.popup.setTexture(Texture())
+        #self.popup.setTextureOff(1)        
         #self.popup.setScale(0.10)
         #self.popup.setPos(-3, 0, 3)
 
@@ -548,12 +592,14 @@ class SceneClass(template.Panda):
         info.setCardDecal(True)
         clickable = info.generate()
         self.popup = slug.attachNewNode(clickable)
+        info.clearCardTexture()
         self.popup.reparentTo(slug)
         self.popup.setH(270)
         #self.popup.setScale(0.25)
         x, y, z = slug.getPos()
         #self.popup.setPos(-3, 3, 3)
         self.popup.setTag('myObjectTag', 'PopUp')
+        #self.popup.setTextureOff()
         self.popup.setLightOff()
                 
         #self.popup.setScale(0.10)
@@ -592,6 +638,7 @@ class SceneClass(template.Panda):
         #self.popup.setH(270)
         #self.popup.setScale(0.5)
         self.popup.setPos(-3, -5, 0)
+        self.popup.clearTexture()
         self.popup.setTag('myObjectTag', 'ServerPopUp')
         self.popup.setLightOff() 
 

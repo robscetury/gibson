@@ -1,5 +1,7 @@
 from pandac.PandaModules import OdeBody, OdeMass, ActorNode, Vec3, ForceNode, LinearVectorForce, NodePath
 
+
+MAX_FORCE = 10000
 class Spring(object):
 
       def __init__(self, base, render,  node1, node2, nodeMass=1, springConstant = 1, drag=5, actor1=None, actor2=None, lengthFactor =1):
@@ -119,7 +121,11 @@ class Spring(object):
             #print "Spring force " + str(force)
             #self.lastTime = newTime
             #print "Combined " + str(force)
-            if force.length()>.01:
+            if force.length()>.01 and force.length() < MAX_FORCE:
+                  return force
+            elif force.length() >MAX_FORCE:
+                  #we max all big forces out at 500 otherwise bad things can happen if chaos ensuse.
+                  force = Vec3( MAX_FORCE * (force.x/force.length()), MAX_FORCE*(force.y/force.length()), MAX_FORCE * (force.z/force.length() ))
                   return force
             else:
                   if hasattr(self, "_backToColor") and self._backToColor:
@@ -176,7 +182,7 @@ class SpringManager(object):
             self._render = render
             self._actorMap = {}
             self._springMap= {}
-      def addSpring(self, node1, node2, mass = 10, springConstant = 10, drag = 20, lengthFactor = 1):
+      def addSpring(self, node1, node2, mass = 50, springConstant = 10, drag = 20, lengthFactor = 1):
             if not self._springMap.get( (node1, node2)):
                   actor1 = self._actorMap.get(node1)
                   actor2 = self._actorMap.get(node2)
