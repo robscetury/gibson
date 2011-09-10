@@ -25,7 +25,7 @@ from math import sin, cos, pi, sqrt, atan
 import random
 
 class ModelBase():
-    def __init__(self, panda, nodes, radius = 5, center = None):
+    def __init__(self, panda, nodes, radius = 5, center = None, scale = None):
         self.panda = panda
         self.nodes = {}
         self.slugs = {}
@@ -36,6 +36,7 @@ class ModelBase():
         else:
             self.center = center
         self._radius = radius
+        self.scale = scale
         self.draw_nodes(nodes)
 
     def draw_nodes(self, number_of_nodes):
@@ -53,7 +54,9 @@ class ModelBase():
             #degrees = degrees + step
             #radians = degrees * (pi / 180)
             self.nodes[i] = self.panda.loader.loadModel("models/crt.egg")
-            self.nodes[i].reparentTo(render)
+            if self.scale:
+                self.nodes[i].setScale(self.scale)
+            self.nodes[i].reparentTo(self.center)
             self.nodes[i].setPos(self._radius * (cos(phi)*r), self._radius*y, self._radius * (sin(phi)*r))
             
             self.nodes[i].setColorScale(0.5, 0.41, 0.80, 1)

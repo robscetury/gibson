@@ -15,7 +15,7 @@ import sys
 import os 
 from threading import Thread
 from Queue import Queue
-
+from sets import Set 
 def findMentions(tweet):
     iter =  re.finditer(r'(\A|\s)@(\w+)', tweet)
     return iter
@@ -30,7 +30,6 @@ class StatusGetter(Thread):
         ACCESS_TOKEN_SECRET)
         self.since_id = None
         self.wait =wait
-
     def format(self, u):
         if self.since_id==None or u.GetId() > self.since_id:
             self.since_id = u.GetId()
@@ -51,6 +50,7 @@ class StatusGetter(Thread):
  
      
     def run(self):
+        #self.formateMe(self.api.VerifyCredentials())
         while 1:
             try:
                 totalWait = 0
@@ -76,7 +76,7 @@ class StatusGetter(Thread):
             
 
 class FriendFollowerGetter(Thread):
-    def __init__(self, queue, wait=10):
+    def __init__(self, queue, wait=10, Me = None):
         Thread.__init__(self)
         self.queue = queue
         self.api = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET, USER_ACCESS_TOKEN,
@@ -85,8 +85,8 @@ class FriendFollowerGetter(Thread):
         self.followerList = []
         self.followerIdList = set()
         self.wait =wait
-        
-
+        self.Me = Me
+    
     def formatList(self, lstType, lst):
         lstString = ",".join(lst)
         return "|".join( [str( int(time.time() * 1000)), lstType, lstString])
@@ -96,22 +96,42 @@ class FriendFollowerGetter(Thread):
         lstString = ",".join(lst)
         return "|".join([ str(int(time.time() * 1000)), "foaf", "@%s"%username, lstString])
     
-        
+    def formatMe(self):
+        me = self.Me
+        return "|".join([ str(int(time.time() * 1000)), "Me", me.screen_name, me.status.text])
     def run(self):
+        message = self.formatMe()
+        self.queue.put(message)
+        while not self.friendList:
+            try:               
+                self.friendList = self.api.GetFriends()
+            except:
+                pass
+        self.friendList.append(self.Me)
+        friendList = Set([ "@%s"%u.screen_name for u in self.friendList])
+
+        [ self.followerIdList.add(u.screen_name) for u in self.friendList]
+            
+        #print message
+        while not self.followerList:# is None:
+            try:
+                self.followerList = self.api.GetFollowers()
+            except:
+                pass
+        followerList = Set([ "@%s"%u.screen_name for u in self.followerList])
+        followerList = followerList - friendList
+        [self.followerIdList.add(u.screen_name) for u in self.followerList]
         
-        self.friendList = self.api.GetFriends()
-        friendList = [ "@%s"%u.screen_name for u in self.friendList]
+        
+        #friendList.add("@%s"%self.Me.screen_name)
         message = self.formatList("friendList", friendList)
         self.queue.put(message)
-        [ self.followerIdList.add(u.screen_name) for u in self.friendList]
-        #print message
-        self.followerList = self.api.GetFollowers()
-        followerList = [ "@%s"%u.screen_name for u in self.followerList]
         message = self.formatList("followerList", followerList)
-        [self.followerIdList.add(u.screen_name) for u in self.followerList]
+        
         #socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
         #print message
         self.queue.put(message)
+
         imagegetter = ImageDownloader(self.queue, self.followerList, self.friendList)
         imagegetter.start()
         lastFollowerCall = 0
@@ -122,11 +142,14 @@ class FriendFollowerGetter(Thread):
                   userId = self.followerIdList.pop()
                             
                   f = self.api.GetFriends(userId)
-                  message = self.formatFOAFList(userId, [u.screen_name for u in f])
-                  self.queue.put(message)
+                  
+                  foaflist = [u.screen_name for u in f]
+                  if self.Me.screen_name in foaflist:
+                      message = self.formatFOAFList(userId, foaflist) 
+                      self.queue.put(message)
                         #socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
                         #print message
-                        
+                  
                 else:
                     break
                     
@@ -183,11 +206,12 @@ class ImageDownloader(Thread):
             
 class TwitterReader():
 
-    def __init__(self, ip, port):
+    def __init__(self, ip, port):        
         self._port  = port
         self._ip = ip
         self.followerIdList = sets.Set()
-
+      
+        
 
 
     def formatList(self, lstType, lst):
@@ -200,17 +224,44 @@ class TwitterReader():
         return "|".join([ str(int(time.time() * 1000)), "foaf", "@%s"%username, lstString])
     
     def run(self):
+        print "running twitterReader"
         self.queue = Queue()
+        self.api = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET, USER_ACCESS_TOKEN,
+                            ACCESS_TOKEN_SECRET)
         self.statuses = StatusGetter(self.queue)
-        self.friends = FriendFollowerGetter(self.queue)
+        Me = None
+        while not Me:
+            try:
+                Me = self.api.VerifyCredentials()
+                print Me
+            except:
+                traceback.print_exc()
+        self.friends = FriendFollowerGetter(self.queue, Me=Me)
         self.statuses.start()
         self.friends.start()
         self.socket = send_event.EncapsulateForPanda()
+        
+        
         while 1:
             try:
-                message = self.queue.get()
-                print message
-                self.socket.send_event(self._ip, self._port, message.encode("ascii","replace"))
+                if not self.queue.empty():
+                    try:
+                        message = self.queue.get(False)
+                        if message:
+                            print message
+                    
+                            self.socket.send_event(self._ip, self._port, message.encode("ascii","replace"))
+                            #self.outgoingQueue.put(message)
+                    except:
+                        traceback.print_exc()
+                    
+                
+            
+
+                
+                time.sleep(.001)
+                
+                
             except KeyboardInterrupt, e:
                 break
             except:

@@ -8,6 +8,8 @@ import slugger
 import random
 from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
+import keyboard_events
+import gui
 
 import netaddr
 import subprocess
@@ -17,7 +19,23 @@ import random
 import re
 import traceback
 import os
-FOAF_FORCE = Vec3(50,50,50)
+FOAF_FORCE = Vec3(1,1,1)
+FOAF_SPRING_CONST=1
+FRIEND_SPRING_CONST=5
+FOAF_DRAG=5
+FRIEND_DRAG=15
+
+TWEET_FORCE=-10
+TWEET_FORCE_TIME=2000
+
+class Tw3drKeyboardEvents(keyboard_events.KeyboardEvents):
+    def __init__(self, camera, panda):
+        keyboard_events.KeyboardEvents.__init(self, camera, panda)
+        self.accept('p', self.PostUpdate)
+        self.accept('[', self.DirectMessage)
+    
+    def PostEvent(self):
+        pass
 
 class Tweet(slugger.SluggerBase):
     def __init__(self,panda, data):
@@ -31,12 +49,14 @@ class Tweet(slugger.SluggerBase):
         parent = self.panda.friends.get(parentName.strip())
         #dest = self.panda.dummy_center_node
         #dest = self.dest
+    
         if not parent:
             parent = self.panda.followers.get(parentName.strip())
             dest = self.panda.followerCluster.center
         else:
             dest = self.panda.friendCluster.center
         if parent:
+            self.dest =dest
             parent.setTag("Status", self.data[-1])
             self.starting_position = dest.getRelativePoint(dest, parent.getPos())
             print "found Parent"
@@ -216,10 +236,10 @@ class SceneClass(template.Panda):
         self._oortCloudDistance = 501
         self._oortCloudClusters = dict()
         self._oortCloudNodes = dict()
-        self.center = self.loader.loadModel("models/sphere.egg")
+        self.center = self.loader.loadModel("models/crt.egg")
         self.center.reparentTo(self.render)
         self.center.setColorScale(0.7, 0.41, 0.80, 1)
-        
+        #self.center.setScale(2)
          # Get Mouse Clicks
         self.myHandler = CollisionHandlerQueue()
         self.myTraverser = CollisionTraverser()
@@ -234,17 +254,20 @@ class SceneClass(template.Panda):
         pickerNode.addSolid(self.pickerRay)
         self.myTraverser.addCollider(pickerNP, self.myHandler)
         self._tempFiles = list()
+        self.MyUserId = None
+        self.view = ""
         
+
     def buildOortCloud(self, username, foafList):
          
         print "in buildOortCloud"
         foaflist = foafList.split(",")
         for u in foaflist:
             #print u
-            if u in self.followers:
+            if u in self.followers:# and not u == self.MyUserId:
                 print "gotta follower %s"%u 
                 node = self.followers[u]
-                sphere = self.followerCluster.center
+                sphere = self.center
                 s = self._springMgr._springMap[ (sphere, node)]
                 #print s._zeroDistance
                 #zDistance = s._zeroDistance
@@ -255,41 +278,47 @@ class SceneClass(template.Panda):
                 s.perturb(FOAF_FORCE)
                 s = None
                 if username in self.followers:
-                    s= self._springMgr.addSpring( self.followers[username], node, springConstant=5,drag=100)
+                    s= self._springMgr.addSpring( self.followers[username], node, springConstant=FOAF_SPRING_CONST,drag=FOAF_DRAG)
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
                     print s._zeroDistance
                 elif username in self.friends:
-                    s= self._springMgr.addSpring( self.friends[username], node, springConstant=5,drag=100)
+                    s= self._springMgr.addSpring( self.friends[username], node, springConstant=FOAF_SPRING_CONST,drag=FOAF_DRAG)
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
                     print s._zeroDistance
                 if s:
                     s.perturb(FOAF_FORCE, 1500)
-            elif u in self.friends:
+            elif u in self.friends:# and not u == self.MyUserId:
                 node = self.friends[u]
-                sphere = self.friendCluster.center
-                s = self._springMgr._springMap[ (sphere, node)]
-                #print s._zeroDistance
-                #zDistance = s._zeroDistance
-                #s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                #print s._zeroDistance
-                #newZDistance = s._zeroDistance
-                #s = self._springMgr.addSpring(sphere, node, lengthFactor =3)
-                #newZDistance = s._zeroDistance
-                #print newZDistance
-                #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
-                s.perturb(FOAF_FORCE, 1500)
-                if username in self.friends:
-                    s = self._springMgr.addSpring( self.friends[username], node,springConstant=5, drag=100)
+                sphere = self.center
+                s = self._springMgr._springMap.get( (sphere, node) )
+                if s:
+                    #print s._zeroDistance
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                    #s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    #print s._zeroDistance
+                    newZDistance = s._zeroDistance
+                    #s = self._springMgr.addSpring(sphere, node, lengthFactor =3)
+                        #newZDistance = s._zeroDistance
+                    #print newZDistance
+                    #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
+                    s.perturb(FOAF_FORCE, 1500)
+                if username in self.friends:
+                    s = self._springMgr.addSpring( self.friends[username], node,springConstant=FOAF_SPRING_CONST, drag=FOAF_DRAG)
+                    zDistance = s._zeroDistance
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                     s.perturb(FOAF_FORCE, 1500)
                 elif username in self.followers:
-                    self._springMgr.addSpring( self.followers[username], node,springConstant=5, drag=100)
+                    s = self._springMgr.addSpring( self.followers[username], node,springConstant=FOAF_SPRING_CONST, drag=FOAF_DRAG)
                     zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
                     print s._zeroDistance
                     s.perturb(FOAF_FORCE, 1500)
                 print "gotta friend %s"%u
@@ -342,19 +371,25 @@ class SceneClass(template.Panda):
         delList = list()
         for slug in self.slugs:
             if hasattr(self.slugs[slug], "node1"):
-                if self.slugs[slug].node1.getPos() == Vec3(0,0,0):
+                
+                if self.slugs[slug].node1.getPos(self.slugs[slug].dest) <= 1 :
                     print "deleting slug"
                     delList.append( slug)
                     #del self.slugs[slug]
             else:
+                delList.append(self.slugs[slug])
                 #del self.slugs[slug]
-                delList.append(slug)
+                #slug.pingpong1.getState()
         for s in delList:
-            del self.slugs[s]
+            try:
+                del self.slugs[slug]
+            except:
+                pass
         return task.cont
     def buildFollowerCluster(self, lst):
+        lst = lst.replace(self.MyUserId + ",", "")
         lstCount = len(lst.split(","))
-        self.followerCluster = build_cluster.ModelBase(self, lstCount,75, center=self.center)
+        self.followerCluster = build_cluster.ModelBase(self, lstCount,75, center=self.center, scale = 1)
         count = 0
         for l in lst.split(","):
             if l.strip() not in self.friends:
@@ -362,12 +397,13 @@ class SceneClass(template.Panda):
                 self.followers[ l.strip()].setColor(.8, .8, .8, .5)
                 self.followers[l.strip()].setTag("myObjectTag", "follower|%s"%l.strip())
                 sphere = self.followerCluster.center
-                self._springMgr.addSpring(sphere, self.followerCluster.nodes[count])
+                self._springMgr.addSpring(sphere, self.followerCluster.nodes[count],springConstant=FRIEND_SPRING_CONST, drag=FRIEND_DRAG)
                 count = count + 1
         #print self.followers.keys()
     def buildFriendCluster(self, lst):
+        lst = lst.replace(self.MyUserId + ",", "")
         lstCount = len(lst.split(","))
-        self.friendCluster = build_cluster.ModelBase(self, lstCount, 50, center=self.center)
+        self.friendCluster = build_cluster.ModelBase(self, lstCount, 50, center=self.center, scale = 1)
         count = 0
         for l in lst.split(","):
             if l.strip() not in self.followers:
@@ -375,7 +411,7 @@ class SceneClass(template.Panda):
                 self.friends[l.strip()].setColor(.5,.5,5,.3)
                 self.friends[l.strip()].setTag("myObjectTag", "friend|%s"%l.strip())
                 sphere = self.friendCluster.center
-                self._springMgr.addSpring(sphere, self.friendCluster.nodes[count])
+                self._springMgr.addSpring(sphere, self.friendCluster.nodes[count], springConstant=FRIEND_SPRING_CONST, drag=FRIEND_DRAG)
                 count = count + 1
         #print self.friends.keys()
     def tskReaderPolling(self,taskdata):
@@ -383,8 +419,14 @@ class SceneClass(template.Panda):
             datagram=NetDatagram()
             if self.cReader.getData(datagram):
                 data = datagram.getMessage().split("|")
-                print data[1]
-                if data[1] == "friendList":
+                #print data[1]
+                if data[1] == "Me":
+                    #print data
+                    self.MyUserId = "@%s"%data[2].strip()
+                    self.center.setTag("myObjectTag", "Me|@%s"%data[2].strip())
+                    self.center.setTag("Status", data[3])
+                    self.friends["@%s"%data[2]] = self.center
+                elif data[1] == "friendList":
                     self.buildFriendCluster( data[2] )
                 elif data[1] == "followerList":
                     self.buildFollowerCluster(data[2])
@@ -395,13 +437,12 @@ class SceneClass(template.Panda):
                 elif data[1] == "InitStatus":
                     fr = self.friends.get("@%s"%data[2])
                     if not fr:
-                        fr = self.followers.get("@%"%data[2])
+                        fr = self.followers.get("@%s"%data[2])
                     if fr:
                         fr.setTag("Status", data[3])
-                    else:
-                        print data[2]
+                    
                         
-                else:
+                elif data[1] == "Status" or data[1]=="Mention":
 
                     if data[5]:
                         for d in data[5].split(","):
@@ -422,7 +463,8 @@ class SceneClass(template.Panda):
                     except:
                         pass
                 
-                    
+                else:
+                    print data[1] + "not found"
 
                 #id_builder = (data[1], data[3], data[4], data[5], data[6])
                 #id = "".join(id_builder)
@@ -437,37 +479,48 @@ class SceneClass(template.Panda):
         self._tempFiles.append(filename)
         try:
             t = self.loader.loadTexture(filename)
-            node = self.followers.get("@%s"%name)
+            t.setWrapU(Texture.WMMirror)
+            t.setWrapV(Texture.WMMirror)
+            if name == self.center.getTag("myObjectTag"):
+                node = self.center
+            else:
+                node = self.followers.get("@%s"%name)
             if not node:
                 node = self.friends.get("@%s"%name)
             if node:
                 node.clearTexture()
-                node.setColor(1,1,1,1)
+                node.setColorOff()
+                node.setColorScaleOff()
+                #node.setColor(1,1,1,1)
                 #node.clearColor()
                 node.setTexture(t)
+            
         except:
-            pass
+            print name
+            traceback.print_exc()
             
     def moveSpring(self, id):
-        print "@%s"%id
+        
         node2 = self.friends.get(str("@%s"%id).strip())
         if not node2:
             node2 = self.followers.get(str("@%s"%id).strip())
             node1 = self.followerCluster.center
         else:
             node1 = self.friendCluster.center
-        print node1, node2
+        
         if node2:
             #node2.setColor(0.76, 0, 0, 1)
             print "moving spring"
             force = node1.getPos() - node2.getPos()
-            force = Vec3( (-100/force.length()) * force.x, (-100/force.length())* force.y , (-100/force.length()) * force.z)
-            self._springMgr.perturbSpring(node1, node2, force, 4000)
+            force = Vec3( (TWEET_FORCE/force.length()) * force.x, (TWEET_FORCE/force.length())* force.y , (TWEET_FORCE/force.length()) * force.z)
+            self._springMgr.perturbSpring(node1, node2, force, TWEET_FORCE_TIME)
 
     def findFriend(self, friendNode, friendId):
         self.UserPopup(friendNode, friendId)
     def findFollower(self, followerNode, follower):
         self.UserPopup(followerNode, follower)
+    def findMe(self, centerNode, me):
+        self.UserPopup(centerNode, me)
     def UserPopup(self, node, fId):
         fId = fId.split("|")[-1]
         info = TextNode(str(fId))
@@ -502,7 +555,7 @@ class SceneClass(template.Panda):
         #self.popup.setCompass(self.camera)
         self.popup.setHpr(self.camera, 0, 0, 0)
     def objectClicked(self):
-        print "objectClicked"
+        
         mpos = base.mouseWatcherNode.getMouse()
         self.pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
  
@@ -515,9 +568,9 @@ class SceneClass(template.Panda):
                 #print entry
             self.myHandler.sortEntries()
             pickedObj = self.myHandler.getEntry(0).getIntoNodePath()
-            print "pickedObj is %s"%pickedObj
+           
             obj_id = pickedObj.getNetTag('myObjectTag')            
-            print "obj_id is %s"%obj_id
+           
             
             #try:
             #    pickedObj2 = self.myHandler.getEntry(1).getIntoNodePath()
@@ -541,8 +594,11 @@ class SceneClass(template.Panda):
                     self.findFriend(pickedObj, obj_id)
                 elif obj_id.startswith("follower"):
                     self.findFollower(pickedObj, obj_id)
+                elif obj_id.startswith("Me"):
+                    self.findMe(pickedObj, obj_id)
+                
                 elif obj_id == "PopUp":
-                    print "Pop Up"
+                    
                     if pickedObj.getAncestor(1).getNetTag("type") == "Tunnel":
                         pickedObj.removeNode()
                     else:
@@ -595,6 +651,7 @@ class SceneClass(template.Panda):
         info.clearCardTexture()
         self.popup.reparentTo(slug)
         self.popup.setH(270)
+        self.popup.setTexture(Texture())
         #self.popup.setScale(0.25)
         x, y, z = slug.getPos()
         #self.popup.setPos(-3, 3, 3)
@@ -624,7 +681,7 @@ class SceneClass(template.Panda):
         text = hostname[:8] + "\n" + IP + "\n" + os
         for i in parse_nmap.networkMap[IP].services:
             text += "\n" + str(i[0]) + "/" + str(i[1])
-        print text
+        
         info.setText(text)        
         info.setCardAsMargin(0, 0, 0.5, 0)
         info.setCardColor(1.0, 1.0, 1.0, 0.7)

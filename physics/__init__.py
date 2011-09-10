@@ -1,7 +1,7 @@
 from pandac.PandaModules import OdeBody, OdeMass, ActorNode, Vec3, ForceNode, LinearVectorForce, NodePath
 
 
-MAX_FORCE = 10000
+MAX_FORCE = 100000
 class Spring(object):
 
       def __init__(self, base, render,  node1, node2, nodeMass=1, springConstant = 1, drag=5, actor1=None, actor2=None, lengthFactor =1):
@@ -71,25 +71,28 @@ class Spring(object):
             
             
             if force:
-                  forceVector = self._node1.getPos() - self._node2.getPos()
-                  self._force1 = ForceNode('force1')
-                  self._node1.attachNewNode(self._force1)
-                  force2 = self._node2.getRelativeVector( self._node1, force)
-                  lvf1 = LinearVectorForce(force.x , force.y, force.z)
-                  #print force
-                  self._force1.addForce( lvf1 )
-                  lvf1.setMassDependent(1)
-                  self._force2 = ForceNode('force2')
-                  self._node2.attachNewNode(self._force2)
-                  lvf2 = LinearVectorForce( LinearVectorForce( Vec3( -1* force2.x, -1 * force2.y, -1* force2.z)))
-                  lvf2.setMassDependent(1)
-                  self._force2.addForce(lvf2)
-                  #self._base.physicsMgr.addLinearForce(lvf1)
-                  #self._base.physicsMgr.addLinearForce(lvf2)
-                  self._actor1.getPhysical(0).addLinearForce(lvf1)
-                  self._actor2.getPhysical(0).addLinearForce(lvf2)
-                  self._force1 = lvf1
-                  self._force2 = lvf2
+                  try:
+                        forceVector = self._node1.getPos() - self._node2.getPos()
+                        self._force1 = ForceNode('force1')
+                        self._node1.attachNewNode(self._force1)
+                        force2 = self._node2.getRelativeVector( self._node1, force)
+                        lvf1 = LinearVectorForce(force.x , force.y, force.z)
+                        #print force
+                        self._force1.addForce( lvf1 )
+                        lvf1.setMassDependent(1)
+                        self._force2 = ForceNode('force2')
+                        self._node2.attachNewNode(self._force2)
+                        lvf2 = LinearVectorForce( LinearVectorForce( Vec3( -1* force2.x, -1 * force2.y, -1* force2.z)))
+                        lvf2.setMassDependent(1)
+                        self._force2.addForce(lvf2)
+                        #self._base.physicsMgr.addLinearForce(lvf1)
+                        #self._base.physicsMgr.addLinearForce(lvf2)
+                        self._actor1.getPhysical(0).addLinearForce(lvf1)
+                        self._actor2.getPhysical(0).addLinearForce(lvf2)
+                        self._force1 = lvf1
+                        self._force2 = lvf2
+                  except:
+                        traceback.print_exc()
             return task.cont
       def getForce(self):
             
@@ -121,7 +124,7 @@ class Spring(object):
             #print "Spring force " + str(force)
             #self.lastTime = newTime
             #print "Combined " + str(force)
-            if force.length()>.01 and force.length() < MAX_FORCE:
+            if force.length()>.0005 and force.length() < MAX_FORCE:
                   return force
             elif force.length() >MAX_FORCE:
                   #we max all big forces out at 500 otherwise bad things can happen if chaos ensuse.
