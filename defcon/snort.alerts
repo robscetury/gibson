@@ -1,2 +1,0 @@
-11/06/04-00:32:05.706661 {ICMP} 192.168.1.11 - 192.168.100.5 [**] [1:469:3] ICMP PING NMAP [**] [Classification: Attempted Information Leak] [Priority: 2] [Xref = http://www.whitehats.com/info/IDS162] 
-11/06/04-01:32:05.706661 {ICMP} 192.168.1.14:3456 - 192.168.100.5:80 TCP [**] [1:469:3] Bad HTTP [**] [Classification: Attempted Information Leak] [Priority: 2] [Xref = http://www.hackers.r.us]

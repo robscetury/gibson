@@ -1,6 +1,0 @@
-# This file defines the various security zones for your Gibson installation.
-# You need to have at least one zone defined for local_nets.
-
-private_nets="192.168.1.0/24"
-
-local_nets="128.3.72.0/24 131.243.164.0/22"

@@ -1,9 +1,0 @@
-t=1283415533.93 no=ICMPAsymPayload na=NOTICE_ALARM_ALWAYS sa=79.120.86.20 sp=60127/tcp da=132.216.65.2 dp=22/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1283915533.93 no=ICMPAsymPayload na=NOTICE_ALARM_ALWAYS sa=79.120.86.20 sp=60127/tcp da=132.216.65.5 dp=1521/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1282565007.37 no=AddressScan na=NOTICE_ALARM_ALWAYS sa=216.34.181.48 sp=60127/tcp da=135.246.91.14 dp=22/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1288091106.98 no=CountSignature na=NOTICE_ALARM_ALWAYS sa=216.36.181.48 sp=60127/tcp da=135.246.91.15 dp=22/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1285506928.03 no=TargetedScan na=NOTICE_ALARM_ALWAYS sa=123.214.23.66 sp=60127/tcp da=132.216.65.9 dp=1521/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1290601366.79 no=PortScan na=NOTICE_ALARM_ALWAYS sa=123.214.23.66 sp=60127/tcp da=132.216.65.13 dp=1521/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1290601366.79 no=PortScan na=NOTICE_ALARM_ALWAYS sa=123.214.23.66 sp=60127/tcp da=132.216.65.16 dp=1521/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1290601366.79 no=PortScan na=NOTICE_ALARM_ALWAYS sa=123.214.23.66 sp=60127/tcp da=132.216.65.8 dp=1521/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d
-t=1282565007.37 no=AddressScan na=NOTICE_ALARM_ALWAYS sa=216.34.181.48 sp=60127/tcp da=135.246.91.10 dp=1521/tcp msg=We\ have\ a\ problem tag=@5f-723-2e3d

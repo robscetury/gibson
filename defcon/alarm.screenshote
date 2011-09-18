@@ -1,6 +1,0 @@
-t=1288843021.377447 no=PortScan na=NOTICE_ALARM_ALWAYS sa=192.168.1.14 sp=55460/tcp da=72.95.222.173 dp=10504/tcp msg=192.168.1.11\ has\ scanned\ 50\ ports\ of\ 18.187.1.68 tag=@5f-723-2e32
-t=1278843021.377447 no=PortScan na=NOTICE_ALARM_ALWAYS sa=192.168.1.11 sp=55460/tcp da=72.95.222.173 dp=10504/tcp msg=192.168.1.11\ has\ scanned\ 50\ ports\ of\ 18.187.1.68 tag=@5f-723-2e32
-t=1268843021.377447 no=PortScan na=NOTICE_ALARM_ALWAYS sa=192.168.1.11 sp=55460/tcp da=72.95.222.173 dp=10504/tcp msg=192.168.1.11\ has\ scanned\ 50\ ports\ of\ 18.187.1.68 tag=@5f-723-2e32
-t=1258843021.377447 no=PortScan na=NOTICE_ALARM_ALWAYS sa=192.168.1.20 sp=55460/tcp da=72.95.222.173 dp=10504/tcp msg=192.168.1.11\ has\ scanned\ 50\ ports\ of\ 18.187.1.68 tag=@5f-723-2e32
-t=1248843021.377447 no=PortScan na=NOTICE_ALARM_ALWAYS sa=192.168.1.14 sp=55460/tcp da=72.95.222.173 dp=10504/tcp msg=192.168.1.11\ has\ scanned\ 50\ ports\ of\ 18.187.1.68 tag=@5f-723-2e32
-t=1238843021.377447 no=PortScan na=NOTICE_ALARM_ALWAYS sa=192.168.1.21 sp=55460/tcp da=72.95.222.173 dp=10504/tcp msg=192.168.1.11\ has\ scanned\ 50\ ports\ of\ 18.187.1.68 tag=@5f-723-2e32
