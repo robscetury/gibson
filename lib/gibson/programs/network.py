@@ -253,7 +253,7 @@ class Panda(ShowBase):
                     slug.node.removeNode()
             except:
                 pass
-                +        return Task.cont
+        return Task.cont
 
     def followCameraTask(self, task):
 
