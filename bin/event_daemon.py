@@ -4,7 +4,22 @@ Created on Thu Dec 23 09:18:05 2010
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
 
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from gibson.reader import send_event
 from gibson.reader import bro_reader
 from gibson.reader import snort_reader
@@ -30,6 +45,5 @@ if len(sys.argv)>=4:
             message = reader.format(line)
             socket.send_event(host, port, message)
     else:
-            reader.run()
-print "Usage: event_daemon.py IP port [bro|snort|syslog|twitter]"
+        print "Usage: event_daemon.py IP port [bro|snort|syslog|twitter]"
 
