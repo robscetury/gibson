@@ -4,6 +4,22 @@ Created on Fri Jan  7 11:29:42 2011
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
+
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from gibson import threedee_math
 from gibson.slugs import sign
 
@@ -119,8 +135,10 @@ class KeyboardEvents(DirectObject.DirectObject):
         (x, y, z) = self.camera.getPos()
         self.camera.setPos(x-1, y, z)
     def slideRight(self):
-        (x, y, z) = self.panda.dummy_center_node.getPos()
-        self.panda.dummy_center_node.setPos(x+1, y, z)
+        (x, y, z) = self.camera.getPos()
+        self.camera.setPos(x+1, y, z)
+        #(x, y, z) = self.panda.dummy_center_node.getPos()
+        #self.panda.dummy_center_node.setPos(x+1, y, z)
     def slideLeftFast(self):
         (x, y, z) = self.camera.getPos()
         self.camera.setPos(x-10, y, z)
@@ -138,9 +156,8 @@ class KeyboardEvents(DirectObject.DirectObject):
         (x, y, z) = self.camera.getPos()
         (h, p, r) = self.camera.getHpr()
         self.panda.camera.reparentTo(self.panda.dummy_center_node)
-        
         self.panda.dummy_center_node.setH(self.panda.dummy_center_node.getH() - 1)
-        
+
     def spinRight(self):
         (x, y, z) = self.camera.getPos()
         (h, p, r) = self.camera.getHpr()

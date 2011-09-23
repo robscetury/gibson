@@ -4,6 +4,22 @@ Created on Wed Jun 29 16:45:20 2011
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
+
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from gibson import threedee_math
 
 import netaddr
@@ -17,7 +33,7 @@ from direct.gui.OnscreenImage import OnscreenImage
 from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 from direct.showbase import DirectObject
-
+from gibson import getPath
 import socket
 
 class NewServer():
@@ -36,7 +52,7 @@ class NewServer():
             for j in i:
                 self.x[j] = 0
                 
-        self.panda.model.servers[IP] = self.panda.loader.loadModel("models/crt.egg")
+        self.panda.model.servers[IP] = self.panda.loader.loadModel(getPath("model", "crt.egg"))
         self.rearrangeServers()
         
         

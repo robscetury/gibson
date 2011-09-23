@@ -4,7 +4,22 @@ Created on Thu Nov 18 16:40:21 2010
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
 
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 import parse_nmap
 import threedee_math
 import slugger
@@ -31,7 +46,7 @@ import string
 import os
 import socket
 import re
-
+from gibson import getPath
 
 
 class Panda(ShowBase):
@@ -48,8 +63,8 @@ class Panda(ShowBase):
         self.dummy_center_node = render.attachNewNode("dummy_center_node")
         self.dummy_center_node.setPos(0, 0, 0)
         self.setBackgroundColor(0.69,0.77,0.88)
-        self.skybox = self.loader.loadModel("models/skysphere.egg")
-        self.skyboxTexture = self.loader.loadTexture("images/tron.png")
+        self.skybox = self.loader.loadModel(getPath("model","skysphere.egg"))
+        self.skyboxTexture = self.loader.loadTexture(getPath("image","tron.png"))
         self.skyboxTexture.setWrapU(Texture.WMRepeat)     
         self.skyboxTexture.setWrapV(Texture.WMRepeat)        
 

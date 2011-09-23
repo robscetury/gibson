@@ -4,6 +4,22 @@ Created on Thu Dec 23 09:31:22 2010
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
+
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 
@@ -18,14 +34,14 @@ from gibson import *
 
 
 def createSlug(panda, data, subnet):
-    if self.data[6] == "22/tcp" or self.data[6] == "1521/tcp":
+    if data[6] == "22/tcp" or data[6] == "1521/tcp":
         return Tunnel(panda,data,subnet)
-    elif self.data[3] in panda.model.servers and self.data[5] in panda.model.servers:
+    elif data[3] in panda.model.servers and data[5] in panda.model.servers:
         return IntraSlug(panda,data,subnet)
-    elif self.data[3] in panda.model.servers:
+    elif data[3] in panda.model.servers:
         return OutboundSlug(panda,data,subnet)
 
-    elif self.data[5] in panda.model.servers:
+    elif data[5] in panda.model.servers:
         return InboundSlug(panda,data,subnet)
     else:
             pass
@@ -35,6 +51,7 @@ class NetworkSlug(SluggerBase):
         SluggerBase.__init__(self, panda, data)
         self.subnet = subnet
         self.node = self.panda.loader.loadModel(getPath("model", "slug2.egg"))
+        self.data = data
         #print "got it"
 
     def is_member_subnet(self, IP, subnets):
@@ -88,10 +105,14 @@ class IntraSlug(NetworkSlug):
             self.node.setColor(0.76, 0, 0, 1)
         tag = ":".join(self.data[1:5])
         self.node.setTag('myObjectTag', tag)
+        dt = time.time()
+        self.node.setTag('createTime', str(dt))
+
+
         a, b, c = self.ending_position
         if b - y == 0:
              y = y+0.01
-        self.ending_position = ((a/4)-x, (b-y)/4, (c-z)/4)
+        #self.ending_position = ((a/4)-x, (b-y)/4, (c-z)/4)
         print str(self.ending_position)
         if a-x == 0:
             x = 0.01
@@ -104,6 +125,7 @@ class IntraSlug(NetworkSlug):
         self.position1 = self.node.posInterval(60, self.ending_position, startPos=self.starting_position, fluid=1)
         self.position2 = self.node.posInterval(60, self.starting_position, startPos=self.ending_position, fluid=1)
         self.pingpong = Sequence(self.position1, self.position2, name=tag)
+        dstNet = ""
         for k, net in self.subnet.subnets.iteritems():
             if self.is_member_subnet(self.data[3], k.split()):
                 srcNet = net
@@ -112,13 +134,14 @@ class IntraSlug(NetworkSlug):
                 elif self.is_member_subnet(self.data[5], k.split()):
                     dstNet = net
         parent = srcNet
-        self.node1 = self.panda.loader.loadModel(getPath("model", "slug2.egg"))
+        self.node1 = self.panda.loader.loadModel(getPath("model", "slug3.egg"))
         self.node1.reparentTo(parent)
-        self.node1.setPos(-2, 0, 0)
+        self.node1.setPos(0, 0, 0)
         self.node1.setScale(.2, .2, .2)
         self.initial_position = self.node1.getPos()
         #print self.initial_position
         self.starting_position = self.initial_position
+        self.ending_position = dstNet.getPos()
         self.ending_position = dstNet.getPos()
         x, y, z = srcNet.getPos()
         a, b, c = dstNet.getPos()
@@ -158,16 +181,16 @@ class OutboundSlug(NetworkSlug):
     def __init__(self, panda, data, subnet):
         NetworkSlug.__init__(self,panda,data,subnet)
         parent = self.panda.model.servers[self.data[3]]
-        self.node = self.panda.loader.loadModel(getPath("models", "slug2.egg"))
+        self.node = self.panda.loader.loadModel(getPath("model", "slug3.egg"))
         self.node.reparentTo(parent)
-        self.node.setPos(-2, 0, 0)
+        self.node.setPos(0, 0, 0)
         self.node.setScale(.75, .75, .75)
         self.node.getParent().setScale(5)
         self.node.getParent().setAlphaScale(0.9)
         self.initial_position = self.node.getPos()
-        self.node = self.panda.loader.loadModel("models/slug2.egg")
+        self.node = self.panda.loader.loadModel(getPath("model", "slug3.egg"))
         self.node.reparentTo(parent)
-        self.node.setPos(-2, 0, 0)
+        self.node.setPos(0, 0, 0)
         self.node.setScale(.75, .75, .75)
         self.node.getParent().setScale(5)
         self.node.getParent().setAlphaScale(0.9)
@@ -185,6 +208,8 @@ class OutboundSlug(NetworkSlug):
             #parent.setColor(0.76, 0, 0, 1)
         tag = ":".join(self.data[1:5])
         self.node.setTag('myObjectTag', tag)
+        dt = time.time()
+        self.node.setTag('createTime', str(dt))
         self.node.setH(90)
         self.position1 = self.node.posInterval(60, self.ending_position, startPos=self.starting_position, fluid=1)
         self.pingpong = Sequence(self.position1, name=tag)
@@ -198,15 +223,15 @@ class OutboundSlug(NetworkSlug):
                 dstNet = net
         parent = srcNet
 
-        self.node1 = self.panda.loader.loadModel("models/slug2.egg")
+        self.node1 = self.panda.loader.loadModel(getPath("model","slug3.egg"))
         self.node1.reparentTo(parent)
-        self.node1.setPos(-2, 0, 0)
+        self.node1.setPos(0, 0, 0)
         self.node1.setScale(.2, .2, .2)
         self.initial_position = self.node1.getPos()
         #print self.initial_position
-        self.node1 = self.panda.loader.loadModel("models/slug2.egg")
+        self.node1 = self.panda.loader.loadModel(getPath("model","slug3.egg"))
         self.node1.reparentTo(parent)
-        self.node1.setPos(-2, 0, 0)
+        self.node1.setPos(0, 0, 0)
         self.node1.setScale(.2, .2, .2)
         self.initial_position = self.node1.getPos()
         #print self.initial_position
@@ -238,9 +263,9 @@ class InboundSlug(NetworkSlug):
     def __init__(self, panda, data, subnet):
         NetworkSlug.__init__(self, panda, data, subnet)
         parent = self.panda.model.servers[self.data[5]]
-        self.node = self.panda.loader.loadModel("models/slug2.egg")
+        self.node = self.panda.loader.loadModel(getPath("model", "slug3.egg"))
         self.node.reparentTo(parent)
-        self.node.setPos(-2, 0, 0)
+        self.node.setPos(0, 0, 0)
         self.node.setScale(.75, .75, .75)
         self.node.getParent().setScale(5)
         self.node.getParent().setAlphaScale(0.9)
@@ -254,6 +279,8 @@ class InboundSlug(NetworkSlug):
             #parent.setColor(0.76, 0, 0, 1)
         tag = ":".join(self.data[1:5])
         self.node.setTag('myObjectTag', tag)
+        dt = time.time()
+        self.node.setTag('createTime', str(dt))
         self.node.setH(90)
         self.position1 = self.node.posInterval(60, self.ending_position, startPos=self.starting_position, fluid=1)
         self.pingpong = Sequence(self.position1, name=tag)
@@ -270,9 +297,9 @@ class InboundSlug(NetworkSlug):
                 dstNet = net
         parent = dstNet
         #print parent
-        self.node1 = self.panda.loader.loadModel("models/slug2.egg")
+        self.node1 = self.panda.loader.loadModel(getPath("model", "slug3.egg"))
         self.node1.reparentTo(parent)
-        self.node1.setPos(-2, 0, 0)
+        self.node1.setPos(0, 0, 0)
         self.node1.setScale(.2, .2, .2)
         self.initial_position = self.node1.getPos()
         #print self.initial_position

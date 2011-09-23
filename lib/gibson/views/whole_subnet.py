@@ -4,7 +4,22 @@ Created on Thu Jan 20 10:29:52 2011
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
 
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from pandac.PandaModules import *
@@ -15,6 +30,7 @@ from panda3d.core import Point3
 from direct.showbase import DirectObject
 from pandac.PandaModules import Thread
 import random
+from gibson import getPath
 
 class Panda(ShowBase):
     def __init__(self):
@@ -24,8 +40,8 @@ class Panda(ShowBase):
         servers = []
         self.setBackgroundColor(0.69,0.77,0.88)
         
-        self.skybox = self.loader.loadModel("models/skysphere.egg")
-        self.skyboxTexture = self.loader.loadTexture("images/floor.jpg")
+        self.skybox = self.loader.loadModel(getPath("model", "skysphere.egg"))
+        self.skyboxTexture = self.loader.loadTexture(getPath("image", "floor.jpg"))
         self.skyboxTexture.setWrapU(Texture.WMRepeat)     
         self.skyboxTexture.setWrapV(Texture.WMRepeat)        
         self.skybox.setTexture(self.skyboxTexture, 1)
@@ -53,7 +69,7 @@ class Panda(ShowBase):
             #blades[i].setTransparency(1)
             #blades[i].setColorScale(.2, .2, .2, .4)
             for j in range(16):
-                this_server = self.loader.loadModel("models/low-cube.egg")
+                this_server = self.loader.loadModel(getPath("model", "low-cube.egg"))
                 servers.append(this_server)
                 this_server.reparentTo(blades[i])
                 y = (j % 4) * 10

@@ -4,7 +4,22 @@ Created on Sat Jan  1 16:26:49 2011
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
 
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from gibson import parse_nmap
 from gibson import threedee_math
 from gibson import config
@@ -25,7 +40,7 @@ import os
 import socket
 import operator
 import sys
-
+from gibson import getPath
 
 class BuildModel():
     def __init__(self, conf_file):
@@ -48,11 +63,12 @@ class BuildModel():
         for i in self.master_zone_array:
             for j in i:
                 self.x[j] = 0
-        #for i in self.subnet_list:
-         #   self.x[i] = 0
-        #for i in self.private_net_list:
-         #   self.x[i] = 0
-    
+       
+    def map_routers(self, conf_file):
+        routers = self.configuration.routers()
+        for i in routers:
+            print i
+            
     def map_servers(self, panda, server_list):
         x = 0
         

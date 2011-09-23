@@ -4,7 +4,22 @@ Created on Sat Jan  8 10:13:04 2011
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
 
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 import keyboard_events
 
 from direct.showbase import DirectObject
@@ -28,7 +43,29 @@ class KeyboardEvents(DirectObject.DirectObject):
         self.accept('escape', self.escapePressed)
         self.accept('tab', self.tabPressed)
         self.accept('start-loop', self.startLoop)
-        
+        self.accept('shift-=', self.speedUp)
+        self.accept('shift-=-repeat', self.speedUp)
+        self.accept('-', self.slowDown)
+        self.accept('--repeat', self.slowDown)
+
+    def speedUp(self):
+        #print "Speedin up"
+        for slug in self.panda.slugs.itervalues():
+            try:
+                slug.pingpong.setPlayRate(slug.pingpong.getPlayRate()*1.5)
+                slug.pingpong1.setPlayRate(slug.pingpong.getPlayRate()*1.5)
+            except:
+                pass
+
+    def slowDown(self):
+        for slug in self.panda.slugs.itervalues():
+            try:
+                slug.pingpong.setPlayRate(slug.pingpong.getPlayRate()*0.5)
+                slug.pingpong1.setPlayRate(slug.pingpong.getPlayRate()*0.5)
+            except:
+                pass
+
+
         #self.mode = "MOVE"
         
     def tabPressed(self):
@@ -57,7 +94,8 @@ class KeyboardEvents(DirectObject.DirectObject):
                     print "not moving"
                 
         except:
-            pass
+            print "Starting slugs failed"
+
         
     def switchToHybrid(self):
         self.camera.setPos(0, -160, 9)

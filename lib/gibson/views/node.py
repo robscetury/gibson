@@ -4,7 +4,22 @@ Created on Mon Jan 17 13:02:35 2011
 
 @author: -
 """
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
 
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from gibson import parse_nmap
 from gibson import threedee_math
 from gibson import config
@@ -25,6 +40,7 @@ import os
 import socket
 import operator
 import sys
+from gibson import getPath
 
 class NodeView():
     def __init__(self, panda, IP, services):
@@ -42,9 +58,9 @@ class NodeView():
         configuration = config.ConfigFile(conf_file)
         
         if configuration.skyshape():
-            skybox_model = "models/" + configuration.skyshape()
+            skybox_model = getPath("model", configuration.skyshape())
         else:
-            skybox_model = "models/skybox"
+            skybox_model = getPath("model", "skybox.egg")
         print skybox_model
         
         try:
@@ -54,9 +70,9 @@ class NodeView():
             raise
             
         if configuration.skybox_texture():
-            texture = "images/" + configuration.skybox_texture()
+            texture =getPath( "image",   configuration.skybox_texture())
         else:
-            texture="images/sky.jpg"
+            texture=getPath("image", "sky.jpg")
         print texture
         
         try:
@@ -82,14 +98,14 @@ class NodeView():
         self.panda.dummy_center_node.setPos(0, 0, 0)
         self.panda.camera.setPos(-10, -180, 200)
         self.panda.camera.setHpr(90, 0, 0)
-        self.main_node = self.panda.loader.loadModel("models/crt.egg")
+        self.main_node = self.panda.loader.loadModel(getPath("model","crt.egg"))
         self.main_node.reparentTo(panda.nodeview)
         self.main_node.setScale(16, 16, len(services) * 8.5)
         self.main_node.setTransparency(1)
         self.main_node.setColorScale(0.4, 0.2, 0.7, 0.4)
         self.main_node.setPos(30, 0, 0)
         for service in services:
-            self.apps[service] = self.panda.loader.loadModel("models/drawer.egg")
+            self.apps[service] = self.panda.loader.loadModel(getPath("model", "drawer.egg"))
             self.apps[service].reparentTo(self.main_node)
             self.apps[service].setScale(.3, .3, .3)
             z = ((services.index(service)+0.5) / 2.2)

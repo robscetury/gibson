@@ -1,4 +1,19 @@
+#Copyright 2011 Dan Klinedinst
+#
+#This file is part of Gibson.
+#
+#Gibson is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the
+#Free Software Foundation, either version 3 of the License, or any
+#later version.
 
+#Gibson is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 from gibson import parse_nmap
 from gibson import threedee_math
 from gibson.slugs import network
@@ -14,7 +29,6 @@ from gibson.views import blades
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from pandac.PandaModules import *
-from direct.task import Task
 from direct.gui.OnscreenText import OnscreenText
 from direct.gui.OnscreenImage import OnscreenImage
 from direct.interval.IntervalGlobal import Sequence
@@ -22,6 +36,7 @@ from panda3d.core import Point3, Fog
 from direct.showbase import DirectObject
 
 import netaddr
+import time
 
 from math import pi, sin, cos
 import sys
@@ -44,6 +59,8 @@ class Panda(ShowBase):
             conf_file = 'None'
 
         configuration = config.ConfigFile(conf_file)
+        self.slug_speed = int(configuration.slug_speed())
+        self.slug_timeout = int(configuration.slug_timeout())
         self.new_node_counter = 0
         self.slugs = {}
         self.lasts = {}
@@ -73,6 +90,7 @@ class Panda(ShowBase):
             try:
                 skybox_model = getPath("model", configuration.skyshape())
             except:
+                traceback.print_exc()
                 skybox_model = None
         if not skybox_model:
             skybox_model = getPath("model", "skybox.egg")
@@ -109,6 +127,7 @@ class Panda(ShowBase):
         self.skybox.reparentTo(self.cam)
         #self.skybox.setScale(10)
         self.skybox.setScale(.01)
+        self.skybox.setX(1.4)
         self.skybox.setCompass()
         self.camLens.setFar(500)
         #myFog = Fog("Fog Name")
@@ -175,7 +194,8 @@ class Panda(ShowBase):
         udpSocket = self.cManager.openUDPConnection(1723)
         self.cReader.addConnection(udpSocket)
         self.taskMgr.add(self.tskReaderPolling,"Poll the connection reader",-40)
-
+        self.taskMgr.add(self.tskDestroySlugs, "Destroy slugs whose time has expired", 1)
+         
         # Create GUI and switch modes / views
         keys = keyboard_events.KeyboardEvents(base.drive.node(), self)
 
@@ -184,7 +204,8 @@ class Panda(ShowBase):
         if configuration.autobuild() == "true":
             self.model = build.BuildModel(self.options.configfile)
             self.model.map_servers(self, parse_nmap.networkMap)
-            self.taskMgr.add(self.followCameraTask, "FollowCameraTask")
+            self.model.map_routers(self.options.configfile)
+            #self.taskMgr.add(self.followCameraTask, "FollowCameraTask")
             m = MouseClick()
             interface = gui.KeyboardEvents(keys, self.model, base.drive.node(), self)
 
@@ -206,17 +227,17 @@ class Panda(ShowBase):
                     for j in i:
                         if self.is_member_subnet(data[3], j.split()):
                             if data[3] not in self.model.servers:
-                                print data[3] + "is in" + j
+                                #print data[3] + "is in" + j
                                 adhoc.NewServer(data[3], self)
                         if self.is_member_subnet(data[5], j.split()):
                             if data[5] not in self.model.servers:
-                                print data[5] + "is in" + j
+                                #print data[5] + "is in" + j
                                 adhoc.NewServer(data[5], self)
 
                 try:
                     self.slugs[id] = network.createSlug(self, data, self.subnet)
                 except:
-                    pass
+                    traceback.print_exc()
                 if self.view == "node" and self.single_node.IP == data[3]:
                     node_event = node.NodeEvent(data, self)
 
@@ -224,7 +245,15 @@ class Panda(ShowBase):
         return Task.cont
 
 
+    def tskDestroySlugs(self, taskdata):
 
+       for slug in self.slugs.itervalues():
+            try:
+                if time.time() - float(slug.node.getTag("createTime")) > self.slug_timeout:
+                    slug.node.removeNode()
+            except:
+                pass
+                +        return Task.cont
 
     def followCameraTask(self, task):
 
@@ -238,9 +267,9 @@ class Panda(ShowBase):
 
 
     def moveSlugsTask(self, task):
-        for k, v in self.slugs.iteritems():
-            if self.view == "hybrid":
-                self.slugs[k].pingpong.loop()
+        #for k, v in self.slugs.iteritems():
+        #    if self.view == "hybrid":
+        #        self.slugs[k].pingpong.loop()
 
         return Task.cont
 
@@ -344,8 +373,9 @@ class Panda(ShowBase):
 
     def findClickedSlug(self, slug, slug_id):
         for i in self.slugs.itervalues():
-            match = ":".join(i.data[1:5])
             try:
+                match = ":".join(i.data[1:5])
+
                 abc = i.node
             except:
                 continue
