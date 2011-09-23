@@ -247,7 +247,7 @@ class Panda(ShowBase):
 
     def tskDestroySlugs(self, taskdata):
 
-       for slug in self.slugs.itervalues():
+        for slug in self.slugs.itervalues():
             try:
                 if time.time() - float(slug.node.getTag("createTime")) > self.slug_timeout:
                     slug.node.removeNode()
