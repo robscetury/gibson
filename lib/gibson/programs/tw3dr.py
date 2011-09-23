@@ -15,6 +15,7 @@
 #You should have received a copy of the GNU General Public License
 #along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = 'rob'
+import traceback
 
 from gibson import template
 from panda3d.core import Fog
