@@ -59,7 +59,7 @@ class Tw3drKeyboardEvents(keyboard_events.KeyboardEvents):
 
 class Tweet(SluggerBase):
     def __init__(self,panda, data):
-        slugger.SluggerBase.__init__(self, panda, data)
+        SluggerBase.__init__(self, panda, data)
         #self.dest = dest
         self.createSlug("Inbound")
 
@@ -474,7 +474,7 @@ class SceneClass(template.Panda):
                                 self.moveSpring(id.replace("@", ""))
                                 self.slugs["|".join(data)] = Tweet(self, data)
                             except:
-                                pass
+                                traceback.print_exc()
 
                     id = data[0] + data[1] + data[3]
                     id = data[3]
@@ -482,7 +482,7 @@ class SceneClass(template.Panda):
                         self.slugs["|".join(data)] = Tweet(self, data)
                         self.moveSpring(id)
                     except:
-                        pass
+                        traceback.print_exc()
 
                 else:
                     print data[1] + "not found"

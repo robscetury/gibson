@@ -60,7 +60,7 @@ class StatusGetter(Thread):
                 for status in range(len(statuses)-1, 0, -1):
                     status = statuses[status]
                     message = self.format(status)
-                    self.queue.put(message)
+                    self.queue.put(message, True, None)
                     
                     if REAL_TIME_PAUSE:
                         #print "Wating %i seconds"%((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
@@ -101,7 +101,7 @@ class FriendFollowerGetter(Thread):
         return "|".join([ str(int(time.time() * 1000)), "Me", me.screen_name, me.status.text])
     def run(self):
         message = self.formatMe()
-        self.queue.put(message)
+        self.queue.put(message, True, None)
         while not self.friendList:
             try:               
                 self.friendList = self.api.GetFriends()
@@ -125,12 +125,12 @@ class FriendFollowerGetter(Thread):
         
         #friendList.add("@%s"%self.Me.screen_name)
         message = self.formatList("friendList", friendList)
-        self.queue.put(message)
+        self.queue.put(message, True, None)
         message = self.formatList("followerList", followerList)
         
         #socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
         #print message
-        self.queue.put(message)
+        self.queue.put(message, True, None)
 
         imagegetter = ImageDownloader(self.queue, self.followerList, self.friendList)
         imagegetter.start()
@@ -144,9 +144,9 @@ class FriendFollowerGetter(Thread):
                   f = self.api.GetFriends(userId)
                   
                   foaflist = [u.screen_name for u in f]
-                  if self.Me.screen_name in foaflist:
+                  if True: #self.Me.screen_name in foaflist:
                       message = self.formatFOAFList(userId, foaflist) 
-                      self.queue.put(message)
+                      self.queue.put(message, True, None)
                         #socket.send_event(self._ip, self._port, message.encode("ascii", "replace"))
                         #print message
                   
@@ -176,12 +176,12 @@ class ImageDownloader(Thread):
                 f.write(u.read())
                 f.close()
                 message = self.format(username, localfilename[1])
-                self.queue.put(message)
+                self.queue.put(message, True, None)
             except:
                 traceback.print_exc()
             if fr.status:
                 message = self.formatInitStatus(username, fr.status.text)
-            self.queue.put(message)
+            self.queue.put(message, True, None)
         for fr in self.followerList:
             url = fr.profile_image_url
             username = fr.screen_name
@@ -193,7 +193,7 @@ class ImageDownloader(Thread):
                 f.write(u.read())
                 f.close()
                 message = self.format(username, localfilename[1])
-                self.queue.put(message)
+                self.queue.put(message, True, None)
             except:
                 traceback.print_exc()
             if fr.status:
