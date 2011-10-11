@@ -14,8 +14,20 @@
 #
 #You should have received a copy of the GNU General Public License
 #along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
-from gibson.programs import template
-from gibson.programs.tw3dr import *
+import traceback
+try:
+    import pyximport
+    pyximport.install()
+    from gibson.programs.ctw3dr import *
+    from gibson.programs import ctemplate as template
+    print "Got the cython scene!"
+except:
+    traceback.print_exc()
+    print "Cython not installed"
+    from gibson.programs.tw3dr import *
+    #from gibson.physics.pyspring import *
+    from gibson.programs import template
+
 
 template.startGibson(SceneClass)
 print "Done with scene!"
