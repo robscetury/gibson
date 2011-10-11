@@ -202,6 +202,7 @@ class SceneClass(template.Panda):
     def __init__(self, *args, **kwargs):
         template.Panda.__init__(self, *args, **kwargs)
         self.slugs= {}
+        self.setFrameRateMeter(True)
         # Receive events
         self.cManager = QueuedConnectionManager()
         self.cReader = QueuedConnectionReader(self.cManager, 0)
