@@ -63,8 +63,8 @@ class Spring(object):
             self._impulse1 = None
             self._impulse2 = None
             self._timeOut = None
-            self._base.taskMgr.add(self.timer, "update")
-      def timer(self, task):
+            #self._base.taskMgr.add(self.timer, "update")
+      def timer(self):
             actor1 = self._actor1.getPhysical(0)
             actor2 = self._actor2.getPhysical(0)
             if self._force1:
@@ -111,7 +111,7 @@ class Spring(object):
                   except:
                         traceback.print_exc()
                         pass
-            return task.cont
+            #return task.cont
       def getForce(self):
             
             #newTime = globalClock.getDt()
@@ -195,7 +195,8 @@ class Spring(object):
             if backToColor:
                   self._backToColor = backToColor
             
-            
+
+SPRINGSPERFRAME = 50
 class SpringManager(object):
       
       def __init__(self, base, render):
@@ -203,6 +204,8 @@ class SpringManager(object):
             self._render = render
             self._actorMap = {}
             self._springMap= {}
+            self._base.taskMgr.add(self.timer, "update")
+            self._springs = list()
       def addSpring(self, node1, node2, mass = 50, springConstant = 10, drag = 20, lengthFactor = 1):
             if not self._springMap.get( (node1, node2)):
                   actor1 = self._actorMap.get(node1)
@@ -218,7 +221,18 @@ class SpringManager(object):
             s = self._springMap.get( (node1, node2))
             if s:
                   s.perturb( force, time ,node1.getColor())
-            
+      def timer(self, task):
+          count = 0
+          while count < SPRINGSPERFRAME:
+              try:
+                s =   self._springs.pop()
+                s.timer()
+                self._springs.insert(0, s)
+                count += 1
+              except:
+                traceback.print_exc()
+                break
+          return task.cont  
       #def timer(self):
       #      for s in self._springMap:
       #            s = self._springMap[s]

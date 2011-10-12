@@ -63,8 +63,8 @@ class Spring(object):
             self._impulse1 = None
             self._impulse2 = None
             self._timeOut = None
-            self._base.taskMgr.add(self.timer, "update")
-      def timer(self, task):
+            #self._base.taskMgr.add(self.timer, "update")
+      def timer(self):
             actor1 = self._actor1.getPhysical(0)
             actor2 = self._actor2.getPhysical(0)
             if self._force1:
@@ -72,7 +72,7 @@ class Spring(object):
                   actor2.removeLinearForce(self._force2)
             if self._impulse1:
                   if globalClock.getLongTime() > self._timeOut:
-                        #print "removing perturbation"
+                        print "removing perturbation"
                         try:
                               actor1.removeLinearForce(self._impulse1)
                               actor2.removeLinearForce(self._impulse2)
@@ -111,7 +111,7 @@ class Spring(object):
                   except:
                         traceback.print_exc()
                         pass
-            return task.cont
+            #return task.cont
       def getForce(self):
             
             #newTime = globalClock.getDt()
@@ -169,7 +169,7 @@ class Spring(object):
             return vector
 
       def perturb(self, force, time=1000, backToColor=None):
-            #print "perturbing %s, %s"%(force, time)
+            print "perturbing %s, %s"%(force, time)
             node1 = self._node1
             node2 = self._node2
             actor1 = self._actor1
@@ -194,8 +194,8 @@ class Spring(object):
             self._impulse2 = lvf2
             if backToColor:
                   self._backToColor = backToColor
-            
-            
+
+SPRINGSPERFRAME = 200
 class SpringManager(object):
       
       def __init__(self, base, render):
@@ -203,6 +203,8 @@ class SpringManager(object):
             self._render = render
             self._actorMap = {}
             self._springMap= {}
+            self._base.taskMgr.add(self.timer, "update")
+            self._springs = list()
       def addSpring(self, node1, node2, mass = 50, springConstant = 10, drag = 20, lengthFactor = 1):
             if not self._springMap.get( (node1, node2)):
                   actor1 = self._actorMap.get(node1)
@@ -213,13 +215,30 @@ class SpringManager(object):
                   #if not actor2:
                   #      self._actorMap[node2] = s._actor2
                   self._springMap[(node1, node2)] = s
+                  self._springs.append(s)
             return self._springMap[ (node1, node2)]
       def perturbSpring(self, node1, node2, force, time):
             s = self._springMap.get( (node1, node2))
             if s:
                   s.perturb( force, time ,node1.getColor())
             
-      #def timer(self):
+      def timer(self, task):
+          count = 0
+          while count < SPRINGSPERFRAME:
+              try:
+                s =   self._springs.pop()
+                
+                s.timer()
+                self._springs.insert(0,s)
+                count += 1
+              except IndexError, e:
+                #traceback.print_exc()
+                break
+              except:
+                  traceback.print_exc()
+                  continue
+
+          return task.cont  
       #      for s in self._springMap:
       #            s = self._springMap[s]
-      #            s.timer()
+      #           s.timer()
