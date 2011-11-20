@@ -579,11 +579,14 @@ class SceneClass(template.Panda):
                     self.center.setTag("Status", data[4])
                     self.friends["@%s"%data[2]] = self.center
                 elif data[1] == "friendList":
-                    self.buildFriendCluster( data[2] )
+                    if not self.options.friendinput:
+                        self.buildFriendCluster( data[2] )
                 elif data[1] == "followerList":
-                    self.buildFollowerCluster(data[2])
+                    if not self.options.friendinput:
+                        self.buildFollowerCluster(data[2])
                 elif data[1] == "foaf":
-                    self.buildOortCloud(data[2], data[3])
+                    if not self.options.friendinput:
+                        self.buildOortCloud(data[2], data[3])
                 elif data[1] == "textureFile":
                     self.applyTexture(data[2], data[3])
                 elif data[1] == "InitStatus":

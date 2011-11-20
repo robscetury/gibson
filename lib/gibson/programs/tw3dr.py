@@ -16,7 +16,7 @@
 #along with Gibson.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = 'rob'
 import traceback
-
+from optparse import OptionParser
 from gibson.programs import ctemplate as template
 from panda3d.core import Fog
 from gibson.physics import *
@@ -29,7 +29,7 @@ from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 from gibson.ui import keyboard_events
 from gibson.ui import gui
-
+import sys
 import netaddr
 import subprocess
 from math import pi, atan
@@ -46,8 +46,8 @@ FOAF_DRAG=5
 FRIEND_DRAG=15
 FOAF_SPRING=False
 
-TWEET_FORCE=-10
-TWEET_FORCE_TIME=2000
+TWEET_FORCE=-100
+TWEET_FORCE_TIME=1000
 
 class Tw3drKeyboardEvents(keyboard_events.KeyboardEvents):
     def __init__(self, camera, panda):
@@ -203,6 +203,18 @@ class SceneClass(template.Panda):
     def __init__(self, *args, **kwargs):
         template.Panda.__init__(self, *args, **kwargs)
         self.slugs= {}
+        option_parser = OptionParser()
+        option_parser.add_option("-c", "--capture", dest="capturefile", help="output followers/friends to capture file", metavar="FILE")
+        option_parser.add_option("-t", "--tweetcaputre", dest="tweetcapture", help="output tweets to file")
+        option_parser.add_option("-i", "--tweetin", dest="tweetinput", help="tweet input file")
+        option_parser.add_option("-f", "--friendin", dest="friendinput", help="friend input file")
+        (options, args) = option_parser.parse_args()
+        
+        self.options = options
+        
+        if self.options.tweetcapture:
+            f = file(self.options.tweetcapture, "w+")
+            f.close()
         self.setFrameRateMeter(True)
         # Receive events
         self.cManager = QueuedConnectionManager()
@@ -279,6 +291,7 @@ class SceneClass(template.Panda):
         self._tempFiles = list()
         self.MyUserId = ""
         self.view = ""
+        
 
 
     def buildOortCloud(self, username, foafList):
@@ -303,7 +316,11 @@ class SceneClass(template.Panda):
                 else:
                     newZDistance = sphere.getPos(self.render) - node.getPos(self.render)
                     node.setPos( newZDistance.x/2, newZDistance.y/2, newZDistance.z/2)
-
+                    s = self._springMgr.getSpring(sphere, node)
+                    try:
+                        s._zeroDistance = zDistance
+                    except:
+                        pass
                 s = None
                 if username in self.followers:
                     if FOAF_SPRING:
@@ -315,6 +332,11 @@ class SceneClass(template.Panda):
                     else:
                         zDistance = self.followers[username].getPos(self.render) - node.getPos(self.render)
                         node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
+                        s = self._springMgr.getSpring(sphere, node)
+                        try:
+                            s._zeroDistance = zDistance
+                        except:
+                            pass
                 elif username in self.friends:
                     if FOAF_SPRING:
                         s= self._springMgr.addSpring( self.friends[username], node, springConstant=FOAF_SPRING_CONST,drag=FOAF_DRAG)
@@ -325,8 +347,16 @@ class SceneClass(template.Panda):
                     else:
                         zDistance = self.friends[username].getPos(self.render) - node.getPos(self.render)
                         node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
+                        s = self._springMgr.getSpring(sphere, node)
+                        try:
+                            s._zeroDistance = zDistance
+                        except:
+                            pass
                 if s:
-                    s.perturb(FOAF_FORCE, 1500)
+                    try:
+                        s.perturb(FOAF_FORCE, 1500)
+                    except:
+                        pass
             elif u in self.friends:# and not u == self.MyUserId:
                 node = self.friends[u]
                 sphere = self.center
@@ -354,6 +384,11 @@ class SceneClass(template.Panda):
                     else:
                         zDistance = self.friends[username].getPos(self.render) - node.getPos(self.render)
                         node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
+                        s = self._springMgr.getSpring(sphere, node)
+                        try:
+                            s._zeroDistance = zDistance
+                        except:
+                           pass
                 elif username in self.followers:
                     if FOAF_SPRING:
                         s = self._springMgr.addSpring( self.followers[username], node,springConstant=FOAF_SPRING_CONST, drag=FOAF_DRAG)
@@ -365,6 +400,11 @@ class SceneClass(template.Panda):
                     else:
                         zDistance = self.followers[username].getPos(self.render) - node.getPos(self.render)
                         node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
+                        s = self._springMgr.getSpring(sphere, node)
+                        try:
+                            s._zeroDistance = zDistance
+                        except:
+                           pass
                 print "gotta friend %s"%u
             else:
                 #return # for now, see if it is causing performance issues to have all these nodes and springs
@@ -383,13 +423,76 @@ class SceneClass(template.Panda):
                 #        count = count + 1
                 #print "put in Oort Cloud"
                 pass
+        self.outputNodeFile()
+    def outputNodeFile(self):
+        if self.options.capturefile:
+            f = file(self.options.capturefile, "w+")
+
+            for follower in self.followers:
+                output = list()
+                output.append(str(time.time()))
+                output.append("FOLLOWER")
+                output.append(follower)
+                output.append(str(self.followers[follower].getPos(self.render).x))
+                output.append(str(self.followers[follower].getPos(self.render).y))
+                output.append(str(self.followers[follower].getPos(self.render).z))
+                f.write(",".join(output))
+                f.write("\n")
+            for friend in self.friends:
+               output = list()
+               output.append(str(time.time()))
+               output.append("FRIEND")
+               output.append(friend)
+               output.append(str(self.friends[friend].getPos(self.render).x))
+               output.append(str(self.friends[friend].getPos(self.render).y))
+               output.append(str(self.friends[friend].getPos(self.render).z))
+               f.write(",".join(output))
+               f.write("\n")
+            f.close()
     def startEventDaemon(self, task):
-        self._daemon = subprocess.Popen(['ppython',
-                                         'event_daemon.py',
-                                         'localhost',
-                                         '1723',
-                                         'twitter'])
+        lst = ['ppython',
+                        'event_daemon.py',
+                        'localhost',
+                        '1723',
+                        'twitter']
+        if self.options.friendinput:
+            lst.append("friends=nofriendlist")
+            self.loadFriendList()
+        if self.options.tweetinput:
+            lst.append("tweets=%s"%self.options.tweetinput)
+        self._daemon = subprocess.Popen(lst)
         return task.done
+
+    def loadFriendList(self):
+        f = file(self.options.friendinput, "r")
+        lines = f.readlines()
+        f.close()
+        friends = list()
+        followers = list()
+        for l in lines:
+            sp = l.split(",")
+            if sp[1] == "FRIEND":
+                friends.append(sp)
+            else:
+                followers.append(sp)
+        self.followerCluster = build_cluster.ModelBase(self, len(followers),75, center=self.center, scale = 1)
+        self.friendCluster = build_cluster.ModelBase(self, len(friends),50, center=self.center, scale = 1)
+        self._loadCluster(self.followerCluster, followers, (.8, .8, .8, .5), self.followers, "follower")
+        self._loadCluster(self.friendCluster, friends,(.5,.5,5,.3), self.friends, "friend")
+        
+    def _loadCluster(self, cluster, lst, color, nodedict, typename):
+        for i in range(0, len(lst)-1):
+            item = lst[i]
+            cluster.nodes[i].setPos( float(item[-3]), float(item[-2]), float(item[-1]))
+            username = lst[i][2].strip()
+            nodedict[ username] = cluster.nodes[i]
+            nodedict[ username].setColor(*color)
+            nodedict[username].setTag("myObjectTag", "%s|%s"%(typename, username))
+            
+            sphere = cluster.center
+            self._springMgr.addSpring(sphere, cluster.nodes[i],springConstant=FRIEND_SPRING_CONST, drag=FRIEND_DRAG)
+            
+
 
     def cleanup(self):
         print "gc called"
@@ -463,6 +566,11 @@ class SceneClass(template.Panda):
             datagram=NetDatagram()
             if self.cReader.getData(datagram):
                 data = datagram.getMessage().split("|")
+                if self.options.tweetcapture:
+                    f = file(self.options.tweetcapture, "a")
+                    f.write( "|".join(data))
+                    f.write("\n")
+                    f.close()
                 print data
                 if data[2] == "Me":
                     #print data
@@ -471,11 +579,14 @@ class SceneClass(template.Panda):
                     self.center.setTag("Status", data[4])
                     self.friends["@%s"%data[2]] = self.center
                 elif data[1] == "friendList":
-                    self.buildFriendCluster( data[2] )
+                    if not self.options.friendinput:
+                        self.buildFriendCluster( data[2] )
                 elif data[1] == "followerList":
-                    self.buildFollowerCluster(data[2])
+                    if not self.options.friendinput:
+                        self.buildFollowerCluster(data[2])
                 elif data[1] == "foaf":
-                    self.buildOortCloud(data[2], data[3])
+                    if not self.options.friendinput:
+                        self.buildOortCloud(data[2], data[3])
                 elif data[1] == "textureFile":
                     self.applyTexture(data[2], data[3])
                 elif data[1] == "InitStatus":
@@ -487,7 +598,7 @@ class SceneClass(template.Panda):
 
 
                 elif data[1] == "Status" or data[1]=="Mention":
-
+                   
                     if data[5]:
                         for d in data[5].split(","):
                             id = data[0] + data[1] + data[3] + "." + d.strip()

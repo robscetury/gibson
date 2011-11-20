@@ -77,16 +77,25 @@ class StatusGetter(Thread):
                     statuses = self.tweetfile.readlines()
                     tb = str( statuses[0].split("|")[0][4:] ).strip()
                     print "'%s'"%tb
-                    startTime = int(tb)
+                    try:
+                        startTime = int(tb)
+                    except:
+                        startTime = 0
                     print startTime
                     for line in statuses:
                         sp_line = line.split("|")
-                        self.queue.put(line, True, None)
+                        send_line = line.split("|")
+                        send_line[0] = "0"
+                        self.queue.put("|".join(send_line), True, None)
                         print line
                         if REAL_TIME_PAUSE:
                             print sp_line[0]
                             tb= str( sp_line[0][4:]).strip()
-                            t = int(tb)
+                            
+                            try:
+                                t = int(tb)
+                            except:
+                                t = 0
                             print t
                             time.sleep((t - startTime)/REAL_TIME_SCALEFACTOR)
                             totalWait += ((t - startTime)/REAL_TIME_SCALEFACTOR)
@@ -285,7 +294,7 @@ class TwitterReader():
                     try:
                         message = self.queue.get(False)
                         if message:
-                            print message
+                            #print message
                     
                             self.socket.send_event(self._ip, self._port, message.encode("ascii","replace"))
                             #self.outgoingQueue.put(message)
