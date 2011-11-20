@@ -14,4 +14,4 @@ echo $PYTHONPATH
 
 cd $SCRIPT_PATH
 pwd
-ppython  ./tw3dr.py $1 $2
+ppython  ./tw3dr.py $1 $2 $3 $4 $5 $6 $7 $8 $9 

@@ -17,7 +17,7 @@
 __author__ = 'rob'
 import traceback
 
-from gibson import template
+from gibson.programs import ctemplate as template
 from panda3d.core import Fog
 from gibson.physics import *
 from pandac.PandaModules import *
@@ -44,6 +44,7 @@ FOAF_SPRING_CONST=1
 FRIEND_SPRING_CONST=5
 FOAF_DRAG=5
 FRIEND_DRAG=15
+FOAF_SPRING=False
 
 TWEET_FORCE=-10
 TWEET_FORCE_TIME=2000
@@ -276,7 +277,7 @@ class SceneClass(template.Panda):
         pickerNode.addSolid(self.pickerRay)
         self.myTraverser.addCollider(pickerNP, self.myHandler)
         self._tempFiles = list()
-        self.MyUserId = None
+        self.MyUserId = ""
         self.view = ""
 
 
@@ -290,27 +291,40 @@ class SceneClass(template.Panda):
                 print "gotta follower %s"%u
                 node = self.followers[u]
                 sphere = self.center
-                s = self._springMgr._springMap[ (sphere, node)]
-                #print s._zeroDistance
-                #zDistance = s._zeroDistance
-                #s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                #print s._zeroDistance
-                newZDistance = s._zeroDistance
-                #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
-                s.perturb(FOAF_FORCE)
+
+                if FOAF_SPRING:
+                    s = self._springMgr._springMap[ (sphere, node)]
+                    newZDistance = s._zeroDistance
+                    #print s._zeroDistance
+                    #zDistance = s._zeroDistance
+                    #s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                    #print s._zeroDistance
+                    s.perturb(FOAF_FORCE)
+                else:
+                    newZDistance = sphere.getPos(self.render) - node.getPos(self.render)
+                    node.setPos( newZDistance.x/2, newZDistance.y/2, newZDistance.z/2)
+
                 s = None
                 if username in self.followers:
-                    s= self._springMgr.addSpring( self.followers[username], node, springConstant=FOAF_SPRING_CONST,drag=FOAF_DRAG)
-                    zDistance = s._zeroDistance
-                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                    print s._zeroDistance
+                    if FOAF_SPRING:
+                        s= self._springMgr.addSpring( self.followers[username], node, springConstant=FOAF_SPRING_CONST,drag=FOAF_DRAG)
+                        zDistance = s._zeroDistance
+                        #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                        s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                        print s._zeroDistance
+                    else:
+                        zDistance = self.followers[username].getPos(self.render) - node.getPos(self.render)
+                        node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
                 elif username in self.friends:
-                    s= self._springMgr.addSpring( self.friends[username], node, springConstant=FOAF_SPRING_CONST,drag=FOAF_DRAG)
-                    zDistance = s._zeroDistance
-                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                    print s._zeroDistance
+                    if FOAF_SPRING:
+                        s= self._springMgr.addSpring( self.friends[username], node, springConstant=FOAF_SPRING_CONST,drag=FOAF_DRAG)
+                        zDistance = s._zeroDistance
+                        #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                        s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                        print s._zeroDistance
+                    else:
+                        zDistance = self.friends[username].getPos(self.render) - node.getPos(self.render)
+                        node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
                 if s:
                     s.perturb(FOAF_FORCE, 1500)
             elif u in self.friends:# and not u == self.MyUserId:
@@ -330,19 +344,27 @@ class SceneClass(template.Panda):
                     #node.setPos( newZDistance.x, newZDistance.y, newZDistance.z)
                     s.perturb(FOAF_FORCE, 1500)
                 if username in self.friends:
-                    s = self._springMgr.addSpring( self.friends[username], node,springConstant=FOAF_SPRING_CONST, drag=FOAF_DRAG)
-                    zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
-                    print s._zeroDistance
-                    s.perturb(FOAF_FORCE, 1500)
+                    if FOAF_SPRING:
+                        s = self._springMgr.addSpring( self.friends[username], node,springConstant=FOAF_SPRING_CONST, drag=FOAF_DRAG)
+                        zDistance = s._zeroDistance
+                        s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                        #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                        print s._zeroDistance
+                        s.perturb(FOAF_FORCE, 1500)
+                    else:
+                        zDistance = self.friends[username].getPos(self.render) - node.getPos(self.render)
+                        node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
                 elif username in self.followers:
-                    s = self._springMgr.addSpring( self.followers[username], node,springConstant=FOAF_SPRING_CONST, drag=FOAF_DRAG)
-                    zDistance = s._zeroDistance
-                    s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
-                    #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
-                    print s._zeroDistance
-                    s.perturb(FOAF_FORCE, 1500)
+                    if FOAF_SPRING:
+                        s = self._springMgr.addSpring( self.followers[username], node,springConstant=FOAF_SPRING_CONST, drag=FOAF_DRAG)
+                        zDistance = s._zeroDistance
+                        s._zeroDistance = Vec3( zDistance.x/2, zDistance.y/2, zDistance.z/2 )
+                        #s._zeroDistance = Vec3( (zDistance.x/zDistance.length()) *20, (zDistance.y/zDistance.length()) * 20 , (zDistance.z/zDistance.length()) * 20 )
+                        print s._zeroDistance
+                        s.perturb(FOAF_FORCE, 1500)
+                    else:
+                        zDistance = self.followers[username].getPos(self.render) - node.getPos(self.render)
+                        node.setPos( zDistance.x/2, zDistance.y/2, zDistance.z/2)
                 print "gotta friend %s"%u
             else:
                 #return # for now, see if it is causing performance issues to have all these nodes and springs
@@ -442,11 +464,11 @@ class SceneClass(template.Panda):
             if self.cReader.getData(datagram):
                 data = datagram.getMessage().split("|")
                 print data
-                if data[1] == "Me":
+                if data[2] == "Me":
                     #print data
-                    self.MyUserId = "@%s"%data[2].strip()
-                    self.center.setTag("myObjectTag", "Me|@%s"%data[2].strip())
-                    self.center.setTag("Status", data[3])
+                    self.MyUserId = "@%s"%data[3].strip()
+                    self.center.setTag("myObjectTag", "Me|@%s"%data[3].strip())
+                    self.center.setTag("Status", data[4])
                     self.friends["@%s"%data[2]] = self.center
                 elif data[1] == "friendList":
                     self.buildFriendCluster( data[2] )

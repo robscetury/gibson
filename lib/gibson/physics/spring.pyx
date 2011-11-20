@@ -195,7 +195,7 @@ class Spring(object):
             if backToColor:
                   self._backToColor = backToColor
 
-SPRINGSPERFRAME = 200
+SPRINGSPERFRAME = 20
 class SpringManager(object):
       
       def __init__(self, base, render):
@@ -205,6 +205,11 @@ class SpringManager(object):
             self._springMap= {}
             self._base.taskMgr.add(self.timer, "update")
             self._springs = list()
+      def getSpring(self, node1, node2):
+            spring = self._springMap.get( (node1, node2))
+            if spring:
+                  return spring
+            return self._springMap.get((node2, node1))
       def addSpring(self, node1, node2, mass = 50, springConstant = 10, drag = 20, lengthFactor = 1):
             if not self._springMap.get( (node1, node2)):
                   actor1 = self._actorMap.get(node1)

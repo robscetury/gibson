@@ -23,13 +23,18 @@ def findMentions(tweet):
 
 class StatusGetter(Thread):
     
-    def __init__(self, queue,wait=30):
+    def __init__(self, queue, tweetfile,wait=30):
         Thread.__init__(self)
-        self.queue = queue
-        self.api = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET, USER_ACCESS_TOKEN,
-        ACCESS_TOKEN_SECRET)
-        self.since_id = None
+        if not tweetfile:
+         
+            self.api = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET, USER_ACCESS_TOKEN,
+            ACCESS_TOKEN_SECRET)
+            self.since_id = None
+            
+        else:
+            self.tweetfile = file(tweetfile, "r")
         self.wait =wait
+        self.queue = queue
     def format(self, u):
         if self.since_id==None or u.GetId() > self.since_id:
             self.since_id = u.GetId()
@@ -54,19 +59,39 @@ class StatusGetter(Thread):
         while 1:
             try:
                 totalWait = 0
-                statuses = self.api.GetFriendsTimeline(since_id=self.since_id)
-                startTime = statuses[-1].GetCreatedAtInSeconds()
-               
-                for status in range(len(statuses)-1, 0, -1):
-                    status = statuses[status]
-                    message = self.format(status)
-                    self.queue.put(message, True, None)
+                if not hasattr(self, "tweetfile"):
+                    statuses = self.api.GetFriendsTimeline(since_id=self.since_id)
+                    startTime = statuses[-1].GetCreatedAtInSeconds()
+                   
+                    for status in range(len(statuses)-1, 0, -1):
+                        status = statuses[status]
+                        message = self.format(status)
+                        self.queue.put(message, True, None)
                     
-                    if REAL_TIME_PAUSE:
-                        #print "Wating %i seconds"%((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
-                        time.sleep( (status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
-                        totalWait += ((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
-                    startTime = status.GetCreatedAtInSeconds()
+                        if REAL_TIME_PAUSE:
+                            #print "Wating %i seconds"%((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
+                            time.sleep( (status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
+                            totalWait += ((status.GetCreatedAtInSeconds() - startTime)/REAL_TIME_SCALEFACTOR)
+                        startTime = status.GetCreatedAtInSeconds()
+                else:
+                    statuses = self.tweetfile.readlines()
+                    tb = str( statuses[0].split("|")[0][4:] ).strip()
+                    print "'%s'"%tb
+                    startTime = int(tb)
+                    print startTime
+                    for line in statuses:
+                        sp_line = line.split("|")
+                        self.queue.put(line, True, None)
+                        print line
+                        if REAL_TIME_PAUSE:
+                            print sp_line[0]
+                            tb= str( sp_line[0][4:]).strip()
+                            t = int(tb)
+                            print t
+                            time.sleep((t - startTime)/REAL_TIME_SCALEFACTOR)
+                            totalWait += ((t - startTime)/REAL_TIME_SCALEFACTOR)
+                            startTime = t
+                    break
             except:
                 traceback.print_exc()
                 pass # most likely a connection error...so lets try again later...
@@ -228,7 +253,13 @@ class TwitterReader():
         self.queue = Queue()
         self.api = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET, USER_ACCESS_TOKEN,
                             ACCESS_TOKEN_SECRET)
-        self.statuses = StatusGetter(self.queue)
+        tweetfile = None
+        for i in sys.argv:
+            if i.startswith("tweets="):
+                sp = i.split("=")
+                tweetfile = sp[1]
+        
+        self.statuses = StatusGetter(self.queue, tweetfile)
         Me = None
         while not Me:
             try:
@@ -236,9 +267,15 @@ class TwitterReader():
                 #print Me
             except:
                 traceback.print_exc()
-        self.friends = FriendFollowerGetter(self.queue, Me=Me)
+        friendlist = True
+        for i in sys.argv:
+            if i.startswith("friends="):
+                friendlist = False
+        if friendlist:
+            self.friends = FriendFollowerGetter(self.queue, Me=Me)
         self.statuses.start()
-        self.friends.start()
+        if friendlist:
+            self.friends.start()
         self.socket = send_event.EncapsulateForPanda()
         
         
@@ -248,7 +285,7 @@ class TwitterReader():
                     try:
                         message = self.queue.get(False)
                         if message:
-                            #print message
+                            print message
                     
                             self.socket.send_event(self._ip, self._port, message.encode("ascii","replace"))
                             #self.outgoingQueue.put(message)
